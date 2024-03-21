@@ -1,0 +1,45 @@
+---
+# Global settings
+actions_source_modules:
+  - "tests.examples.code.actions"
+
+parsing_error_strategy: ignore
+
+# Rule sets for simple conditions tests
+rules:
+  default_rule_set:
+    admission:
+      ADM_OK:
+        simple_condition: input.power=="strength" or input.dummy=="fly"
+        action: set_admission
+        action_parameters:
+          value: True      
+      ADM_KO:
+        simple_condition: null
+        action: set_admission
+        action_parameters:
+          value: False
+    course:
+      COURSE_ENGLISH:
+        simple_condition: input.language=="english" and input.age!=None
+        action: set_student_course
+        action_parameters:
+          course_id: "english"
+      COURSE_SENIOR:
+        simple_condition: input.age>=100 or input.age==None
+        action: set_student_course
+        action_parameters:
+          course_id: "senior"
+      COURSE_INTERNATIONAL:
+        simple_condition: input.language!="english"
+        action: set_student_course
+        action_parameters:
+          course_id: "international"      
+    email:
+      EMAIL_COOK:
+        simple_condition: input.favorite_meal!=None and not output.dummy.admission==False
+        action: send_email
+        action_parameters:
+          mail_to: "cook@super-heroes.test"
+          mail_content: "Thanks for preparing once a month the following dish:"
+          meal: input.favorite_meal

@@ -1,0 +1,21 @@
+---
+# Global settings
+conditions_source_modules:
+  - "tests.examples.code.conditions"
+actions_source_modules:
+  - "tests.examples.code.actions"
+
+# Rules configuration file
+rules:
+  default_rule_set:
+    admission:
+      ADM_OK:
+        condition: HAS_SCHOOL_AUTHORIZED_POWER
+        action: set_admission
+        action_parameters:
+          value: True      
+      ADM_KO:
+        condition: null
+        action: set_admission
+        action_parameters:
+          value: False

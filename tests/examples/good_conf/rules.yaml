@@ -1,0 +1,39 @@
+---
+# Default rules configuration file
+rules:
+  default_rule_set:
+    admission:
+      ADM_OK:
+        condition: HAS_SCHOOL_AUTHORIZED_POWER
+        action: set_admission
+        action_parameters:
+          value: True      
+      ADM_KO:
+        condition: null
+        action: set_admission
+        action_parameters:
+          value: False
+    course:
+      COURSE_ENGLISH:
+        condition: IS_SPEAKING_ENGLISH and not(IS_AGE_UNKNOWN)
+        action: set_student_course
+        action_parameters:
+          course_id: "english"
+      COURSE_SENIOR:
+        condition: IS_AGE_UNKNOWN
+        action: set_student_course
+        action_parameters:
+          course_id: "senior"
+      COURSE_INTERNATIONAL:
+        condition: not(IS_SPEAKING_ENGLISH)
+        action: set_student_course
+        action_parameters:
+          course_id: "international"      
+    email:
+      EMAIL_COOK:
+        condition: HAS_SCHOOL_AUTHORIZED_POWER
+        action: send_email
+        action_parameters:
+          mail_to: "cook@super-heroes.test"
+          mail_content: "Thanks for preparing once a month the following dish:"
+          meal: input.favorite_meal

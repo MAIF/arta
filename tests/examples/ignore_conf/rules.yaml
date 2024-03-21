@@ -1,0 +1,13 @@
+---
+# Rules configuration file
+rules:
+  default_rule_set:
+    test_action:
+      TEST_IGNORE:
+        condition: null
+        action: concatenate_str
+        action_parameters:
+          list_str:
+          - "My name is "
+          - input.name.first
+
