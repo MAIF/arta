@@ -31,7 +31,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install .[dev,test]
       - name: Cache pre-commit hooks
-        uses: action/cache@v4
+        uses: actions/cache@v4
         with: 
           path: ~/.cache/pre-commit
           key: ${{ runner.os }}-precommit-${{ hashFiles('.pre-commit-config.yaml') }}
