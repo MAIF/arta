@@ -34,7 +34,7 @@ repos:
       - id: cov-check
         name: Coverage
         language: system
-        entry: pytest -v --cov=./src/arta --cov-fail-under=90
+        entry: pytest -v --cov=arta --cov-fail-under=90
         types: [ python ]
         pass_filenames: false
         always_run: true
