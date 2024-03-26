@@ -1,0 +1,70 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "arta"
+version = "0.7.0"
+requires-python = ">3.8.0"
+description = "Arta is a very simple python rules engine designed for and by python developers"
+readme = "README.md"
+authors = [
+    {name = "develop-cs"},
+    {name = "HugoPerrier"},
+    {name = "Mathis NICOLI"},
+]
+
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+
+dependencies = [
+    "omegaconf",
+    "pydantic",
+]
+
+[project.optional-dependencies]
+all = ["arta[test,dev,doc,mypy,ruff]"]
+test = ["pytest", "tox", "pytest-cov"]
+dev = ["mypy", "pre-commit", "ruff"]
+doc = ["mkdocs-material", "mkdocstrings[python]"]
+mypy = ["mypy"]
+ruff = ["ruff"]
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.mypy]
+exclude = ["tests"]
+ignore_missing_imports = true
+
+[tool.ruff]
+line-length = 120
+
+[tool.ruff.lint]
+select = [
+    "E",    # pycodestyle errors
+    "F",    # pyflakes
+    "W",    # pycodestyle warnings
+    "A",    # flake8-builtins
+    "PLC",  # pylint conventions
+    "PLE",  # pylint errors
+    "PLW",  # pylint warnings
+    "UP",   # pyupgrade
+    "S",    # flake8-bandit,
+    "B",    # flake8-bugbear
+    "I",    # isort
+    "D",    # pydocstyle
+    "NPY",  # NumPy-specific rules
+]
+ignore = ["E501", "D2", "D3", "D4", "D104", "D100", "D106", "S311"]
+exclude = ["tests/*"]

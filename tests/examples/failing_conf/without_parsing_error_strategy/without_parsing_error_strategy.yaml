@@ -1,0 +1,33 @@
+---
+# Global settings
+conditions_source_modules:
+  - "tests.examples.code.conditions"
+actions_source_modules:
+  - "tests.examples.code.actions"
+
+# Conditions configuration file
+conditions:
+  HAS_SCHOOL_AUTHORIZED_POWER:
+    description: "Does it have school authorized power?"
+    validation_function: has_authorized_super_power
+    condition_parameters:
+      authorized_powers:
+      - "strength"
+      - "fly"
+      - "immortality"
+      candidate_powers: input.powers
+
+# Rules configuration file
+rules:
+  default_rule_set:
+    admission:
+      ADM_OK:
+        condition: HAS_SCHOOL_AUTHORIZED_POWER
+        action: set_admission
+        action_parameters:
+          value: True      
+      ADM_KO:
+        condition: null
+        action: set_admission
+        action_parameters:
+          value: False

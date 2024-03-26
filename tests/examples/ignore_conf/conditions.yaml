@@ -1,0 +1,11 @@
+---
+conditions:
+  HAS_SCHOOL_AUTHORIZED_POWER:
+    description: "Does it have school authorized power?"
+    validation_function: has_authorized_super_power
+    condition_parameters:
+      authorized_powers:
+      - "strength"
+      - "fly"
+      - "immortality"
+      candidate_powers: input.powers

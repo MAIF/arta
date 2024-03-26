@@ -1,0 +1,81 @@
+---
+# Second rule set
+rules:
+  second_rule_set:
+    admission:
+      ADM_OK:
+        custom_condition: DUMMY_KEY or DUMMY_KEY_2
+        condition: HAS_SCHOOL_AUTHORIZED_POWER
+        action: set_admission
+        action_parameters:
+          value: True      
+      ADM_KO:
+        custom_condition: null
+        condition: null
+        action: set_admission
+        action_parameters:
+          value: False
+    course:
+      COURSE_FRENCH:
+        custom_condition: null
+        condition: IS_SPEAKING_FRENCH
+        action: set_student_course
+        action_parameters:
+          course_id: "french"
+      COURSE_ENGLISH:
+        custom_condition: null
+        condition: IS_SPEAKING_ENGLISH
+        action: set_student_course
+        action_parameters:
+          course_id: "english"
+      COURSE_DUMMY:
+        custom_condition: DUMMY_KEY_3
+        condition: null
+        action: set_student_course
+        action_parameters:
+          course_id: "dummy_course" 
+      COURSE_INTERNATIONAL:
+        custom_condition: null
+        condition: null
+        action: set_student_course
+        action_parameters:
+          course_id: "international"      
+    email:
+      EMAIL_COOK:
+        custom_condition: null
+        condition: HAS_SCHOOL_AUTHORIZED_POWER and HAS_FAVORITE_MEAL
+        action: send_email
+        action_parameters:
+          mail_to: "cook@super-heroes.test"
+          mail_content: "Thanks for preparing once a month the following dish:"
+          meal: input.favorite_meal
+# Third rule set  
+  third_rule_set:
+    admission:
+      ADM_OK:
+        custom_condition: DUMMY_KEY_4
+        condition: HAS_SCHOOL_AUTHORIZED_POWER
+        action: set_admission
+        action_parameters:
+          value: True      
+      ADM_KO:
+        custom_condition: null
+        condition: null
+        action: set_admission
+        action_parameters:
+          value: False
+# Fourth rule set  
+  fourth_rule_set:
+    admission_rules:
+      ADM_OK:
+        custom_condition: DUMMY_KEY_4
+        condition: null
+        action: set_admission
+        action_parameters:
+          value: True      
+      ADM_KO:
+        custom_condition: null
+        condition: null
+        action: set_admission
+        action_parameters:
+          value: False

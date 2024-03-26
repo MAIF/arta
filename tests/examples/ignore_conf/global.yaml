@@ -1,0 +1,14 @@
+---
+# Global settings
+conditions_source_modules:
+  - "tests.examples.code.conditions"
+actions_source_modules:
+  - "tests.examples.code.actions"
+
+parsing_error_strategy: ignore
+
+# Following settings are only needed when custom condition classes are used
+custom_classes_source_modules:
+  - "tests.examples.code.custom_class"
+condition_factory_mapping:
+  custom_condition: "CustomCondition"

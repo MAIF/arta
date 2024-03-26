@@ -1,0 +1,34 @@
+---
+# Conditions configuration file
+conditions:
+  HAS_SCHOOL_AUTHORIZED_POWER:
+    description: "Does it have school authorized power?"
+    validation_function: has_authorized_super_power
+    condition_parameters:
+      authorized_powers:
+      - "strength"
+      - "fly"
+      - "immortality"
+      candidate_powers: input.powers
+  IS_SPEAKING_FRENCH:
+    description: "Does it speak french?"
+    validation_function: is_speaking_language
+    condition_parameters:
+      value: "french"
+      spoken_language: input.language
+  IS_SPEAKING_ENGLISH:
+    description: "Does it speak english?"
+    validation_function: is_speaking_language
+    condition_parameters:
+      value: "english"
+      spoken_language: input.language
+  IS_AGE_UNKNOWN:
+    description: "Do we know his age?"
+    validation_function: is_age_unknown
+    condition_parameters:
+      age: input.age
+  HAS_FAVORITE_MEAL:
+    description: "Does it have a favorite meal?"
+    validation_function: has_favorite_meal
+    condition_parameters:
+      favorite_meal: input.favorite_meal
