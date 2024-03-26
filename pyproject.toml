@@ -51,13 +51,20 @@ ignore_missing_imports = true
 line-length = 120
 
 [tool.ruff.lint]
-ignore = ["E501", "D2", "D3", "D4", "D104", "D100", "D106", "S311"]
-extend-select = [
-    "UP",  # pyupgrade"
-    "S", # flake8-bandit,
-    "B", # flake8-bugbear
-    "I", # isort
-    "D", # pydocstyle
-    "NPY", # NumPy-specific rules
+select = [
+    "E",    # pycodestyle errors
+    "F",    # pyflakes
+    "W",    # pycodestyle warnings
+    "A",    # flake8-builtins
+    "PLC",  # pylint conventions
+    "PLE",  # pylint errors
+    "PLW",  # pylint warnings
+    "UP",   # pyupgrade
+    "S",    # flake8-bandit,
+    "B",    # flake8-bugbear
+    "I",    # isort
+    "D",    # pydocstyle
+    "NPY",  # NumPy-specific rules
 ]
+ignore = ["E501", "D2", "D3", "D4", "D104", "D100", "D106", "S311"]
 exclude = ["tests/*"]
