@@ -1,12 +1,14 @@
-## Description
-A few sentences describing the overall goals of the pull request's commits.
+## What?
+Explain with one or more sentences what this change is doing.
 
-## Todos
-- [ ] Tests
-- [ ] Documentation
+## Have you done?
+- [ ] Code tests
+- [ ] Update documentation
+- [ ] Update [changelog](https://github.com/MAIF/arta/blob/main/CHANGELOG.md).
 
-## Steps to Test or Reproduce
-Outline the steps to test or reproduce the PR here.
+## Details to be checked (optional)
+If needed, add some details here in order to verify the change (e.g., how to test).
 
-1. First step
-2. ...
+## Linked issues (optional)
+- Close ...
+- Close ...
