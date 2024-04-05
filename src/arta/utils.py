@@ -9,18 +9,6 @@ from typing import Any, Dict, List, Tuple
 UPPERCASE_WORD_PATTERN: str = r"\b[A-Z_0-9]+\b"
 
 
-class RuleExecutionError(Exception):
-    """Exception raised when a Rule fails during its execution."""
-
-    pass
-
-
-class ConditionExecutionError(Exception):
-    """Exception raised when a Condition fails during its execution."""
-
-    pass
-
-
 class ParsingErrorStrategy(str, Enum):
     """Define authorized error handling strategies when a key is missing in the input data."""
 

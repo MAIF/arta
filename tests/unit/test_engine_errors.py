@@ -4,7 +4,7 @@ import os
 
 import pytest
 from arta import RulesEngine
-from arta import ConditionExecutionError, RuleExecutionError
+from arta.exceptions import ConditionExecutionError, RuleExecutionError
 
 try:
     from pydantic import v1 as pydantic

@@ -44,7 +44,7 @@ package-dir = {"" = "src"}
 where = ["src"]
 
 [tool.setuptools.package-data]
-"*" = ["py.typed"]
+"arta" = ["py.typed"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

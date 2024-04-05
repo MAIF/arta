@@ -7,10 +7,9 @@ import re
 from typing import Any, Callable, Dict, Optional, Set, Tuple, Type
 
 from arta.condition import BaseCondition, StandardCondition
+from arta.exceptions import ConditionExecutionError, RuleExecutionError
 from arta.utils import (
-    ConditionExecutionError,
     ParsingErrorStrategy,
-    RuleExecutionError,
     parse_dynamic_parameter,
     sanitize_regex,
 )

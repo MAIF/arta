@@ -7,7 +7,8 @@ import re
 from abc import ABC, abstractmethod
 from typing import Any, Callable, Dict, List, Optional, Set
 
-from arta.utils import UPPERCASE_WORD_PATTERN, ConditionExecutionError, ParsingErrorStrategy, parse_dynamic_parameter
+from arta.exceptions import ConditionExecutionError
+from arta.utils import UPPERCASE_WORD_PATTERN, ParsingErrorStrategy, parse_dynamic_parameter
 
 
 class BaseCondition(ABC):

@@ -4,7 +4,7 @@ import os
 
 import pytest
 from arta import RulesEngine
-from arta.utils import ConditionExecutionError, RuleExecutionError
+from arta.exceptions import ConditionExecutionError, RuleExecutionError
 
 
 @pytest.mark.parametrize(
