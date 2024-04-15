@@ -34,7 +34,7 @@ jobs:
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: "site/"
+          path: "docs/site/"
   publish:
     if: success() && startsWith(github.ref, 'refs/tags')
     needs: build
