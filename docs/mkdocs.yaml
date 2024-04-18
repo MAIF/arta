@@ -10,7 +10,7 @@ theme:
   favicon: https://static.maif.fr/resources/img/logo-maif.svg
   palette:
     primary: white
-    accent: light green
+    accent: red
   font:
     text: 'Roboto'
     code: 'Roboto Mono'

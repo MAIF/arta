@@ -22,7 +22,7 @@ They both can be used in **condition and action parameters**.
 
 By default, errors during *condition* and *action parameters* parsing are **raised**.
 
-If we refer to the [Hello World](how_to.md#hello-world) example:
+If we refer to the [dictionary](how_to.md#dictionary-rules) example:
 
 ```python hl_lines="5"
 rules = {

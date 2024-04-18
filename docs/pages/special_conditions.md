@@ -1,79 +1,3 @@
-## Simple condition
-
-!!! example "Beta feature"
-
-    **Simple condition** is still a *beta feature*, some cases could not work as designed.
-
-**Simple conditions** are a new and straightforward way of configuring your *conditions*.
-
-It simplifies a lot your rules by:
-
-* Removing the use of a `conditions.py` module (no validation functions needed).
-* Removing the `conditions:` configuration key in your YAML files.
-
-!!! note
-
-    With the **simple conditions** you use straight *boolean expressions* directly in your configuration.
-    
-    It is easyer to read and maintain :+1:
-
-Example :
-
-```yaml hl_lines="6 11 16"
----
-rules:
-  default_rule_set:
-    admission:
-      ADM_OK:
-        simple_condition: input.power=="strength" or input.power=="fly"
-        action: set_admission
-        action_parameters:
-          value: OK 
-      ADM_TO_BE_CHECKED:
-        simple_condition: input.age>=150 and input.age!=None
-        action: set_admission
-        action_parameters:
-          value: TO_CHECK     
-      ADM_KO:
-        simple_condition: null
-        action: set_admission
-        action_parameters:
-          value: KO
-
-actions_source_modules:
-  - my_folder.actions  # (1)
-```
-
-1. Contains *action function* implementations, no need of the key `conditions_source_modules` here.
-
-How to write a simple condition like:
-
-    input.power=="strength" or input.power=="fly"
-
-* **Left operand (data mapping):** 
-    * You must use one of the following prefixes: 
-        * `input` (for input data)
-        * `output` (for previous rule's result)
-    * A *dot path* expression like `input.powers.main_power`.
-* **Operator:** you must use basic python *boolean operator* (i.e., `==, <, >, <=, >=, !=`)
-* **Right operand:** basic python data types (e.i., `str, int, None`).
-
-!!! warning
-
-    * You can't use: `is` or `in`, as an **operator** (yet).
-    * You can't use a `float` as **right operand** (it's a bug, will be fixed).
-    * For strings, don't forget the **double quotes** `"`.
-
-!!! danger "Security concern"
-
-    **Python code injection:**
-
-    Because **Arta** is using the `eval()` built-in function to evaluate *simple conditions*:
-    
-    * **You should never let the user** being able of dynamically define a *simple condition* (in `simple_condition:` conf. key).
-    * You should verify that **write permissions on the YAML files** are not allowed when your app is deployed.
-
-
 ## Custom condition
 
 **Custom conditions** are user-defined conditions. 
@@ -119,47 +43,25 @@ With the **custom conditions** it's quite simple to implement.
 
 First, create a class inheriting from `BaseCondtion` and implement the `verify()` method as you want/need:
 
-=== "Python >= 3.10"
+```python
+from typing import Any
 
-    ```python
-    from typing import Any
-
-    from arta.condition import BaseCondition
-    from arta.utils import ParsingErrorStrategy
+from arta.condition import BaseCondition
+from arta.utils import ParsingErrorStrategy
 
 
-    class MyCondition(BaseCondition):
-        def verify(
-            self,
-            input_data: dict[str, Any],
-            parsing_error_strategy: ParsingErrorStrategy,
-        ) -> bool:
+class MyCondition(BaseCondition):
+    def verify(
+        self,
+        input_data: dict[str, Any],
+        parsing_error_strategy: ParsingErrorStrategy,
+        **kwargs: Any
+    ) -> bool:
 
-            field, value = tuple(self.condition_id.split("_"))
+        field, value = tuple(self.condition_id.split("_"))
 
-            return input_data[field.lower()] == value.lower()
-    ```
-
-=== "Python < 3.10"
-
-    ```python
-    from typing import Any, Optional
-
-    from arta.condition import BaseCondition
-    from arta.utils import ParsingErrorStrategy
-
-
-    class MyCondition(BaseCondition):
-        def verify(
-            self,
-            input_data: dict[str, Any],
-            parsing_error_strategy: ParsingErrorStrategy,
-        ) -> bool:
-
-            field, value = tuple(self.condition_id.split("_"))
-
-            return input_data[field.lower()] == value.lower()
-    ```
+        return input_data[field.lower()] == value.lower()
+```
 
 !!! example "self.condition_id"
 
@@ -224,8 +126,9 @@ It is based on the following *strategy pattern*:
 classDiagram
     note for MyCondition "This is a custom condition class"
     RulesEngine "1" -- "1..*" Rule
-    Rule "0..*" -- "0..*" BaseCondition
+    Rule "1..*" -- "0..*" BaseCondition
     BaseCondition <|-- StandardCondition
+    BaseCondition <|-- SimpleCondition
     BaseCondition <|-- MyCondition
     class RulesEngine{
         +rules

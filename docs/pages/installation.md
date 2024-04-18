@@ -2,7 +2,7 @@
 
 Compatible with:
 
-![Python](https://img.shields.io/badge/Python-3.9_--_3.12-blue)
+![Alt Versions](https://img.shields.io/pypi/v/arta)
 
 ## pip
 

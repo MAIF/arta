@@ -14,7 +14,7 @@ The good news is that different **rule sets** can be used seamlessly with the sa
 
 Let's take the following example:
 
-> Based on the [Hello World](how_to.md#hello-world) example, imagine that you need to add some rules about something totally different than the superhero school. Let's say rules for a dinosaur school.
+> Based on that [example](how_to.md#standard-condition), imagine that you need to add some rules about something totally different than the superhero school. Let's say rules for a dinosaur school.
 
 ## Configuration
 
@@ -77,7 +77,7 @@ actions_source_modules:
 
 Now that your **rule sets** are defined (and assuming that your condition and action functions are implemented in the right modules), you can easily use them:
 
-```python
+```python hl_lines="29 31"
 from arta import RulesEngine
 
 input_data_1 = {

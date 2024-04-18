@@ -1,7 +1,10 @@
 # Arta
 
 ![Alt CI](https://github.com/MAIF/arta/actions/workflows/ci-cd.yml/badge.svg?branch=main)
-![Alt Python](https://img.shields.io/badge/Python-3.9_--_3.12-blue)
+![Alt coverage](https://img.shields.io/badge/coverage-90%25-dark_green)
+![Alt Versions](https://img.shields.io/pypi/v/arta)
+![Alt Python](https://img.shields.io/pypi/pyversions/arta)
+![Alt Downloads](https://img.shields.io/pypi/dm/arta)
 
 [![Alt MAIF Logo](https://static.maif.fr/resources/img/logo-maif.svg)](https://www.maif.fr/)
 
@@ -9,7 +12,7 @@
 
 ## Reference Documentation
 
-The reference documentation is available [here](https://solid-eureka-93ze9kn.pages.github.io/).
+The reference documentation is available [here](https://pages.github.com/MAIF/arta).
 
 ## What's New
 
