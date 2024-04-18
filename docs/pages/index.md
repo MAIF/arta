@@ -2,7 +2,7 @@
 
 ![Alt Versions](https://img.shields.io/pypi/v/arta)
 
-**Arta** is a very simple python *rules engine* designed for and by python developers.
+**Arta** is a simple python *rules engine* designed for and by python developers.
 
 * Want to discover what is **Arta**? :arrow_right: [Get Started](in_a_nutshell.md)
 * Want to know how to use it? :arrow_right: [User Guide](how_to.md)

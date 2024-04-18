@@ -1,6 +1,6 @@
 ## Intro 
 
-As we already mentioned: ***Arta** is a very simple python rules engine*.
+As we already mentioned: ***Arta** is a simple python rules engine*.
 
 But what do we mean by *rules engine*?
 

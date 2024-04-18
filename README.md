@@ -1,14 +1,14 @@
 # Arta
 
 ![Alt CI](https://github.com/MAIF/arta/actions/workflows/ci-cd.yml/badge.svg?branch=main)
-![Alt coverage](https://img.shields.io/badge/coverage-90%25-dark_green)
+![Alt coverage](https://img.shields.io/badge/coverage-95%25-dark_green)
 ![Alt Versions](https://img.shields.io/pypi/v/arta)
 ![Alt Python](https://img.shields.io/pypi/pyversions/arta)
 ![Alt Downloads](https://img.shields.io/pypi/dm/arta)
 
 [![Alt MAIF Logo](https://static.maif.fr/resources/img/logo-maif.svg)](https://www.maif.fr/)
 
-**Arta** is a very simple python rules engine designed for and by python developers.
+**Arta** is a simple python rules engine designed for and by python developers.
 
 ## Reference Documentation
 
