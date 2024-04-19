@@ -51,7 +51,7 @@ plugins:
   - mkdocstrings
   - search
 nav:
-  - Home: index.md
+  - Home: home.md
   - Get Started:
     - In a nutshell: in_a_nutshell.md
     - Installation: installation.md
