@@ -3,7 +3,9 @@
 Custom classes are
 """
 
-from typing import Any, Dict
+from __future__ import annotations
+
+from typing import Any
 
 from arta.condition import BaseCondition
 from arta.utils import ParsingErrorStrategy
@@ -19,7 +21,7 @@ class CustomCondition(BaseCondition):
     A condition class must inherit from BaseCondition.
     """
 
-    def verify(self, input_data: Dict[str, Any], parsing_error_strategy: ParsingErrorStrategy, **kwargs: Any) -> bool:
+    def verify(self, input_data: dict[str, Any], parsing_error_strategy: ParsingErrorStrategy, **kwargs: Any) -> bool:
         """
         Return True if the condition is verified.
 

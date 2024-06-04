@@ -1,4 +1,7 @@
-"""Pydantic model implementations."""
+"""Pydantic model implementations.
+
+Note: Having no "from __future__ import annotations" here is wanted (pydantic compatibility).
+"""
 
 from typing import Any, Callable, Dict, List, Optional
 

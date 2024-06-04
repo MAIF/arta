@@ -3,12 +3,14 @@
 Class: RulesEngine
 """
 
+from __future__ import annotations
+
 import copy
 import importlib
 import inspect
 from inspect import getmembers, isclass, isfunction
 from types import FunctionType, MethodType, ModuleType
-from typing import Any, Callable, Dict, List, Optional, Set, Tuple, Type
+from typing import Any, Callable
 
 from arta.condition import BaseCondition, SimpleCondition, StandardCondition
 from arta.config import load_config
@@ -41,7 +43,7 @@ class RulesEngine:
     CONST_USER_CONDITION_STRING: str = "USER_CONDITION"
 
     # Built-in factory mapping
-    BUILTIN_FACTORY_MAPPING: Dict[str, Type[BaseCondition]] = {
+    BUILTIN_FACTORY_MAPPING: dict[str, type[BaseCondition]] = {
         "condition": StandardCondition,
         "simple_condition": SimpleCondition,
     }
@@ -49,8 +51,8 @@ class RulesEngine:
     def __init__(
         self,
         *,
-        rules_dict: Optional[Dict[str, Dict[str, Any]]] = None,
-        config_path: Optional[str] = None,
+        rules_dict: dict[str, dict[str, Any]] | None = None,
+        config_path: str | None = None,
     ) -> None:
         """Initialize the rules.
 
@@ -65,8 +67,8 @@ class RulesEngine:
             TypeError: Wrong type.
         """
         # Var init.
-        factory_mapping_classes: Dict[str, Type[BaseCondition]] = {}
-        std_condition_instances: Dict[str, StandardCondition] = {}
+        factory_mapping_classes: dict[str, type[BaseCondition]] = {}
+        std_condition_instances: dict[str, StandardCondition] = {}
 
         if config_path is not None and rules_dict is not None:
             raise ValueError("RulesEngine takes only one parameter: 'rules_dict' or 'config_path', not both.")
@@ -86,12 +88,12 @@ class RulesEngine:
                 raise KeyError("'rules_dict' couldn't be empty.")
 
             # Attribute definition
-            self.rules: Dict[str, Dict[str, List[Rule]]] = self._adapt_user_rules_dict(rules_dict)
+            self.rules: dict[str, dict[str, list[Rule]]] = self._adapt_user_rules_dict(rules_dict)
 
         # Initialize with a config_path
         elif config_path is not None:
             # Load config in attribute
-            config_dict: Dict[str, Any] = load_config(config_path)
+            config_dict: dict[str, Any] = load_config(config_path)
 
             # Data validation
             config: Configuration = Configuration(**config_dict)
@@ -100,15 +102,15 @@ class RulesEngine:
                 # Set parsing error handling strategy from config
                 self._parsing_error_strategy = ParsingErrorStrategy(config.parsing_error_strategy)
 
-            # Dict of available action functions (k: function name, v: function object)
-            action_modules: List[str] = config.actions_source_modules
-            action_functions: Dict[str, Callable] = self._get_object_from_source_modules(action_modules)
+            # dict of available action functions (k: function name, v: function object)
+            action_modules: list[str] = config.actions_source_modules
+            action_functions: dict[str, Callable] = self._get_object_from_source_modules(action_modules)
 
-            # Dict of available standard condition functions (k: function name, v: function object)
-            condition_modules: List[str] = (
+            # dict of available standard condition functions (k: function name, v: function object)
+            condition_modules: list[str] = (
                 config.conditions_source_modules if config.conditions_source_modules is not None else []
             )
-            std_condition_functions: Dict[str, Callable] = self._get_object_from_source_modules(condition_modules)
+            std_condition_functions: dict[str, Callable] = self._get_object_from_source_modules(condition_modules)
 
             # Dictionary of condition instances (k: condition id, v: instance), built from config data
             if len(std_condition_functions) > 0:
@@ -118,8 +120,8 @@ class RulesEngine:
 
             # User-defined/custom conditions
             if config.condition_factory_mapping is not None and config.custom_classes_source_modules is not None:
-                # Dict of custom condition classes (k: classe name, v: class object)
-                custom_condition_classes: Dict[str, Type[BaseCondition]] = self._get_object_from_source_modules(
+                # dict of custom condition classes (k: classe name, v: class object)
+                custom_condition_classes: dict[str, type[BaseCondition]] = self._get_object_from_source_modules(
                     config.custom_classes_source_modules
                 )
 
@@ -145,8 +147,8 @@ class RulesEngine:
             raise ValueError("RulesEngine needs a parameter: 'rule_dict' or 'config_path'.")
 
     def apply_rules(
-        self, input_data: Dict[str, Any], *, rule_set: Optional[str] = None, verbose: bool = False, **kwargs: Any
-    ) -> Dict[str, Any]:
+        self, input_data: dict[str, Any], *, rule_set: str | None = None, verbose: bool = False, **kwargs: Any
+    ) -> dict[str, Any]:
         """Apply the rules and return results.
 
         For each rule group of a given rule set, rules are applied sequentially,
@@ -177,7 +179,7 @@ class RulesEngine:
             raise KeyError("'input_data' couldn't be empty.")
 
         # Var init.
-        input_data_copy: Dict[str, Any] = copy.deepcopy(input_data)
+        input_data_copy: dict[str, Any] = copy.deepcopy(input_data)
 
         # Prepare the result key
         input_data_copy["output"] = {}
@@ -194,7 +196,7 @@ class RulesEngine:
             )
 
         # Var init.
-        results_dict: Dict[str, Any] = {"verbosity": {"rule_set": rule_set, "results": []}}
+        results_dict: dict[str, Any] = {"verbosity": {"rule_set": rule_set, "results": []}}
 
         # Groups' loop
         for group_id, rules_list in self.rules[rule_set].items():
@@ -227,7 +229,7 @@ class RulesEngine:
         return results_dict
 
     @staticmethod
-    def _get_object_from_source_modules(module_list: List[str]) -> Dict[str, Any]:
+    def _get_object_from_source_modules(module_list: list[str]) -> dict[str, Any]:
         """(Protected)
         Collect all functions defined in the list of modules.
 
@@ -237,29 +239,29 @@ class RulesEngine:
         Returns:
             Dictionary with objects found in the modules.
         """
-        object_dict: Dict[str, Any] = {}
+        object_dict: dict[str, Any] = {}
 
         for module_name in module_list:
             # Import module
             mod: ModuleType = importlib.import_module(module_name)
 
             # Collect functions
-            module_functions: Dict[str, Any] = {key: val for key, val in getmembers(mod, isfunction)}
+            module_functions: dict[str, Any] = {key: val for key, val in getmembers(mod, isfunction)}
             object_dict.update(module_functions)
 
             # Collect classes
-            module_classes: Dict[str, Any] = {key: val for key, val in getmembers(mod, isclass)}
+            module_classes: dict[str, Any] = {key: val for key, val in getmembers(mod, isclass)}
             object_dict.update(module_classes)
 
         return object_dict
 
     def _build_rules(
         self,
-        std_condition_instances: Dict[str, StandardCondition],
-        action_functions: Dict[str, Callable],
-        config: Dict[str, Any],
-        factory_mapping_classes: Dict[str, Type[BaseCondition]],
-    ) -> Dict[str, Dict[str, List[Any]]]:
+        std_condition_instances: dict[str, StandardCondition],
+        action_functions: dict[str, Callable],
+        config: dict[str, Any],
+        factory_mapping_classes: dict[str, type[BaseCondition]],
+    ) -> dict[str, dict[str, list[Any]]]:
         """(Protected)
         Return a dictionary of Rule instances built from the configuration.
 
@@ -274,16 +276,16 @@ class RulesEngine:
             A dictionary of rules.
         """
         # Var init.
-        rules_dict: Dict[str, Dict[str, List[Any]]] = {}
+        rules_dict: dict[str, dict[str, list[Any]]] = {}
 
         # Retrieve rule set ids from config
-        rule_set_ids: List[str] = list(config[self.CONST_RULE_SETS_CONF_KEY].keys())
+        rule_set_ids: list[str] = list(config[self.CONST_RULE_SETS_CONF_KEY].keys())
 
         # Going all way down to the rules (rule set > rule group > rule)
         for set_id in rule_set_ids:
-            rules_conf: Dict[str, Any] = config[self.CONST_RULE_SETS_CONF_KEY][set_id]
+            rules_conf: dict[str, Any] = config[self.CONST_RULE_SETS_CONF_KEY][set_id]
             rules_dict[set_id] = {}
-            rule_set_dict: Dict[str, List[Any]] = rules_dict[set_id]
+            rule_set_dict: dict[str, list[Any]] = rules_dict[set_id]
 
             # Looping throught groups
             for group_id, group_rules in rules_conf.items():
@@ -301,13 +303,13 @@ class RulesEngine:
                     action: Callable = action_functions[action_function_name]
 
                     # Look for condition conf. keys inside the rule
-                    condition_conf_keys: Set[str] = set(rule_dict.keys()) - {
+                    condition_conf_keys: set[str] = set(rule_dict.keys()) - {
                         self.CONST_ACTION_CONF_KEY,
                         self.CONST_ACTION_PARAMETERS_CONF_KEY,
                     }
 
                     # Store the cond. expressions with the same order as in the configuration file (very important)
-                    condition_exprs: Dict[str, Optional[str]] = {
+                    condition_exprs: dict[str, str | None] = {
                         key: value for key, value in rule_dict.items() if key in condition_conf_keys
                     }
 
@@ -327,8 +329,8 @@ class RulesEngine:
         return rules_dict
 
     def _build_std_conditions(
-        self, config: Dict[str, Any], condition_functions_dict: Dict[str, Callable]
-    ) -> Dict[str, StandardCondition]:
+        self, config: dict[str, Any], condition_functions_dict: dict[str, Callable]
+    ) -> dict[str, StandardCondition]:
         """(Protected)
         Return a dictionary of Condition instances built from the configuration file.
 
@@ -340,10 +342,10 @@ class RulesEngine:
             A dictionary of StandardCondition instances (k: condition id, v: StandardCondition instance).
         """
         # Var init.
-        conditions_dict: Dict[str, StandardCondition] = {}
+        conditions_dict: dict[str, StandardCondition] = {}
 
         # Condition configuration (under conditions' key)
-        conditions_conf: Dict[str, Dict[str, Any]] = config[self.CONST_STD_CONDITIONS_CONF_KEY]
+        conditions_conf: dict[str, dict[str, Any]] = config[self.CONST_STD_CONDITIONS_CONF_KEY]
 
         # Looping through conditions (inside a group)
         for condition_id, condition_params in conditions_conf.items():
@@ -367,7 +369,7 @@ class RulesEngine:
 
         return conditions_dict
 
-    def _adapt_user_rules_dict(self, rules_dict: Dict[str, Dict[str, Any]]) -> Dict[str, Dict[str, List[Any]]]:
+    def _adapt_user_rules_dict(self, rules_dict: dict[str, dict[str, Any]]) -> dict[str, dict[str, list[Any]]]:
         """(Protected)
         Return a dictionary of Rule's instances built from user's rules dictionary.
 
@@ -378,7 +380,7 @@ class RulesEngine:
             A rules dictionary made from the user input rules.
         """
         # Var init.
-        rules_dict_formatted: Dict[str, List[Any]] = {}
+        rules_dict_formatted: dict[str, list[Any]] = {}
 
         # Looping throught groups
         for group_id, group_rules in rules_dict.items():
@@ -432,7 +434,7 @@ class RulesEngine:
 
         # Get some instance attributes infos
         class_name: str = self.__class__.__name__
-        attrs: List[Tuple[str, Any]] = [
+        attrs: list[tuple[str, Any]] = [
             attr
             for attr in inspect.getmembers(self)
             if not (
