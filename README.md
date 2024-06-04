@@ -20,32 +20,30 @@
 
 ---
 
+## Goal
+
 There is one main reason for using **Arta** and it was the main goal of its development at *MAIF*: increase business rules maintainability.
 
 In other words, facilitate rules handling in our python apps.
 
-**Origin:**
+### Origin
 
-The need of a python *rules engine* emerged when we were working on a new major release of our internal use of [Melusine](https://github.com/maif/melusine) (i.e., email qualification pipeline).
+The need of a python *rules engine* emerged when we were working on a new major release of our internal use of [Melusine](https://github.com/maif/melusine) (i.e., email qualification pipeline with ML capabilities).
 
 We were looking for a python library to *centralize, manage and standardize* all the implemented **business rules** we had but didn't find the perfect fit. 
 
-Therefore, we decided to create this package and by following MAIF values, we planned to share it to the community through this repository.
+Therefore, we decided to create this package and by extension of the MAIF's values, we planned to share it to the community through Arta.
 
-**Features:**
+### Features
 
 * Standardize the definition of a rule. All rules are defined the same way in a unique place.
 * Rules are released from the code base, which is less error prone and increases clearness.
 * Use **Arta** whatever your field is.
-* Great combination with Machine Learning: groups all the deterministic rules of your ML project.
+* Great combination with Machine Learning: groups all the deterministic rules of your ML projects.
 
 ## Installation
 
 Install using `pip install -U arta`. See the [Install](https://pages.github.com/MAIF/arta/installation/) section in the documentation for more details.
-
-## What's New
-
-Want to see last updates, check the [Release Notes](https://github.com/MAIF/arta/releases) or the [Changelog](./CHANGELOG.md).
 
 ## A Simple Example
 
@@ -109,8 +107,12 @@ You should get: `{"admission": {"is_admitted": True}}`
 
 Check the [A Simple Example](https://pages.github.com/MAIF/arta/a_simple_example/) section for more details.
 
+## What's New
+
+Want to see last updates, check the [Release Notes](https://github.com/MAIF/arta/releases) or the [Changelog](./CHANGELOG.md).
 
 ## Community
+
 You can discuss and ask *Arta* related questions:
 
 - Issue tracker: [![github: MAIF/arta/issues](https://img.shields.io/github/issues/MAIF/arta.svg)](https://github.com/MAIF/arta/issues)
