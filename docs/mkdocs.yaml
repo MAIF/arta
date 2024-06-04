@@ -6,8 +6,8 @@ site_author: OSSbyMAIF Team
 docs_dir: pages
 theme:
   name: 'material'
-  logo: https://static.maif.fr/resources/img/logo-maif.svg
-  favicon: https://static.maif.fr/resources/img/logo-maif.svg
+  logo: assets/img/arta-fond-clair.svg
+  favicon: assets/img/arta-git.svg
   palette:
     primary: white
     accent: red
@@ -53,7 +53,7 @@ plugins:
 nav:
   - Home: home.md
   - Get Started:
-    - In a nutshell: in_a_nutshell.md
+    - A Simple Example: a_simple_example.md
     - Installation: installation.md
     - Why use Arta?: why.md
   - User Guide: 

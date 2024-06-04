@@ -7,7 +7,7 @@ But what do we mean by *rules engine*?
 * **rule** : a set of different conditions that can be `True` or `False` (i.e., we say *verified* or *not verified*) triggering an action (i.e., any python callable object).
 * **engine** : some code used for combining and evaluating different rules on some input data.
 
-## Quick example: The Superhero School :school: :superhero:
+## The Superhero School :school: :superhero:
 
 Imagine the following use case: 
 
@@ -33,7 +33,7 @@ The rules (intentionally simple) are:
 
     If he is admitted and has a prefered dish, then we send an email to the school cook with the dish name.
 
-## Rules
+### Rules
 
 You can define above rules for **Arta** in one simple *YAML* file :
 
@@ -85,7 +85,7 @@ actions_source_modules:
 
     This configuration uses what we called *simple conditions*, you can find out more [here](how_to.md#simple-condition).
 
-## Actions
+### Actions
 
 An **action** is triggered when the conditions are verified (i.e., `True`).
 
@@ -135,7 +135,7 @@ def send_email(mail_to: str, mail_content: str, meal: str, **kwargs: Any) -> boo
 
     **\*\*kwargs** is mandatory in *action functions*.
 
-## Engine
+### Engine
 
 The *rules engine* is responsible for evaluating the [configured rules](#rules-definition) against some *data* (usually named *"input data"*). 
 

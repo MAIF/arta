@@ -1,10 +1,16 @@
-# Welcome to the Arta documentation
+<p align="center">
+  <a href="https://pages.github.com/MAIF/arta/"><img src="../assets/img/arta-fond-clair.svg" alt="Arta" width="50%"></a>
+</p>
+<p align="center">
+    <em>Arta is a simple python rules engine designed for and by python developers</em>
+</p>
+<p align="center">
+    <img src="https://img.shields.io/pypi/v/arta" alt="Versions">
+</p>
 
-![Alt Versions](https://img.shields.io/pypi/v/arta)
+# Welcome to the documentation
 
-**Arta** is a simple python *rules engine* designed for and by python developers.
-
-* Want to discover what is **Arta**? :arrow_right: [Get Started](in_a_nutshell.md)
+* Want to discover what is **Arta**? :arrow_right: [Get Started](a_simple_example.md)
 * Want to know how to use it? :arrow_right: [User Guide](how_to.md)
 
 !!! info "New feature"

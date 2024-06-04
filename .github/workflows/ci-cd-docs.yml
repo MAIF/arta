@@ -16,7 +16,7 @@ on:
 jobs:
   build:
     if: ${{ github.actor != 'dependabot[bot]' }}
-    name: Check docs build
+    name: Build doc
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -37,6 +37,7 @@ jobs:
           path: "docs/site/"
   publish:
     if: success() && startsWith(github.ref, 'refs/tags')
+    name: Publish doc
     needs: build
     permissions:
       pages: write
