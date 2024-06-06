@@ -2,7 +2,7 @@
   <a href="https://pages.github.com/MAIF/arta/"><img src="../assets/img/arta-fond-clair.svg" alt="Arta" width="50%"></a>
 </p>
 <p align="center">
-    <em>Arta is a simple python rules engine designed for and by python developers</em>
+    <em>An Open Source Rules Engine - Make rule handling simple</em>
 </p>
 <p align="center">
     <img src="https://img.shields.io/pypi/v/arta" alt="Versions">

@@ -2,7 +2,7 @@
   <a href="https://pages.github.com/MAIF/arta/"><img src="docs/pages/assets/img/arta-fond-clair.svg" alt="Arta" width="50%"></a>
 </p>
 <p align="center">
-    <em>Arta is a simple python rules engine designed for and by python developers</em>
+    <em>Make rule handling simple</em>
 </p>
 <p align="center">
   <img src="https://github.com/MAIF/arta/actions/workflows/ci-cd.yml/badge.svg?branch=main" alt="CI">
@@ -20,13 +20,17 @@
 
 ---
 
-## Goal
+## Overview
+
+**Arta** is a simple python rules engine designed for and by python developers.
+
+### Goal
 
 There is one main reason for using **Arta** and it was the main goal of its development at *MAIF*: increase business rules maintainability.
 
 In other words, facilitate rules handling in our python apps.
 
-### Origin
+### Origins
 
 The need of a python *rules engine* emerged when we were working on a new major release of our internal use of [Melusine](https://github.com/maif/melusine) (i.e., email qualification pipeline with ML capabilities).
 
@@ -41,11 +45,7 @@ Therefore, we decided to create this package and by extension of the MAIF's valu
 * Use **Arta** whatever your field is.
 * Great combination with Machine Learning: groups all the deterministic rules of your ML projects.
 
-## Installation
-
-Install using `pip install -U arta`. See the [Install](https://pages.github.com/MAIF/arta/installation/) section in the documentation for more details.
-
-## A Simple Example
+### A Simple Example
 
 Create the three following files and run the `main.py` script (`python main.py` or `python3 main.py`).
 
@@ -106,6 +106,10 @@ print(result)
 You should get: `{"admission": {"is_admitted": True}}`
 
 Check the [A Simple Example](https://pages.github.com/MAIF/arta/a_simple_example/) section for more details.
+
+## Installation
+
+Install using `pip install -U arta`. See the [Install](https://pages.github.com/MAIF/arta/installation/) section in the documentation for more details.
 
 ## What's New
 
