@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="https://pages.github.com/MAIF/arta/"><img src="../assets/img/arta-fond-clair.svg" alt="Arta" width="50%"></a>
+  <a href="https://maif.github.io/arta"><img src="../assets/img/arta-fond-clair.svg" alt="Arta" width="50%"></a>
 </p>
 <p align="center">
     <em>An Open Source Rules Engine - Make rule handling simple</em>

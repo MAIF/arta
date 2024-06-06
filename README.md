@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="https://pages.github.com/MAIF/arta/"><img src="docs/pages/assets/img/arta-fond-clair.svg" alt="Arta" width="50%"></a>
+  <a href="https://maif.github.io/arta"><img src="docs/pages/assets/img/arta-fond-clair.svg" alt="Arta" width="50%"></a>
 </p>
 <p align="center">
     <em>Make rule handling simple</em>
@@ -14,7 +14,7 @@
 
 ---
 
-**Documentation:** [https://pages.github.com/MAIF/arta](https://pages.github.com/MAIF/arta)
+**Documentation:** [https://pages.github.com/MAIF/arta/home](https://pages.github.com/MAIF/arta/home)
 
 **Repository:** [https://github.com/MAIF/arta](https://github.com/MAIF/arta)
 
@@ -22,7 +22,7 @@
 
 ## Overview
 
-**Arta** is a simple python rules engine designed for and by python developers.
+**Arta** is a simple python rules engine designed for python developers.
 
 ### Goal
 

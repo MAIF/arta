@@ -7,7 +7,7 @@ We encourage changes that make it easier to achieve our goals in an efficient wa
 
 ## Codebase
 
-explain the layout of your repo.
+Explain the layout of your repo.
 
 ## Workflow
 
@@ -22,7 +22,7 @@ We follow the standard GitHub [fork & pull](https://help.github.com/articles/usi
    - Please make sure to follow the general quality guidelines (specified below) when developing your patch.
    - Please write additional tests covering your feature and adjust existing ones if needed before submitting your pull request. 
 1. Once your feature is complete, prepare the commit with a good commit message, for example: `Adding canary mode support for services #42` (note the reference to the ticket it aimed to resolve).
-1. If it's a new feature, or a change of behaviour, document it on the [Arta docs](https://github.com/MAIF/arta/tree/master/manual), remember, an undocumented feature is not a feature.
+1. If it's a new feature, or a change of behaviour, document it on the [Arta docs](https://pages.github.com/MAIF/arta/home), remember, an undocumented feature is not a feature.
 1. Now it's finally time to [submit the pull request](https://help.github.com/articles/using-pull-requests)!
     - Please make sure to include a reference to the issue you're solving *in the comment* for the Pull Request, this will cause the PR to be linked properly with the Issue. Examples of good phrases for this are: "Resolves #1234" or "Refs #1234".
 1. Now both committers and interested people will review your code. This process is to ensure the code we merge is of the best possible quality, and that no silly mistakes slip through. You're expected to follow-up these comments by adding new commits to the same branch. The commit messages of those commits can be more loose, for example: `Removed debugging using printline`, as they all will be squashed into one commit before merging into the main branch.
