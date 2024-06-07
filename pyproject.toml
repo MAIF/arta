@@ -11,7 +11,7 @@ readme = "README.md"
 authors = [
     {name = "develop-cs"},
     {name = "HugoPerrier"},
-    {name = "Mathis NICOLI"},
+    {name = "MathisNcl"},
 ]
 
 classifiers = [

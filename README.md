@@ -36,7 +36,7 @@ The need of a python *rules engine* emerged when we were working on a new major 
 
 We were looking for a python library to *centralize, manage and standardize* all the implemented **business rules** we had but didn't find the perfect fit. 
 
-Therefore, we decided to create this package and by extension of the MAIF's values, we planned to share it to the community through Arta.
+Therefore, we decided to create this package and by extension of the MAIF's values, we planned to share it to the community.
 
 ### Features
 
