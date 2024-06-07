@@ -1,16 +1,16 @@
 site_name: Arta
-site_url: https://pages.github.com/MAIF/arta
+site_url: https://maif.github.io/arta
 repo_url: https://github.com/MAIF/arta
 repo_name: MAIF/arta
 site_author: OSSbyMAIF Team
 docs_dir: pages
 theme:
   name: 'material'
-  logo: https://static.maif.fr/resources/img/logo-maif.svg
-  favicon: https://static.maif.fr/resources/img/logo-maif.svg
+  logo: assets/img/arta-fond-clair.svg
+  favicon: assets/img/arta-git.svg
   palette:
     primary: white
-    accent: light green
+    accent: red
   font:
     text: 'Roboto'
     code: 'Roboto Mono'
@@ -51,9 +51,9 @@ plugins:
   - mkdocstrings
   - search
 nav:
-  - Home: index.md
+  - Home: home.md
   - Get Started:
-    - In a nutshell: in_a_nutshell.md
+    - A Simple Example: a_simple_example.md
     - Installation: installation.md
     - Why use Arta?: why.md
   - User Guide: 

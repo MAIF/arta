@@ -7,25 +7,25 @@ assignees: ''
 
 ---
 
-**Describe the bug**
+**Describe the bug**:
 A clear and concise description of what the bug is.
 
-**To Reproduce**
+**To Reproduce**:
 Steps to reproduce the behavior:
 1. Import '...'
 2. Call '....'
 3. See error
 
-**Expected behavior**
+**Expected behavior**:
 A clear and concise description of what you expected to happen.
 
-**Screenshots**
+**Screenshots**:
 If applicable, add screenshots to help explain your problem.
 
 **Desktop (please complete the following information):**
- - OS: [e.g. linux]
- - Python version [e.g. 3.12]
- - Dependencies versions [e.g. pydantic 2.6.4]
+ - OS: `[e.g. linux]`
+ - Python version(s): `[e.g. 3.12]`
+ - Dependencies versions: `[e.g. pydantic 2.6.4]`
 
-**Additional context**
+**Additional context**:
 Add any other context about the problem here.

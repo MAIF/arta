@@ -4,14 +4,14 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "arta"
-version = "0.7.0"
+version = "0.7.0b"
 requires-python = ">3.8.0"
-description = "Arta is a very simple python rules engine designed for and by python developers"
+description = "An Open Source Rules Engine - Make rule handling simple"
 readme = "README.md"
 authors = [
     {name = "develop-cs"},
     {name = "HugoPerrier"},
-    {name = "Mathis NICOLI"},
+    {name = "MathisNcl"},
 ]
 
 classifiers = [

@@ -3,9 +3,11 @@
 Classes: BaseCondition, StandardCondition, SimpleCondition
 """
 
+from __future__ import annotations
+
 import re
 from abc import ABC, abstractmethod
-from typing import Any, Callable, Dict, List, Optional, Set
+from typing import Any, Callable
 
 from arta.exceptions import ConditionExecutionError
 from arta.utils import UPPERCASE_WORD_PATTERN, ParsingErrorStrategy, parse_dynamic_parameter
@@ -31,8 +33,8 @@ class BaseCondition(ABC):
         self,
         condition_id: str,
         description: str,
-        validation_function: Optional[Callable] = None,
-        validation_function_parameters: Optional[Dict[str, Any]] = None,
+        validation_function: Callable | None = None,
+        validation_function_parameters: dict[str, Any] | None = None,
     ) -> None:
         """
         Initialize attributes.
@@ -49,7 +51,7 @@ class BaseCondition(ABC):
         self._validation_function_parameters = validation_function_parameters  # NOSONAR
 
     @classmethod
-    def extract_condition_ids_from_expression(cls, condition_expr: Optional[str] = None) -> Set[str]:
+    def extract_condition_ids_from_expression(cls, condition_expr: str | None = None) -> set[str]:
         """Get the condition ids from a string (e.g., UPPERCASE words).
 
         E.g., CONDITION_1 and not CONDITION_2
@@ -62,7 +64,7 @@ class BaseCondition(ABC):
         Returns:
             A set of extracted condition ids.
         """
-        cond_ids: Set[str] = set()
+        cond_ids: set[str] = set()
 
         if condition_expr is not None:
             cond_ids = set(re.findall(cls.CONDITION_ID_PATTERN, condition_expr))
@@ -70,7 +72,7 @@ class BaseCondition(ABC):
         return cond_ids
 
     @abstractmethod
-    def verify(self, input_data: Dict[str, Any], parsing_error_strategy: ParsingErrorStrategy, **kwargs: Any) -> bool:
+    def verify(self, input_data: dict[str, Any], parsing_error_strategy: ParsingErrorStrategy, **kwargs: Any) -> bool:
         """(Abstract)
         Return True if the condition is verified.
 
@@ -95,7 +97,7 @@ class StandardCondition(BaseCondition):
         validation_function_parameters: Arguments of the validation function.
     """
 
-    def verify(self, input_data: Dict[str, Any], parsing_error_strategy: ParsingErrorStrategy, **kwargs: Any) -> bool:
+    def verify(self, input_data: dict[str, Any], parsing_error_strategy: ParsingErrorStrategy, **kwargs: Any) -> bool:
         """Return True if the condition is verified.
 
         Example of a unitary standard condition: CONDITION_1
@@ -118,7 +120,7 @@ class StandardCondition(BaseCondition):
             raise AttributeError("Validation function parameters should not be None")
 
         # Parse dynamic parameters
-        parameters: Dict[str, Any] = {}
+        parameters: dict[str, Any] = {}
 
         for key, value in self._validation_function_parameters.items():
             parameters[key] = parse_dynamic_parameter(
@@ -143,7 +145,7 @@ class SimpleCondition(BaseCondition):
     CONST_CUSTOM_CONDITION_DATA_LABEL: str = "Simple condition data (not needed)"
     CONDITION_ID_PATTERN: str = r"(?:input\.|output\.)(?:[a-z_\-0-9!=<>\"NTF\.]*)"
 
-    def verify(self, input_data: Dict[str, Any], parsing_error_strategy: ParsingErrorStrategy, **kwargs: Any) -> bool:
+    def verify(self, input_data: dict[str, Any], parsing_error_strategy: ParsingErrorStrategy, **kwargs: Any) -> bool:
         """Return True if the condition is verified.
 
         Example of a unitary simple condition to be verified: 'input.age>=100'
@@ -165,7 +167,7 @@ class SimpleCondition(BaseCondition):
         data_path_patt: str = r"(?:input\.|output\.)(?:[a-z_\-\.]*)"
 
         # Retrieve only the data path
-        path_matches: List[str] = re.findall(data_path_patt, unitary_expr)
+        path_matches: list[str] = re.findall(data_path_patt, unitary_expr)
 
         if len(path_matches) == 1:
             # Regular case: we have a data_path

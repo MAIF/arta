@@ -1,9 +1,11 @@
 """Utility module."""
 
+from __future__ import annotations
+
 import copy
 import re
 from enum import Enum
-from typing import Any, Dict, List, Tuple
+from typing import Any
 
 # Global constants
 UPPERCASE_WORD_PATTERN: str = r"\b[A-Z_0-9]+\b"
@@ -17,7 +19,7 @@ class ParsingErrorStrategy(str, Enum):
     DEFAULT_VALUE: str = "default_value"
 
 
-def get_value_in_nested_dict_from_path(path: str, nested_dict: Dict[str, Any]) -> Any:
+def get_value_in_nested_dict_from_path(path: str, nested_dict: dict[str, Any]) -> Any:
     """From a path, get a value in a nested dict.
 
     Ex:
@@ -31,10 +33,10 @@ def get_value_in_nested_dict_from_path(path: str, nested_dict: Dict[str, Any]) -
     Returns:
         Found value.
     """
-    keys: List[str] = path.split(".")
+    keys: list[str] = path.split(".")
 
     # Initialize value with whole nested dict
-    value: Dict[str, Any] = nested_dict
+    value: dict[str, Any] = nested_dict
 
     # Loop on path keys
     for key in keys:
@@ -47,7 +49,7 @@ def get_value_in_nested_dict_from_path(path: str, nested_dict: Dict[str, Any]) -
 
 def parse_dynamic_parameter(
     parameter: Any,
-    input_data: Dict[str, Any],
+    input_data: dict[str, Any],
     parsing_error_strategy: ParsingErrorStrategy,
 ) -> Any:
     """Parse the value of parameterized parameters.
@@ -100,7 +102,7 @@ def parse_dynamic_parameter(
 
 def check_parsing_error_strategy_override(
     param_path: str, parsing_error_strategy: ParsingErrorStrategy
-) -> Tuple[Any, str, ParsingErrorStrategy]:
+) -> tuple[Any, str, ParsingErrorStrategy]:
     """Check if the input parameter contains a flag to override the parsing error strategy.
 
     The following override syntaxes are accepted:

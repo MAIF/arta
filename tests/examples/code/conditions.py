@@ -4,16 +4,16 @@ of the conditions in conditions.yaml.
 N.B: They are only demo functions.
 """
 
-from typing import List, Optional
+from __future__ import annotations
 
 
-def has_authorized_super_power(authorized_powers: List[str], candidate_powers: List[str]) -> bool:
+def has_authorized_super_power(authorized_powers: list[str], candidate_powers: list[str]) -> bool:
     """Check candidate's powers and return True if OK."""
     auth_powers = [power for power in authorized_powers if candidate_powers is not None and power in candidate_powers]
     return len(auth_powers) > 0
 
 
-def is_age_unknown(age: Optional[int]) -> bool:
+def is_age_unknown(age: int | None) -> bool:
     """Check if age is unknown = return True if age is None."""
     return age is None
 

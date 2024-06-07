@@ -3,8 +3,10 @@
 Class: Rule
 """
 
+from __future__ import annotations
+
 import re
-from typing import Any, Callable, Dict, Optional, Set, Tuple, Type
+from typing import Any, Callable
 
 from arta.condition import BaseCondition, StandardCondition
 from arta.exceptions import ConditionExecutionError, RuleExecutionError
@@ -34,11 +36,11 @@ class Rule:
         set_id: str,
         group_id: str,
         rule_id: str,
-        condition_exprs: Dict[str, Optional[str]],
-        condition_factory_mapping: Dict[str, Type[BaseCondition]],
+        condition_exprs: dict[str, str | None],
+        condition_factory_mapping: dict[str, type[BaseCondition]],
         action: Callable,
-        std_condition_instances: Dict[str, StandardCondition],
-        action_parameters: Optional[Dict[str, Any]] = None,
+        std_condition_instances: dict[str, StandardCondition],
+        action_parameters: dict[str, Any] | None = None,
     ) -> None:
         """Initialize attributes.
 
@@ -62,15 +64,15 @@ class Rule:
         self._condition_factory_mapping = condition_factory_mapping
 
         # Condition instances (k: condition id (not conf key), v: instances)
-        self._condition_instances: Dict[str, BaseCondition] = self._instantiate_conditions(std_condition_instances)
+        self._condition_instances: dict[str, BaseCondition] = self._instantiate_conditions(std_condition_instances)
 
     def apply(
         self,
-        input_data: Dict[str, Any],
+        input_data: dict[str, Any],
         *,
         parsing_error_strategy: ParsingErrorStrategy,
         **kwargs: Any,
-    ) -> Tuple[Optional[Any], Dict[str, Any]]:
+    ) -> tuple[Any | None, dict[str, Any]]:
         """Apply the rule on the input data, return action output (optional).
 
         Args:
@@ -86,7 +88,7 @@ class Rule:
         """
         # If rule conditions are verified, the action is executed w/ the parameters' value
         is_conditions_ok: bool
-        rule_results: Dict[str, Any]
+        rule_results: dict[str, Any]
 
         is_conditions_ok, rule_results = self._check_conditions(
             input_data, parsing_error_strategy=parsing_error_strategy, **kwargs
@@ -95,7 +97,7 @@ class Rule:
         if is_conditions_ok:
             try:
                 # Parse dynamic parameters
-                parameters: Dict[str, Any] = {}
+                parameters: dict[str, Any] = {}
                 for key, value in self._action_parameters.items():
                     parameters[key] = parse_dynamic_parameter(
                         parameter=value, input_data=input_data, parsing_error_strategy=parsing_error_strategy
@@ -115,8 +117,8 @@ class Rule:
             return None, {}
 
     def _check_conditions(
-        self, input_data: Dict[str, Any], parsing_error_strategy: ParsingErrorStrategy, **kwargs: Any
-    ) -> Tuple[bool, Dict[str, Any]]:
+        self, input_data: dict[str, Any], parsing_error_strategy: ParsingErrorStrategy, **kwargs: Any
+    ) -> tuple[bool, dict[str, Any]]:
         """(Protected)
         Return True if all conditions are verified.
 
@@ -130,11 +132,11 @@ class Rule:
         """
         # Var init.
         all_conditions_res: bool = True
-        condition_results: Dict[str, Any] = {"rule_group": self._group_id, "verified_conditions": {}}
+        condition_results: dict[str, Any] = {"rule_group": self._group_id, "verified_conditions": {}}
 
         # Loop among condition expressions
         for cond_conf_key, expr in self._condition_exprs.items():
-            condition_class: Type[BaseCondition] = self._condition_factory_mapping[cond_conf_key]
+            condition_class: type[BaseCondition] = self._condition_factory_mapping[cond_conf_key]
 
             # Evaluate the condition expression
             try:
@@ -164,12 +166,12 @@ class Rule:
 
     def _evaluate_condition_expr(
         self,
-        input_data: Dict[str, Any],
-        condition_class: Type[BaseCondition],
+        input_data: dict[str, Any],
+        condition_class: type[BaseCondition],
         parsing_error_strategy: ParsingErrorStrategy,
-        condition_expr: Optional[str] = None,
+        condition_expr: str | None = None,
         **kwargs: Any,
-    ) -> Tuple[bool, Dict[str, bool]]:
+    ) -> tuple[bool, dict[str, bool]]:
         """(Protected)
         Evaluate the condition expr (a boolean expression) and
         return the result (a boolean).
@@ -188,7 +190,7 @@ class Rule:
             ConditionExecutionError: Error during condition execution.
         """
         # Var init.
-        unitary_results: Dict[str, bool] = {}
+        unitary_results: dict[str, bool] = {}
 
         # Case of null condition expressions => Always True
         if condition_expr is None:
@@ -198,7 +200,7 @@ class Rule:
         bool_expr: str = condition_expr
 
         # Extract condition ids from the expression
-        condition_ids: Set[str] = condition_class.extract_condition_ids_from_expression(condition_expr)
+        condition_ids: set[str] = condition_class.extract_condition_ids_from_expression(condition_expr)
 
         # Loop among the conditions of the expression
         # Verify the unitary condition
@@ -224,8 +226,8 @@ class Rule:
 
     def _instantiate_conditions(
         self,
-        std_conditions: Dict[str, StandardCondition],
-    ) -> Dict[str, BaseCondition]:
+        std_conditions: dict[str, StandardCondition],
+    ) -> dict[str, BaseCondition]:
         """Parse condition expressions and build corresponding instances.
 
         E.g., for one condition:
@@ -243,8 +245,8 @@ class Rule:
             KeyError: Condition id is unknown.
         """
         # Var init.
-        condition_ids: Set[str] = set()
-        cond_instances: Dict[str, BaseCondition] = {}
+        condition_ids: set[str] = set()
+        cond_instances: dict[str, BaseCondition] = {}
 
         # Get all condition ids from the expressions (1 or many)
         for conf_key, expr in self._condition_exprs.items():

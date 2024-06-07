@@ -4,15 +4,17 @@ triggering an action (set in rules.yaml).
 N.B: They are only demo functions.
 """
 
-from typing import Any, Dict, List
+from __future__ import annotations
+
+from typing import Any
 
 
-def set_admission(value: bool, **kwargs: Any) -> Dict[str, bool]:
+def set_admission(value: bool, **kwargs: Any) -> dict[str, bool]:
     """Return a dictionary containing the admission result."""
     return {"admission": value}
 
 
-def set_student_course(course_id: str, **kwargs: Any) -> Dict[str, str]:
+def set_student_course(course_id: str, **kwargs: Any) -> dict[str, str]:
     """Return the course id as a dictionary."""
     return {"course_id": course_id}
 
@@ -28,7 +30,7 @@ def send_email(mail_to: str, mail_content: str, meal: str, **kwargs: Any) -> boo
     return is_ok
 
 
-def concatenate_str(list_str: List[Any], **kwargs: Any) -> str:
+def concatenate_str(list_str: list[Any], **kwargs: Any) -> str:
     """Demo function: return the concatenation of a list of string using input_data (two levels max)."""
     list_str = [str(element) for element in list_str]
     return "".join(list_str)

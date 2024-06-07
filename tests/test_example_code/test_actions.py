@@ -40,7 +40,7 @@ def test_set_student_course(course_id, expected):
             "roast beef",
             True,
         ),
-        ("suppercook@dummy.fr", "Thanks for preparing the following meal: ", "pancakes", True),
+        ("supercook@dummy.fr", "Thanks for preparing the following meal: ", "pancakes", True),
     ],
 )
 def test_send_email(mail_to, mail_content, meal, expected):
