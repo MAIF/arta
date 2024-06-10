@@ -46,12 +46,12 @@ rules:
         simple_condition: input.power=="strength" or input.power=="fly"
         action: set_admission
         action_parameters:
-          value: True  
+          value: true  
       NOT_ADMITTED:
         simple_condition: null
         action: set_admission
         action_parameters:
-          value: False
+          value: false
     course:
       FRENCH:
         simple_condition: input.language=="french" and input.age!=None
@@ -94,7 +94,7 @@ An **action** is triggered when the conditions are verified (i.e., `True`).
 ```yaml
         action: set_admission  # (1)
         action_parameters:  # (2)
-          value: True  
+          value: true  
 ```
 
 1. Name of the *python callable object* used as an **action function**.

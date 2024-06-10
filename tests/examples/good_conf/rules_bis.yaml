@@ -8,13 +8,13 @@ rules:
         condition: HAS_SCHOOL_AUTHORIZED_POWER
         action: set_admission
         action_parameters:
-          value: True      
+          value: true      
       ADM_KO:
         custom_condition: null
         condition: null
         action: set_admission
         action_parameters:
-          value: False
+          value: false
     course:
       COURSE_FRENCH:
         custom_condition: null
@@ -57,13 +57,13 @@ rules:
         condition: HAS_SCHOOL_AUTHORIZED_POWER
         action: set_admission
         action_parameters:
-          value: True      
+          value: true      
       ADM_KO:
         custom_condition: null
         condition: null
         action: set_admission
         action_parameters:
-          value: False
+          value: false
 # Fourth rule set  
   fourth_rule_set:
     admission_rules:
@@ -72,10 +72,10 @@ rules:
         condition: null
         action: set_admission
         action_parameters:
-          value: True      
+          value: true      
       ADM_KO:
         custom_condition: null
         condition: null
         action: set_admission
         action_parameters:
-          value: False
+          value: false

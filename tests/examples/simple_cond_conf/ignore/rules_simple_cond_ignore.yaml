@@ -13,12 +13,12 @@ rules:
         simple_condition: input.power=="strength" or input.power=="fly"
         action: set_admission
         action_parameters:
-          value: True      
+          value: true      
       ADM_KO:
         simple_condition: null
         action: set_admission
         action_parameters:
-          value: False
+          value: false
     course:
       COURSE_ENGLISH:
         simple_condition: input.language=="english" and input.age!=None

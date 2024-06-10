@@ -14,7 +14,7 @@
 
 ---
 
-**Documentation:** [https://pages.github.com/MAIF/arta/home](https://pages.github.com/MAIF/arta/home)
+**Documentation:** [https://maif.github.io/arta/home/](https://maif.github.io/arta/home/)
 
 **Repository:** [https://github.com/MAIF/arta](https://github.com/MAIF/arta)
 
@@ -60,12 +60,12 @@ rules:
         simple_condition: input.power=="strength" or input.power=="fly"
         action: set_admission
         action_parameters:
-          value: True  
+          value: true  
       NOT_ADMITTED:
         simple_condition: null
         action: set_admission
         action_parameters:
-          value: False
+          value: false
 
 actions_source_modules:
   - actions
@@ -74,6 +74,9 @@ actions_source_modules:
 `actions.py` :
 
 ```python
+from typing import Any
+
+
 def set_admission(value: bool, **kwargs: Any) -> dict[str, bool]:
     """Return a dictionary containing the admission result."""
     return {"is_admitted": value}
@@ -105,11 +108,11 @@ print(result)
 
 You should get: `{"admission": {"is_admitted": True}}`
 
-Check the [A Simple Example](https://pages.github.com/MAIF/arta/a_simple_example/) section for more details.
+Check the [A Simple Example](https://maif.github.io/arta/a_simple_example/) section for more details.
 
 ## Installation
 
-Install using `pip install -U arta`. See the [Install](https://pages.github.com/MAIF/arta/installation/) section in the documentation for more details.
+Install using `pip install -U arta`. See the [Install](https://maif.github.io/arta/installation/) section in the documentation for more details.
 
 ## What's New
 
