@@ -7,4 +7,4 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ## [0.7.0b] - April, 2024
 
 ### New Features
-- Beta release implementing what you can find in its [documentation](https://pages.github.com/MAIF/arta/home).
+- Beta release implementing what you can find in its [documentation](https://maif.github.io/arta/home/).
