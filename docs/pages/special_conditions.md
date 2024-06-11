@@ -35,7 +35,7 @@ if input.name == "john" and input.age == "42":
 
 With the **custom conditions** it's quite simple to implement.
 
-!!! question "Why using a custom condition?"
+!!! question "Why use a custom condition?"
 
     The main goal is to simplify handling of recurrent conditions (e.i., "recurrent" meaning very similar conditions).
 

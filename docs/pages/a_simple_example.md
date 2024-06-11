@@ -17,7 +17,7 @@ The rules (intentionally simple) are:
 
 ``` mermaid
 ---
-title: Simple ruleset example
+title: Simple rule set example
 ---
 flowchart LR
     input[fa:fa-mask Super Hero Data ]
