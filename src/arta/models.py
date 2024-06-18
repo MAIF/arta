@@ -54,7 +54,7 @@ class RulesConfig(pydantic.BaseModel):
 
     condition: Optional[str]
     simple_condition: Optional[str]
-    action: pydantic.constr(to_lower=True)  # type: ignore  # NOSONAR
+    action: pydantic.constr(to_lower=True)  # type: ignore
     action_parameters: Optional[Any]
 
     class Config:
@@ -69,7 +69,7 @@ class Configuration(pydantic.BaseModel):
     actions_source_modules: List[str]
     custom_classes_source_modules: Optional[List[str]]
     condition_factory_mapping: Optional[Dict[str, str]]
-    rules: Dict[str, Dict[str, Dict[pydantic.constr(to_upper=True), RulesConfig]]]  # type: ignore  # NOSONAR
+    rules: Dict[str, Dict[str, Dict[pydantic.constr(to_upper=True), RulesConfig]]]  # type: ignore
     parsing_error_strategy: Optional[ParsingErrorStrategy]
 
     class Config:

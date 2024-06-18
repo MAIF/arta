@@ -85,7 +85,7 @@ nav:
   - Advanced User Guide: 
     - Parameters: parameters.md
     - Rule sets: rule_sets.md
-    - Special conditions: special_conditions.md
+    - Custom conditions: custom_conditions.md
     - API Reference: api_reference.md
 extra_css:
   - assets/css/mkdocs_extra.css

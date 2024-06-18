@@ -45,10 +45,10 @@ class BaseCondition(ABC):
             validation_function: Validation function of a condition.
             validation_function_parameters: Arguments of the validation function.
         """
-        self._condition_id = condition_id  # NOSONAR
-        self._description = description  # NOSONAR
-        self._validation_function = validation_function  # NOSONAR
-        self._validation_function_parameters = validation_function_parameters  # NOSONAR
+        self._condition_id = condition_id
+        self._description = description
+        self._validation_function = validation_function
+        self._validation_function_parameters = validation_function_parameters
 
     @classmethod
     def extract_condition_ids_from_expression(cls, condition_expr: str | None = None) -> set[str]:
