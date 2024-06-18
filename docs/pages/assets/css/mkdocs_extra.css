@@ -1,0 +1,19 @@
+:root {
+   --md-admonition-icon--beta: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path d="M150.53 371.75h-30.572q6.67-31.313 6.67-56.697v-201.78q0-31.498 5.56-46.877 5.743-15.379 22.049-27.052 16.49-11.858 41.134-11.858 29.274 0 49.1 15.564 20.01 15.379 20.01 43.913 0 33.351-31.684 54.659 47.248 22.234 47.248 69.852 0 25.94-12.599 46.507-12.414 20.381-28.904 29.09-16.304 8.708-39.095 8.708-25.94 0-42.245-19.455v34.463q0 35.576-6.67 60.96zm6.67-112.1q14.452 23.902 40.393 23.902 25.013 0 36.686-18.158 11.673-18.343 11.673-44.469 0-20.011-7.782-40.763-7.597-20.937-19.64-31.869-11.117 2.78-20.011 2.78-18.713 0-18.713-9.821 0-8.894 15.749-8.894 9.82 0 24.458 4.447 13.155-22.234 13.155-48.359 0-23.346-10.376-35.76-10.191-12.414-26.681-12.414-13.155 0-22.604 7.412-9.264 7.411-12.785 17.787-3.523 10.19-3.523 33.537z"/></svg>')
+}
+.md-typeset .admonition.beta,
+.md-typeset details.beta {
+  border-color: #CF363B;
+}
+.md-typeset .beta > .admonition-title,
+.md-typeset .beta > summary {
+  background-color:  #CF363B;
+}
+.md-typeset .beta > .admonition-title::before,
+.md-typeset .beta > summary::before {
+  background-color:  white;
+  -webkit-mask-image: var(--md-admonition-icon--beta);
+          mask-image: var(--md-admonition-icon--beta);
+}
+
+

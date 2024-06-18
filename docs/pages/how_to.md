@@ -2,22 +2,22 @@ Ensure that you have correctly installed **Arta** before, check the [Installatio
 
 ## Simple condition
 
-!!! example "Beta feature"
+!!! beta "Beta feature"
 
     **Simple condition** is still a *beta feature*, some cases could not work as designed.
 
 **Simple conditions** are a new and straightforward way of configuring your *conditions*.
 
-It simplifies a lot your rules by:
+It simplifies your rules a lot by:
 
 * Removing the use of a `conditions.py` module (no validation functions needed).
-* Removing the `conditions:` configuration key in your YAML files.
+* Removing the `conditions`: configuration key in your YAML files.
 
 !!! note
 
     With the **simple conditions** you use straight *boolean expressions* directly in your configuration.
     
-    It is easyer to read and maintain :+1:
+    It is easier to read and maintain :+1:
 
 The *configuration key* here is:
 
@@ -59,7 +59,7 @@ How to write a simple condition like:
 * **Left operand (data mapping):** 
     * You must use one of the following prefixes: 
         * `input` (for input data)
-        * `output` (for previous rule's result)
+        * `output` (for the previous rule's result)
     * A *dot path* expression like `input.powers.main_power`.
 * **Operator:** you must use basic python *boolean operator* (i.e., `==, <, >, <=, >=, !=`)
 * **Right operand:** basic python data types (e.i., `str, int, None`).

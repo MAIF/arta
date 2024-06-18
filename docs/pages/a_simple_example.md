@@ -15,23 +15,35 @@ Imagine the following use case:
 
 The rules (intentionally simple) are:
 
-!!! success "Admission rules"
+``` mermaid
+---
+title: Simple rule set example
+---
+flowchart LR
+    input[fa:fa-mask Super Hero Data ]
+    power{{fa:fa-circle-question Should the hero be admitted?}}
+    admission_true(fa:fa-circle-check Set admission to True)
+    admission_false(fa:fa-circle-xmark Set admission to False)
+    course{{fa:fa-circle-question In which course should the hero be enrolled?}}
+    meal{{fa:fa-circle-question Do we know their favorite meal?}}
+    course_french(fa:fa-cheese French course)
+    course_senior(fa:fa-person-cane Senior course)
+    course_international(fa:fa-globe International course)
+    cook((fa:fa-user-ninja Cook))
 
-    If the applicant has a school authorized power then he is admitted, 
-    
-    Else he is not.
 
-!!! example "Course selection rules"
+input --> power
+input --> course
+input --> meal
+power -- Power is flight or strength --> admission_true
+power -- Else --> admission_false
+course -- Age is known and speaks french --> course_french
+course -- Their age is unknown --> course_senior
+course -- Their language is not French --> course_international
+meal -- fa:fa-envelope Send an email to the cook --> cook
 
-    If he is speaking french and his age is known then he must take the "french" course, 
-    
-    Else if his age is unknown (e.g., it's a very old superhero), then he must take the "senior" course,
-    
-    Else if he is not speaking french, then he must take the "international" course. 
+```
 
-!!! info "Send favorite meal rules"
-
-    If he is admitted and has a prefered dish, then we send an email to the school cook with the dish name.
 
 ### Rules
 
