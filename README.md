@@ -26,7 +26,7 @@
 
 ### Goal
 
-There is one main reason for using **Arta** and it was the main goal of its development at *MAIF*: increase business rules maintainability.
+There is one main reason for using **Arta** and it was the main goal behind its development at *MAIF*: increase business rules maintainability.
 
 In other words, facilitate rules handling in our python apps.
 
