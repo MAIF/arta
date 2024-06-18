@@ -40,7 +40,7 @@ power -- Else --> admission_false
 course -- Age is known and speaks french --> course_french
 course -- Their age is unknown --> course_senior
 course -- Their language is not French --> course_international
-meal -- fa:fa-envelope send an email to the cook --> cook
+meal -- fa:fa-envelope Send an email to the cook --> cook
 
 ```
 
