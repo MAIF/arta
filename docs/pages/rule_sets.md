@@ -126,3 +126,4 @@ classDiagram
     rule "1..*" -- "0..*" condition
     rule "1..*" -- "1" action
 ```
+
