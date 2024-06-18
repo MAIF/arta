@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "arta"
-version = "0.7.0b2"
+version = "0.7.0b3"
 requires-python = ">3.8.0"
 description = "An Open Source Rules Engine - Make rule handling simple"
 readme = "README.md"
@@ -27,6 +27,7 @@ classifiers = [
 dependencies = [
     "omegaconf>=2.0.0",
     "pydantic>=1.0.0",
+    "urllib3!=2.2.1",
 ]
 
 [project.optional-dependencies]
