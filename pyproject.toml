@@ -8,6 +8,7 @@ version = "0.7.0b3"
 requires-python = ">3.8.0"
 description = "An Open Source Rules Engine - Make rule handling simple"
 readme = "README.md"
+license = {text = "Apache-2.0"}
 authors = [
     {name = "develop-cs"},
     {name = "HugoPerrier"},
@@ -16,12 +17,18 @@ authors = [
 
 classifiers = [
     "Development Status :: 4 - Beta",
+    "Operating System :: OS Independent",
     "Intended Audience :: Developers",
+    "Intended Audience :: Information Technology",
     "Topic :: Software Development :: Libraries :: Python Modules",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
+    "License :: OSI Approved :: Apache Software License",
 ]
 
 dependencies = [
@@ -29,6 +36,11 @@ dependencies = [
     "pydantic>=1.0.0",
     "urllib3!=2.2.1",
 ]
+
+[project.urls]
+Homepage = "https://maif.github.io/arta/"
+Documentation = "https://maif.github.io/arta/home/"
+Repository = "https://github.com/MAIF/arta"
 
 [project.optional-dependencies]
 all = ["arta[test,dev,doc,mypy,ruff]"]

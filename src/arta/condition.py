@@ -26,7 +26,7 @@ class BaseCondition(ABC):
     """
 
     # Class constants
-    CONST_CONDITION_DATA_LABEL: str = "Custom condition data (not needed)"
+    CONDITION_DATA_LABEL: str = "Custom condition data (not needed)"
     CONDITION_ID_PATTERN: str = UPPERCASE_WORD_PATTERN
 
     def __init__(
@@ -142,7 +142,7 @@ class SimpleCondition(BaseCondition):
     """
 
     # Class constants
-    CONST_CUSTOM_CONDITION_DATA_LABEL: str = "Simple condition data (not needed)"
+    CUSTOM_CONDITION_DATA_LABEL: str = "Simple condition data (not needed)"
     CONDITION_ID_PATTERN: str = r"(?:input\.|output\.)(?:[a-z_\-0-9!=<>\"NTF\.]*)"
 
     def verify(self, input_data: dict[str, Any], parsing_error_strategy: ParsingErrorStrategy, **kwargs: Any) -> bool:
