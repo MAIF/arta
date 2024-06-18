@@ -37,7 +37,7 @@ input --> course
 input --> meal
 power -- Power is flight or strength --> admission_true
 power -- Else --> admission_false
-course -- Their age is known and they are French --> course_french
+course -- Age is known and speaks french --> course_french
 course -- Their age is unknown --> course_senior
 course -- Their language is not French --> course_international
 meal -- fa:fa-envelope send an email to the cook --> cook
