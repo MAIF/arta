@@ -60,6 +60,13 @@ from arta.exceptions import ConditionExecutionError, RuleExecutionError
             "simple_cond_conf/wrong/ignore",
             {"admission": {"admission": True}, "course": {"course_id": "senior"}, "email": True},
         ),
+        (
+            {
+                "text": "super hero super hero",
+            },
+            "simple_cond_conf/whitespace",
+            {"whitespace": "OK"},
+        ),
     ],
 )
 def test_simple_condition(input_data, config_dir, good_results, base_config_path):
@@ -90,8 +97,15 @@ def test_simple_condition(input_data, config_dir, good_results, base_config_path
                             "verified_conditions": {
                                 "condition": {"expression": None, "values": {}},
                                 "simple_condition": {
-                                    "expression": 'input.power=="strength" or input.power=="fly"',
-                                    "values": {'input.power=="strength"': True, 'input.power=="fly"': False},
+                                    "expression": (
+                                        'input.power=="strength" or input.power=="fly" or input.'
+                                        'power=="time-manipulation"'
+                                    ),
+                                    "values": {
+                                        'input.power=="strength"': True,
+                                        'input.power=="fly"': False,
+                                        'input.power=="time-manipulation"': False,
+                                    },
                                 },
                             },
                             "activated_rule": "ADM_OK",
@@ -194,3 +208,34 @@ def test_error_apply_rules_missing_input_key(input_data, config_dir, expected_er
 
     with pytest.raises(expected_error):
         _ = eng.apply_rules(input_data=input_data, verbose=False)
+
+
+# @pytest.mark.skip(reason="Not yet implemented, coming soon")
+@pytest.mark.parametrize(
+    "input_data, config_dir, good_results",
+    [
+        (
+            {
+                "a": 1.3,
+                "b": 0.7,
+                "threshold": 0.89,
+            },
+            "simple_cond_conf/math",
+            {
+                "add": "greater than threshold",
+                "sub": "less or equal than threshold",
+                "mul": "greater than threshold",
+                "div": "greater than threshold",
+                "equal_1": "no",
+                "equal_2": "yes",
+            },
+        ),
+    ],
+)
+def test_math(input_data, config_dir, good_results, base_config_path):
+    """Unit test of the method RulesEngine.apply_rules()"""
+    config_path = os.path.join(base_config_path, config_dir)
+    eng = RulesEngine(config_path=config_path)
+    res = eng.apply_rules(input_data=input_data)
+
+    assert res == good_results

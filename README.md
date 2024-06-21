@@ -6,7 +6,7 @@
 </p>
 <p align="center">
   <img src="https://github.com/MAIF/arta/actions/workflows/ci-cd.yml/badge.svg?branch=main" alt="CI">
-  <img src="https://img.shields.io/badge/coverage-95%25-dark_green" alt="Coverage">
+  <img src="https://img.shields.io/badge/coverage-97%25-dark_green" alt="Coverage">
   <img src="https://img.shields.io/pypi/v/arta" alt="Versions">
   <img src="https://img.shields.io/pypi/pyversions/arta" alt="Python">
   <img src="https://img.shields.io/pypi/dm/arta" alt="Downloads">

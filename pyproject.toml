@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "arta"
-version = "0.7.0b3"
+version = "0.7.0"
 requires-python = ">3.8.0"
 description = "An Open Source Rules Engine - Make rule handling simple"
 readme = "README.md"
@@ -16,7 +16,7 @@ authors = [
 ]
 
 classifiers = [
-    "Development Status :: 4 - Beta",
+    "Development Status :: 5 - Production/Stable",
     "Operating System :: OS Independent",
     "Intended Audience :: Developers",
     "Intended Audience :: Information Technology",

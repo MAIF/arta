@@ -61,14 +61,21 @@ How to write a simple condition like:
         * `input` (for input data)
         * `output` (for the previous rule's result)
     * A *dot path* expression like `input.powers.main_power`.
+    * Even a *math expression* like: `input.x*input.y>input.threshold` *(but without any whitespaces)*.
 * **Operator:** you must use basic python *boolean operator* (i.e., `==, <, >, <=, >=, !=`)
-* **Right operand:** basic python data types (e.i., `str, int, None`).
+* **Right operand:** basic python data types (e.i., `str, int, float, None`) or a *dot path* expression (e.g., `input.threshold`).
 
-!!! warning
+!!! tip
 
-    * You can't use: `is` or `in`, as an **operator** (yet).
-    * You can't use a `float` as **right operand** (it's a bug, will be fixed).
-    * For strings, don't forget the **double quotes** `"`.
+    You can use simple **math expressions** in a *simple condition*:
+    
+    `simple_condition: input.x+input.y>input.threshold and input.x*input.y<123.4`
+
+!!! warning "Warnings"
+
+    * You can only use `+`, `-`, `*`, `/` as **math operators**.
+    * You can't use `is` neither `in`, as a **boolean operator**.
+    * Don't forget the *double quotes* `"` for **strings**.
 
 !!! danger "Security concern"
 
@@ -78,6 +85,7 @@ How to write a simple condition like:
     
     * **You should never let the user** being able of dynamically define a *simple condition* (in `simple_condition:` conf. key).
     * You should verify that **write permissions on the YAML files** are not allowed when your app is deployed.
+    * You should implement **data validation** of your input data (e.g., with Pydantic).
 
 ## Standard condition
 

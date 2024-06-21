@@ -1,0 +1,102 @@
+---
+# Global settings
+actions_source_modules:
+  - "tests.examples.code.actions"
+
+# Rule sets for simple conditions tests
+rules:
+  default_rule_set:
+    add:
+      GREATER:
+        simple_condition: input.a+input.b>input.threshold
+        action: concatenate_str
+        action_parameters:
+          list_str:
+            - greater
+            - " than "
+            - threshold
+      LESS:
+        simple_condition: input.a+input.b<=input.threshold
+        action: concatenate_str
+        action_parameters:
+          list_str:
+            - less or equal
+            - " than "
+            - threshold
+    sub:
+      GREATER:
+        simple_condition: input.a-input.b>input.threshold
+        action: concatenate_str
+        action_parameters:
+          list_str:
+            - greater
+            - " than "
+            - threshold
+      LESS:
+        simple_condition: input.a-input.b<=input.threshold
+        action: concatenate_str
+        action_parameters:
+          list_str:
+            - less or equal
+            - " than "
+            - threshold
+    mul:
+      GREATER:
+        simple_condition: input.a*input.b>input.threshold
+        action: concatenate_str
+        action_parameters:
+          list_str:
+            - greater
+            - " than "
+            - threshold
+      LESS:
+        simple_condition: input.a*input.b<=input.threshold
+        action: concatenate_str
+        action_parameters:
+          list_str:
+            - less or equal
+            - " than "
+            - threshold
+    div:
+      GREATER:
+        simple_condition: input.a/input.b>input.threshold
+        action: concatenate_str
+        action_parameters:
+          list_str:
+            - greater
+            - " than "
+            - threshold
+      LESS:
+        simple_condition: input.a/input.b<=input.threshold
+        action: concatenate_str
+        action_parameters:
+          list_str:
+            - less or equal
+            - " than "
+            - threshold
+    equal_1:
+      YES:
+        simple_condition: input.a==input.b
+        action: concatenate_str
+        action_parameters:
+          list_str:
+            - "yes"
+      NO:
+        simple_condition: input.a!=input.b
+        action: concatenate_str
+        action_parameters:
+          list_str:
+            - "no"
+    equal_2:
+      YES:
+        simple_condition: input.a==1.3
+        action: concatenate_str
+        action_parameters:
+          list_str:
+            - "yes"
+      NO:
+        simple_condition: input.a!=1.3
+        action: concatenate_str
+        action_parameters:
+          list_str:
+            - "no"

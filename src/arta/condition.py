@@ -143,7 +143,7 @@ class SimpleCondition(BaseCondition):
 
     # Class constants
     CUSTOM_CONDITION_DATA_LABEL: str = "Simple condition data (not needed)"
-    CONDITION_ID_PATTERN: str = r"(?:input\.|output\.)(?:[a-z_\-0-9!=<>\"NTF\.]*)"
+    CONDITION_ID_PATTERN: str = r"(?:input\.|output\.)(?:[a-z_0-9!=<>\"NTF\.\*\+\-/]*)(?:[a-z\s]*\"|)"
 
     def verify(self, input_data: dict[str, Any], parsing_error_strategy: ParsingErrorStrategy, **kwargs: Any) -> bool:
         """Return True if the condition is verified.
@@ -164,26 +164,25 @@ class SimpleCondition(BaseCondition):
         bool_var: bool = False
         unitary_expr: str = self._condition_id
 
-        data_path_patt: str = r"(?:input\.|output\.)(?:[a-z_\-\.]*)"
+        data_path_patt: str = r"(?:input\.|output\.)(?:[a-z_\.]*)"
 
         # Retrieve only the data path
         path_matches: list[str] = re.findall(data_path_patt, unitary_expr)
 
-        if len(path_matches) == 1:
-            # Regular case: we have a data_path
-            data_path: str = path_matches[0]
+        if len(path_matches) > 0:
+            # Regular case: we have a data paths
+            for idx, path in enumerate(path_matches):
+                # Read data from the path
+                locals()[f"data_{idx}"] = parse_dynamic_parameter(  # noqa
+                    parameter=path, input_data=input_data, parsing_error_strategy=parsing_error_strategy
+                )
 
-            # Read data from its path
-            data = parse_dynamic_parameter(  # noqa
-                parameter=data_path, input_data=input_data, parsing_error_strategy=parsing_error_strategy
-            )
-
-            # Replace with the variable name in the expression
-            eval_expr: str = unitary_expr.replace(data_path, "data")
+                # Replace with the variable name in the expression
+                unitary_expr = unitary_expr.replace(path, f"data_{idx}")
 
             # Evaluate the expression
             try:
-                bool_var = eval(eval_expr)  # noqa
+                bool_var = eval(unitary_expr)  # noqa
             except TypeError:
                 # Ignore evaluation --> False
                 pass
