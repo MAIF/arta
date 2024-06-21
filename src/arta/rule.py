@@ -260,7 +260,7 @@ class Rule:
                     # Instanciate the custom (unknown) condition object
                     cond_instances[cond_id] = self._condition_factory_mapping[conf_key](
                         condition_id=cond_id,
-                        description=self._condition_factory_mapping[conf_key].CONST_CONDITION_DATA_LABEL,
+                        description=self._condition_factory_mapping[conf_key].CONDITION_DATA_LABEL,
                     )
             else:
                 # Should be a standard condition

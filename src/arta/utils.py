@@ -163,7 +163,9 @@ def sanitize_regex(pattern: str) -> str:
     """
     if re.search(UPPERCASE_WORD_PATTERN, pattern) is None:
         # Pattern is not like 'CONDITION_2' but like 'input.power=="fly"'
-        pattern = pattern.replace('"', r"\"").replace(".", r"\.")
+        pattern = (
+            pattern.replace('"', r"\"").replace(".", r"\.").replace("+", r"\+").replace("-", r"\-").replace("*", r"\*")
+        )
     else:
         pattern = rf"\b{pattern}\b"
 

@@ -65,6 +65,7 @@ class RulesEngine:
         Raises:
             KeyError: Key not found.
             TypeError: Wrong type.
+            ValueError: Bad given parameters.
         """
         # Var init.
         factory_mapping_classes: dict[str, type[BaseCondition]] = {}
@@ -169,8 +170,10 @@ class RulesEngine:
             A dictionary containing the rule groups' results (k: group id, v: action result).
 
         Raises:
-            TypeError: Wrong type.
-            KeyError: Key not found.
+            TypeError: Wrong type (e.g., input_data is not a dictionary).
+            KeyError: Key not found (e.g., input_data is an empty dictionary).
+            RuleExecutionError: A rule fails during execution.
+            ConditionExecutionError: A condition fails during execution.
         """
         # Input_data validation
         if not isinstance(input_data, dict):

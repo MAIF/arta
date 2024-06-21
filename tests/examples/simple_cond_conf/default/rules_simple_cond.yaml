@@ -8,7 +8,7 @@ rules:
   default_rule_set:
     admission:
       ADM_OK:
-        simple_condition: input.power=="strength" or input.power=="fly"
+        simple_condition: input.power=="strength" or input.power=="fly" or input.power=="time-manipulation"
         action: set_admission
         action_parameters:
           value: true      

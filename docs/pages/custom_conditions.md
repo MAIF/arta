@@ -1,5 +1,3 @@
-## Custom condition
-
 **Custom conditions** are user-defined conditions. 
 
 A **custom condition** will impact the atomic evaluation of each **conditions** (i.e., condition ids).
@@ -39,7 +37,7 @@ With the **custom conditions** it's quite simple to implement.
 
     The main goal is to simplify handling of recurrent conditions (e.i., "recurrent" meaning very similar conditions).
 
-### Class implementation
+## Class implementation
 
 First, create a class inheriting from `BaseCondtion` and implement the `verify()` method as you want/need:
 
@@ -75,7 +73,7 @@ class MyCondition(BaseCondition):
         ParsingErrorStrategy.IGNORE
         ParsingErrorStrategy.DEFAULT_VALUE
 
-### Configuration
+## Configuration
 
 Last thing to do is to add your new **custom condition** in the configuration:
 
@@ -118,7 +116,7 @@ condition_factory_mapping:
 2. List of the modules containing custom classes
 3. Mapping between condition keys (`my_condition`) and custom classes (`MyCondition`)
 
-### Class diagram
+## Class diagram
 
 It is based on the following *strategy pattern*:
 

@@ -4,7 +4,33 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+
+## [0.7.0] - June, 2024
+
+### Features
+
+* Configure your rules in a YAML file or use a straightforward python dictionary.
+* Use "[standard conditions](https://maif.github.io/arta/how_to/#standard-condition)" (YAML defined conditions) for flexibility.
+* Use "[simple conditions](https://maif.github.io/arta/how_to/#simple-condition)" (one-liner conditions) for simplicity (beta feature).
+* Use *math expressions* in "[simple conditions](https://maif.github.io/arta/how_to/#simple-condition)" (#25).
+* Implement your own "[custom conditions](https://maif.github.io/arta/special_conditions/#custom-condition)" (python classes) for adaptability.
+* Define your own parameter's [parsing strategy](https://maif.github.io/arta/parameters/#parsing-error) (raise, ignore, default value).
+* Use many [rule sets](https://maif.github.io/arta/rule_sets/) as you need.
+
+### Fixes
+
+* You can now use *whitespaces* in a string within a *simple condition* (e.g., `input.text=="super hero"`) (#23).
+
+
 ## [0.7.0b*] - April, 2024
 
-### New Features
-- Beta release implementing what you can find in its [documentation](https://maif.github.io/arta/home/).
+*Beta release*
+
+### Features
+
+* Configure your rules in a YAML file or use a straightforward python dictionary.
+* Use "[standard conditions](https://maif.github.io/arta/how_to/#standard-condition)" (YAML defined conditions) for flexibility.
+* Use "[simple conditions](https://maif.github.io/arta/how_to/#simple-condition)" (one-liner conditions) for simplicity (beta feature).
+* Implement your own "[custom conditions](https://maif.github.io/arta/special_conditions/#custom-condition)" (python classes) for adaptability.
+* Define your own parameter's [parsing strategy](https://maif.github.io/arta/parameters/#parsing-error) (raise, ignore, default value).
+* Use many [rule sets](https://maif.github.io/arta/rule_sets/) as you need.

@@ -149,7 +149,7 @@ def send_email(mail_to: str, mail_content: str, meal: str, **kwargs: Any) -> boo
 
 ### Engine
 
-The *rules engine* is responsible for evaluating the [configured rules](#rules-definition) against some *data* (usually named *"input data"*). 
+The *rules engine* is responsible for evaluating the [configured rules](#rules) against some *data* (usually named *"input data"*). 
 
 In our use case, the input data could be a list of applicants:
 
@@ -220,7 +220,7 @@ In the **rules engine** result, we have 3 outputs:
 * `"course": {"course_id": "senior"},`
 * `"favorite_meal": "sent"` 
 
-Each corresponds to one of these [rules](#quick-example-the-superhero-school).
+Each corresponds to one of these [rules](#the-superhero-school).
 
 Here, we can apply the rules to all the **data set** (3 applicants) with a simple dictionary comprehension:
 
