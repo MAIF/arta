@@ -99,9 +99,11 @@ The *configuration key* here is:
 
     The built-in file format used by Arta for configuration is **YAML**.
 
-!!! example "Enhancement proposal"
+!!! note "You don't like YAML?"
 
-    We are thinking on a design that will allow user-implemented loading of the configuration (e.g., if you prefer using a JSON format). Stay tuned.
+    The `config_dict` constructor's parameter of `RulesEngine` lets you give a regular python **dictionary** containing the parsed configuration. 
+    
+    Thereby, you can use *any file format* to save your configuration, just parse them in a dictionary and use it as an argument.
 
 ### YAML file
 
@@ -152,13 +154,17 @@ actions_source_modules:  # (5)
 
 !!! tip
 
-    You can split your configuration in multiple YAML files seamlessly in order to keep things clear. Example:
+    You can split your configuration in **multiple YAML files** seamlessly in order to keep things clear. Example:
     
-    * global.yaml => source modules
-    * rules.yaml => rules' definition
-    * conditions.yaml => conditions' definition
+    * *global.yaml* => source modules
+    * *rules.yaml* => rules' definition
+    * *conditions.yaml* => conditions' definition
 
-    It's very convenient when you have a lot of different rules and conditions in your app.
+    It's very convenient when you have a lot of different **rules** and **conditions** in your app.
+
+    !!! tip "A tip in a tip"
+
+        You can also split one **rule set** in many different files. Just keep in mind that the aggregation order of your rules will be done following an **alphabetical order of the file names**.
 
 ### Condition expression
 
