@@ -72,7 +72,7 @@ from arta.exceptions import ConditionExecutionError, RuleExecutionError
                 "text": "SUPER HERO",
             },
             "simple_cond_conf/uppercase",
-            {"whitespace": "OK"},
+            {"uppercase": "OK"},
         ),
     ],
 )

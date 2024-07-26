@@ -6,7 +6,7 @@ actions_source_modules:
 # Rule sets for simple conditions tests
 rules:
   default_rule_set:
-    whitespace:
+    uppercase:
       RULE_1:
         simple_condition: input.text=="SUPERHERO" or input.text=="SUPER HERO" or input.text=="SUPER_HERO" or input.text=="SUPER-HERO"
         action: concatenate_str
