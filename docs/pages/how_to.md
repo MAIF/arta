@@ -101,9 +101,9 @@ The *configuration key* here is:
 
 !!! note "You don't like YAML?"
 
-    The `config_dict` constructor's parameter of `RulesEngine` lets you give a regular python **dictionary** containing the parsed configuration. 
+    The `config_dict` constructor's parameter of `RulesEngine` lets you give a regular python **dictionary** containing the deserialized configuration. 
     
-    Thereby, you can use *any file format* to save your configuration, just parse them in a dictionary and use it as an argument.
+    Thereby, you can use *any file format* to save your configuration. Just deserialize it to a dictionary and use it as an argument.
 
 ### YAML file
 
