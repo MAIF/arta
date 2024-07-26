@@ -27,7 +27,7 @@ rules:
         condition: HAS_SCHOOL_AUTHORIZED_POWER
         action: set_admission
         action_parameters:
-          value: true      
+          value: true
       ADM_KO:
         condition: null
         action: set_admission

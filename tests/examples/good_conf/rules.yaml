@@ -7,7 +7,7 @@ rules:
         condition: HAS_SCHOOL_AUTHORIZED_POWER
         action: set_admission
         action_parameters:
-          value: true      
+          value: true
       ADM_KO:
         condition: null
         action: set_admission
@@ -28,7 +28,7 @@ rules:
         condition: not(IS_SPEAKING_ENGLISH)
         action: set_student_course
         action_parameters:
-          course_id: "international"      
+          course_id: "international"
     email:
       EMAIL_COOK:
         condition: HAS_SCHOOL_AUTHORIZED_POWER

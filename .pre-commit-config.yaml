@@ -9,25 +9,24 @@ repos:
       - id: check-byte-order-marker
       - id: check-case-conflict
       - id: check-docstring-first
-      - id: check-executables-have-shebangs
       - id: check-json
       - id: check-yaml
-        exclude: ^(chart/|docs/)
+        exclude: ^(docs/)
       - id: debug-statements
       - id: end-of-file-fixer
-        exclude: ^(docs/|gdocs/)
+        exclude: ^(docs/)
       - id: pretty-format-json
         args: ['--autofix']
       - id: trailing-whitespace
         args: ['--markdown-linebreak-ext=md']
-        exclude: ^(docs/|gdocs/)
+        exclude: ^(docs/)
       - id: mixed-line-ending
         args: ['--fix=lf']
-        exclude: ^(docs/|gdocs/)
+        exclude: ^(docs/)
       - id: check-added-large-files
         args: ['--maxkb=500']
       - id: no-commit-to-branch
-        args: ['--branch', 'master', '--branch', 'develop']
+        args: ['--branch', 'main']
   - repo: https://github.com/astral-sh/ruff-pre-commit
     rev: v0.5.4
     hooks:
