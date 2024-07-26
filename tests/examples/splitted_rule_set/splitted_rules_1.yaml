@@ -1,0 +1,26 @@
+---
+rules:
+  default_rule_set:
+    admission:
+      ADM_OK:
+        condition: HAS_SCHOOL_AUTHORIZED_POWER
+        action: set_admission
+        action_parameters:
+          value: true
+      ADM_KO:
+        condition: null
+        action: set_admission
+        action_parameters:
+          value: false
+
+conditions_source_modules:
+  - "tests.examples.code.conditions"
+actions_source_modules:
+  - "tests.examples.code.actions"
+
+parsing_error_strategy: raise
+
+custom_classes_source_modules:
+  - "tests.examples.code.custom_class"
+condition_factory_mapping:
+  custom_condition: "CustomCondition"

@@ -10,7 +10,7 @@ from abc import ABC, abstractmethod
 from typing import Any, Callable
 
 from arta.exceptions import ConditionExecutionError
-from arta.utils import UPPERCASE_WORD_PATTERN, ParsingErrorStrategy, parse_dynamic_parameter
+from arta.utils import ParsingErrorStrategy, parse_dynamic_parameter
 
 
 class BaseCondition(ABC):
@@ -26,8 +26,8 @@ class BaseCondition(ABC):
     """
 
     # Class constants
-    CONDITION_DATA_LABEL: str = "Custom condition data (not needed)"
-    CONDITION_ID_PATTERN: str = UPPERCASE_WORD_PATTERN
+    CONDITION_DATA_LABEL: str = "Undefined condition data (not needed)"
+    CONDITION_ID_PATTERN: str = r"\b[A-Z_0-9]+\b"
 
     def __init__(
         self,
@@ -50,6 +50,31 @@ class BaseCondition(ABC):
         self._validation_function = validation_function
         self._validation_function_parameters = validation_function_parameters
 
+    @abstractmethod
+    def verify(self, input_data: dict[str, Any], parsing_error_strategy: ParsingErrorStrategy, **kwargs: Any) -> bool:
+        """(Abstract)
+        Return True if the condition is verified.
+
+        Args:
+            input_data: Input data to apply rules on.
+            parsing_error_strategy: Error handling strategy for parameter parsing.
+            **kwargs: For user extra arguments.
+
+        Returns:
+            True if the condition is verified, otherwise False.
+        """
+        raise NotImplementedError
+
+    def get_sanitized_id(self) -> str:
+        """Return the sanitized (regex) condition id.
+
+        E.g., 'CONDITION_2'       --> '\\bCONDITION_2\\b'
+
+        Returns:
+            A sanitized regex pattern string.
+        """
+        return rf"\b{self._condition_id}\b"
+
     @classmethod
     def extract_condition_ids_from_expression(cls, condition_expr: str | None = None) -> set[str]:
         """Get the condition ids from a string (e.g., UPPERCASE words).
@@ -71,21 +96,6 @@ class BaseCondition(ABC):
 
         return cond_ids
 
-    @abstractmethod
-    def verify(self, input_data: dict[str, Any], parsing_error_strategy: ParsingErrorStrategy, **kwargs: Any) -> bool:
-        """(Abstract)
-        Return True if the condition is verified.
-
-        Args:
-            input_data: Input data to apply rules on.
-            parsing_error_strategy: Error handling strategy for parameter parsing.
-            **kwargs: For user extra arguments.
-
-        Returns:
-            True if the condition is verified, otherwise False.
-        """
-        raise NotImplementedError
-
 
 class StandardCondition(BaseCondition):
     """Class implementing a built-in condition, named standard condition.
@@ -96,6 +106,9 @@ class StandardCondition(BaseCondition):
         validation_function: Validation function of a condition.
         validation_function_parameters: Arguments of the validation function.
     """
+
+    # Class constants
+    CONDITION_DATA_LABEL: str = "Standard condition (will be overwritten)"
 
     def verify(self, input_data: dict[str, Any], parsing_error_strategy: ParsingErrorStrategy, **kwargs: Any) -> bool:
         """Return True if the condition is verified.
@@ -142,8 +155,8 @@ class SimpleCondition(BaseCondition):
     """
 
     # Class constants
-    CUSTOM_CONDITION_DATA_LABEL: str = "Simple condition data (not needed)"
-    CONDITION_ID_PATTERN: str = r"(?:input\.|output\.)(?:[a-z_0-9!=<>\"NTF\.\*\+\-/]*)(?:[a-z\s]*\"|)"
+    CONDITION_DATA_LABEL: str = "Simple condition data (not needed)"
+    CONDITION_ID_PATTERN: str = r"(?:input\.|output\.)(?:[a-zA-Z0-9!=<>\"NTF\.\*\+\-_/]*)(?:[a-zA-Z\s\-_]*\"|)"
 
     def verify(self, input_data: dict[str, Any], parsing_error_strategy: ParsingErrorStrategy, **kwargs: Any) -> bool:
         """Return True if the condition is verified.
@@ -196,3 +209,13 @@ class SimpleCondition(BaseCondition):
             pass
 
         return bool_var
+
+    def get_sanitized_id(self) -> str:
+        """Return the sanitized (regex) condition id.
+
+        E.g., 'input.power=="fly"' --> 'input\\.power==\\"fly\\"'
+
+        Returns:
+            A sanitized regex pattern string.
+        """
+        return re.escape(self._condition_id)

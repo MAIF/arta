@@ -147,7 +147,24 @@ classDiagram
         #description
         #validation_function
         #validation_function_parameters
-        +verify()
+        +CONDITION_DATA_LABEL$
+        +CONDITION_ID_PATTERN$
+        +verify()*
+        +get_sanitized_id()
+        +extract_condition_ids_from_expression()$
+    }
+    class StandardCondition {
+      +CONDITION_DATA_LABEL$
+      +verify()
+    }
+    class SimpleCondition {
+      +CONDITION_DATA_LABEL$
+      +CONDITION_ID_PATTERN$
+      +verify()
+      +get_sanitized_id()
+    }
+    class MyCondition {
+      +verify()
     }
 ```
 

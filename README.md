@@ -6,10 +6,11 @@
 </p>
 <p align="center">
   <img src="https://github.com/MAIF/arta/actions/workflows/ci-cd.yml/badge.svg?branch=main" alt="CI">
-  <img src="https://img.shields.io/badge/coverage-97%25-dark_green" alt="Coverage">
+  <img src="https://img.shields.io/badge/coverage-95%25-dark_green" alt="Coverage">
   <img src="https://img.shields.io/pypi/v/arta" alt="Versions">
   <img src="https://img.shields.io/pypi/pyversions/arta" alt="Python">
-  <img src="https://img.shields.io/pypi/dm/arta" alt="Downloads">
+  <img src="https://img.shields.io/pypi/implementation/arta" alt="Python implementation">
+  <img src="https://img.shields.io/pepy/dt/arta" alt="Downloads">
 </p>
 
 ---
@@ -34,7 +35,7 @@ In other words, facilitate rules handling in our python apps.
 
 The need of a python *rules engine* emerged when we were working on a new major release of our internal use of [Melusine](https://github.com/maif/melusine) (i.e., email qualification pipeline with ML capabilities).
 
-We were looking for a python library to *centralize, manage and standardize* all the implemented **business rules** we had but didn't find the perfect fit. 
+We were looking for a python library to *centralize, manage and standardize* all the implemented **business rules** we had but didn't find the perfect fit.
 
 Therefore, we decided to create this package and by extension of the MAIF's values, we planned to share it to the community.
 
@@ -139,4 +140,3 @@ and general hints on how to prepare your pull request. You can also ask for clar
 This project is Open Source and available under the Apache 2 License.
 
 [![Alt MAIF Logo](https://static.maif.fr/resources/img/logo-maif.svg)](https://www.maif.fr/)
-
