@@ -1,0 +1,24 @@
+---
+# Global settings
+actions_source_modules:
+  - "tests.examples.code.actions"
+
+# Rule sets for simple conditions tests
+rules:
+  default_rule_set:
+    admission:
+      IGNORED_RULE_1:
+        simple_condition: input.power=="strength"
+        action: set_admission
+        action_parameters:
+          value: true
+      IGNORED_RULE_2:
+        simple_condition: input.age>1
+        action: set_admission
+        action_parameters:
+          value: true
+      ADM_KO:
+        simple_condition: null
+        action: set_admission
+        action_parameters:
+          value: false
