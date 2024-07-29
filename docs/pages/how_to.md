@@ -350,6 +350,19 @@ conditions:
           value: true
 ```
 
+!!! info "Ignoring rules during execution"
+
+    You can **ignore** (i.e., disable) some rules if needed. Just give the **ids** of the rules that you want the *rules engine* to ignore when calling the `apply_rules()` method. 
+    
+    Use its `ignored_rules` parameter:
+    
+    ```python
+    ignored_rules = {"ADMITTED_RULE", "RULE_XYZ"}
+    res = eng.apply_rules(input_data, ignored_rules=ignored_rules)
+    ```
+
+    Cf. [API reference](https://maif.github.io/arta/api_reference/#arta._engine.RulesEngine.apply_rules).
+
 ### Condition and Action
 
 **Conditions** and **actions** are quite similar in terms of implementation but their goals are different.
