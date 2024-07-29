@@ -246,3 +246,19 @@ def test_math(input_data, config_dir, good_results, base_config_path):
     res = eng.apply_rules(input_data=input_data)
 
     assert res == good_results
+
+
+def test_simple_condition_with_ignored_rule(base_config_path):
+    """Unit test of the method RulesEngine.apply_rules()"""
+    input_data = {
+        "age": 100,
+        "power": "strength",
+    }
+    config_dir = "simple_cond_conf/ignore_rule"
+    config_path = os.path.join(base_config_path, config_dir)
+    good_results = {"admission": {"admission": False}}
+
+    eng = RulesEngine(config_path=config_path, ignored_rules=["IGNORED_RULE_1", "IGNORED_RULE_2"])
+    res = eng.apply_rules(input_data=input_data)
+
+    assert res == good_results

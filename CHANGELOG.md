@@ -9,6 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Features
 
 * Add a new parameter `config_dict` in the `RulesEngine`'s constructor. It can be used when you have already loaded the YAML configuration in a dictionary and want to use it straightforward.
+* Add a new parameter `ignored_rules` in the `RulesEngine`'s constructor. It can be used to easily disable a rule.
 * Split a rule set in two (or more) files (keep the rules organized by their file names [alphabetically sorted]).
 
 ### Fixes

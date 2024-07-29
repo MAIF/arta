@@ -440,3 +440,44 @@ def test_kwargs_in_apply_rules(input_data, good_results, base_config_path):
     res = eng.apply_rules(input_data, rule_set="fourth_rule_set", my_parameter="super@connection")
 
     assert res == good_results
+
+
+def test_ignored_rules():
+    """Unit test of the method RulesEngine.apply_rules() when there are rules to ignore"""
+    rules_raw = {
+        "power_level": {
+            "ignored_1": {
+                "condition": None,
+                "condition_parameters": None,
+                "action": lambda x, **kwargs: x,
+                "action_parameters": {"x": "ignored_1"},
+            },
+            "ignored_2": {
+                "condition": lambda p: p in ["juggle", "sing", "sleep"],
+                "condition_parameters": {"p": "input.power"},
+                "action": lambda x, **kwargs: x,
+                "action_parameters": {"x": "ignored_2"},
+            },
+            "no_power": {
+                "condition": None,
+                "condition_parameters": None,
+                "action": lambda x, **kwargs: x,
+                "action_parameters": {"x": "no_power"},
+            },
+        },
+    }
+
+    input_data = {
+        "age": 5000,
+        "language": "english",
+        "power": "juggle",
+        "favorite_meal": None,
+        "weapons": ["Magic lasso", "Bulletproof bracelets", "Sword", "Shield"],
+    }
+
+    expected_results = {"power_level": "no_power"}
+
+    eng_2 = RulesEngine(rules_dict=rules_raw, ignored_rules=["ignored_1", "ignored_2"])
+    res = eng_2.apply_rules(input_data, verbose=False)
+
+    assert res == expected_results

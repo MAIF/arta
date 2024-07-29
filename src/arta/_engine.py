@@ -54,6 +54,7 @@ class RulesEngine:
         rules_dict: dict[str, dict[str, Any]] | None = None,
         config_path: str | None = None,
         config_dict: dict[str, Any] | None = None,
+        ignored_rules: list[str] | None = None,
     ) -> None:
         """Initialize the rules.
 
@@ -70,6 +71,9 @@ class RulesEngine:
             TypeError: Wrong type.
             ValueError: Bad given parameters.
         """
+        # Set attributes
+        self.ignored_rules = set(ignored_rules) if ignored_rules is not None else set()
+
         # Var init.
         factory_mapping_classes: dict[str, type[BaseCondition]] = {}
         std_condition_instances: dict[str, StandardCondition] = {}
@@ -304,6 +308,9 @@ class RulesEngine:
 
                 # Looping through rules (inside a group)
                 for rule_id, rule_dict in group_rules.items():
+                    if rule_id in self.ignored_rules:
+                        continue
+
                     # Get action function
                     action_function_name: str = rule_dict[self.CONST_ACTION_CONF_KEY]
 
@@ -399,6 +406,9 @@ class RulesEngine:
 
             # Looping through rules (inside a group)
             for rule_id, rule_dict in group_rules.items():
+                if rule_id in self.ignored_rules:
+                    continue
+
                 # Get action function
                 action = rule_dict["action"]
 
