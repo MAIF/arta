@@ -8,7 +8,7 @@ from arta.exceptions import ConditionExecutionError, RuleExecutionError
 
 
 @pytest.mark.parametrize(
-    "input_data, config_dir, good_results",
+    "input_data, config_dir, ignored_rules, good_results",
     [
         (
             {
@@ -18,6 +18,7 @@ from arta.exceptions import ConditionExecutionError, RuleExecutionError
                 "favorite_meal": "Spinach",
             },
             "simple_cond_conf/default",
+            None,
             {"admission": {"admission": True}, "course": {"course_id": "senior"}, "email": True},
         ),
         (
@@ -28,6 +29,7 @@ from arta.exceptions import ConditionExecutionError, RuleExecutionError
                 "favorite_meal": None,
             },
             "simple_cond_conf/default",
+            None,
             {"admission": {"admission": True}, "course": {"course_id": "english"}, "email": None},
         ),
         (
@@ -38,6 +40,7 @@ from arta.exceptions import ConditionExecutionError, RuleExecutionError
                 "favorite_meal": "French Fries",
             },
             "simple_cond_conf/default",
+            None,
             {"admission": {"admission": False}, "course": {"course_id": "senior"}, "email": None},
         ),
         (
@@ -48,6 +51,7 @@ from arta.exceptions import ConditionExecutionError, RuleExecutionError
                 "favorite_meal": "Spinach",
             },
             "simple_cond_conf/ignore",
+            None,
             {"admission": {"admission": True}, "course": {"course_id": "senior"}, "email": True},
         ),
         (
@@ -58,6 +62,7 @@ from arta.exceptions import ConditionExecutionError, RuleExecutionError
                 "favorite_meal": "Spinach",
             },
             "simple_cond_conf/wrong/ignore",
+            None,
             {"admission": {"admission": True}, "course": {"course_id": "senior"}, "email": True},
         ),
         (
@@ -65,6 +70,7 @@ from arta.exceptions import ConditionExecutionError, RuleExecutionError
                 "text": "super hero super hero",
             },
             "simple_cond_conf/whitespace",
+            None,
             {"whitespace": "OK"},
         ),
         (
@@ -72,15 +78,30 @@ from arta.exceptions import ConditionExecutionError, RuleExecutionError
                 "text": "SUPER HERO",
             },
             "simple_cond_conf/uppercase",
+            None,
             {"uppercase": "OK"},
+        ),
+        (
+            {
+                "text": "SUPER HERO",
+            },
+            "simple_cond_conf/uppercase",
+            set(),
+            {"uppercase": "OK"},
+        ),
+        (
+            {"age": 100, "power": "strength"},
+            "simple_cond_conf/ignored_rules",
+            {"IGNORED_RULE_1", "IGNORED_RULE_2"},
+            {"admission": {"admission": False}},
         ),
     ],
 )
-def test_simple_condition(input_data, config_dir, good_results, base_config_path):
+def test_simple_condition(input_data, config_dir, ignored_rules, good_results, base_config_path):
     """Unit test of the method RulesEngine.apply_rules()"""
     config_path = os.path.join(base_config_path, config_dir)
     eng = RulesEngine(config_path=config_path)
-    res = eng.apply_rules(input_data=input_data)
+    res = eng.apply_rules(input_data=input_data, ignored_rules=ignored_rules)
 
     assert res == good_results
 
@@ -243,22 +264,6 @@ def test_math(input_data, config_dir, good_results, base_config_path):
     """Unit test of the method RulesEngine.apply_rules()"""
     config_path = os.path.join(base_config_path, config_dir)
     eng = RulesEngine(config_path=config_path)
-    res = eng.apply_rules(input_data=input_data)
-
-    assert res == good_results
-
-
-def test_simple_condition_with_ignored_rule(base_config_path):
-    """Unit test of the method RulesEngine.apply_rules()"""
-    input_data = {
-        "age": 100,
-        "power": "strength",
-    }
-    config_dir = "simple_cond_conf/ignore_rule"
-    config_path = os.path.join(base_config_path, config_dir)
-    good_results = {"admission": {"admission": False}}
-
-    eng = RulesEngine(config_path=config_path, ignored_rules=["IGNORED_RULE_1", "IGNORED_RULE_2"])
     res = eng.apply_rules(input_data=input_data)
 
     assert res == good_results

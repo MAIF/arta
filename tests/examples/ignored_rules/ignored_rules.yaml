@@ -1,0 +1,84 @@
+---
+rules:
+  default_rule_set:
+    admission:
+      ADM_OK:
+        condition: HAS_SCHOOL_AUTHORIZED_POWER
+        action: set_admission
+        action_parameters:
+          value: true
+      ADM_KO:
+        condition: null
+        action: set_admission
+        action_parameters:
+          value: false
+    course:
+      COURSE_ENGLISH:
+        condition: IS_SPEAKING_ENGLISH and not(IS_AGE_UNKNOWN)
+        action: set_student_course
+        action_parameters:
+          course_id: "english"
+      COURSE_SENIOR:
+        condition: IS_AGE_UNKNOWN
+        action: set_student_course
+        action_parameters:
+          course_id: "senior"
+      COURSE_INTERNATIONAL:
+        condition: not(IS_SPEAKING_ENGLISH)
+        action: set_student_course
+        action_parameters:
+          course_id: "international"
+    email:
+      EMAIL_COOK:
+        condition: HAS_SCHOOL_AUTHORIZED_POWER
+        action: send_email
+        action_parameters:
+          mail_to: "cook@super-heroes.test"
+          mail_content: "Thanks for preparing once a month the following dish:"
+          meal: input.favorite_meal
+
+conditions:
+  HAS_SCHOOL_AUTHORIZED_POWER:
+    description: "Does it have school authorized power?"
+    validation_function: has_authorized_super_power
+    condition_parameters:
+      authorized_powers:
+      - "strength"
+      - "fly"
+      - "immortality"
+      candidate_powers: input.powers
+  IS_SPEAKING_FRENCH:
+    description: "Does it speak french?"
+    validation_function: is_speaking_language
+    condition_parameters:
+      value: "french"
+      spoken_language: input.language
+  IS_SPEAKING_ENGLISH:
+    description: "Does it speak english?"
+    validation_function: is_speaking_language
+    condition_parameters:
+      value: "english"
+      spoken_language: input.language
+  IS_AGE_UNKNOWN:
+    description: "Do we know his age?"
+    validation_function: is_age_unknown
+    condition_parameters:
+      age: input.age
+  HAS_FAVORITE_MEAL:
+    description: "Does it have a favorite meal?"
+    validation_function: has_favorite_meal
+    condition_parameters:
+      favorite_meal: input.favorite_meal
+
+
+conditions_source_modules:
+  - "tests.examples.code.conditions"
+actions_source_modules:
+  - "tests.examples.code.actions"
+
+parsing_error_strategy: raise
+
+custom_classes_source_modules:
+  - "tests.examples.code.custom_class"
+condition_factory_mapping:
+  custom_condition: "CustomCondition"

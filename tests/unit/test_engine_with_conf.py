@@ -18,29 +18,6 @@ def test_instanciation(base_config_path):
     eng_2 = RulesEngine(config_dict=config_dict)
     assert isinstance(eng_2, RulesEngine)
 
-    # Dummy action function
-    set_value = lambda value, **kwargs: {"value": value}
-
-    raw_rules = {
-        "type": {
-            "rule_str": {
-                "condition": lambda x: isinstance(x, str),
-                "condition_parameters": {"x": "input.to_check"},
-                "action": set_value,
-                "action_parameters": {"value": "String"},
-            },
-            "rule_other": {
-                "condition": None,
-                "condition_parameters": None,
-                "action": set_value,
-                "action_parameters": {"value": "other type"},
-            },
-        }
-    }
-    # Dictionary instanciation
-    eng_3 = RulesEngine(rules_dict=raw_rules)
-    assert isinstance(eng_3, RulesEngine)
-
 
 @pytest.mark.parametrize(
     "input_data, config_dir, rule_set, verbose, good_results",
@@ -280,6 +257,22 @@ def test_instanciation(base_config_path):
                 "email": True,
             },
         ),
+        (
+            {
+                "age": None,
+                "language": "french",
+                "powers": ["strength", "fly"],
+                "favorite_meal": "Spinach",
+            },
+            "ignored_rules",
+            "default_rule_set",
+            False,
+            {
+                "admission": {"admission": True},
+                "course": {"course_id": "senior"},
+                "email": True,
+            },
+        ),
     ],
 )
 def test_conf_apply_rules(input_data, config_dir, rule_set, verbose, good_results, base_config_path):
@@ -293,115 +286,6 @@ def test_conf_apply_rules(input_data, config_dir, rule_set, verbose, good_result
     res_2 = eng_2.apply_rules(input_data=input_data, rule_set=rule_set, verbose=verbose)
 
     assert res_1 == res_2 == good_results
-
-
-@pytest.mark.parametrize(
-    "input_data, verbose, good_results",
-    [
-        (
-            {
-                "age": 5000,
-                "language": "english",
-                "power": "immortality",
-                "favorite_meal": None,
-                "weapons": ["Magic lasso", "Bulletproof bracelets", "Sword", "Shield"],
-            },
-            True,
-            {
-                "verbosity": {
-                    "rule_set": "default_rule_set",
-                    "results": [
-                        {
-                            "rule_group": "power_level",
-                            "verified_conditions": {
-                                "condition": {"expression": "USER_CONDITION", "values": {"USER_CONDITION": True}}
-                            },
-                            "activated_rule": "super_power",
-                            "action_result": "super",
-                        },
-                        {
-                            "rule_group": "admission",
-                            "verified_conditions": {
-                                "condition": {"expression": "USER_CONDITION", "values": {"USER_CONDITION": True}}
-                            },
-                            "activated_rule": "admitted",
-                            "action_result": "Admitted!",
-                        },
-                    ],
-                },
-                "power_level": "super",
-                "admission": "Admitted!",
-            },
-        ),
-        (
-            {
-                "age": 5000,
-                "language": "english",
-                "power": "immortality",
-                "favorite_meal": None,
-                "weapons": ["Magic lasso", "Bulletproof bracelets", "Sword", "Shield"],
-            },
-            False,
-            {"power_level": "super", "admission": "Admitted!"},
-        ),
-    ],
-)
-def test_dict_apply_rules(input_data, verbose, good_results):
-    """Unit test of the method RulesEngine.apply_rules() when init was done using rule_dict"""
-    # Dummy action function
-
-    def is_a_super_power(level, **kwargs):
-        """Dummy validation function."""
-        return level == "super"
-
-    def admit(**kwargs):
-        """Dummy action function."""
-        return "Admitted!"
-
-    def set_value(value, **kwargs):
-        """Dummy action function."""
-        return value
-
-    rules_raw = {
-        "power_level": {
-            "super_power": {
-                "condition": lambda p: p in ["immortality", "time_travelling", "invisibility"],
-                "condition_parameters": {"p": "input.power"},
-                "action": lambda x, **kwargs: x,
-                "action_parameters": {"x": "super"},
-            },
-            "minor_power": {
-                "condition": lambda p: p in ["juggle", "sing", "sleep"],
-                "condition_parameters": {"p": "input.power"},
-                "action": lambda x, **kwargs: x,
-                "action_parameters": {"x": "minor"},
-            },
-            "no_power": {
-                "condition": None,
-                "condition_parameters": None,
-                "action": lambda x, **kwargs: x,
-                "action_parameters": {"x": "no_power"},
-            },
-        },
-        "admission": {
-            "admitted": {
-                "condition": is_a_super_power,
-                "condition_parameters": {"level": "output.power_level"},
-                "action": admit,
-                "action_parameters": None,
-            },
-            "not_admitted": {
-                "condition": None,
-                "condition_parameters": None,
-                "action": set_value,
-                "action_parameters": {"value": "Not admitted :-("},
-            },
-        },
-    }
-
-    eng_2 = RulesEngine(rules_dict=rules_raw)
-    res = eng_2.apply_rules(input_data, verbose=verbose)
-    assert res == good_results
 
 
 def test_ignore_global_strategy(base_config_path):
@@ -442,42 +326,31 @@ def test_kwargs_in_apply_rules(input_data, good_results, base_config_path):
     assert res == good_results
 
 
-def test_ignored_rules():
-    """Unit test of the method RulesEngine.apply_rules() when there are rules to ignore"""
-    rules_raw = {
-        "power_level": {
-            "ignored_1": {
-                "condition": None,
-                "condition_parameters": None,
-                "action": lambda x, **kwargs: x,
-                "action_parameters": {"x": "ignored_1"},
+@pytest.mark.parametrize(
+    "input_data, config_dir, rule_set, ignored_rules, good_results",
+    [
+        (
+            {
+                "age": None,
+                "language": "french",
+                "powers": ["strength", "fly"],
+                "favorite_meal": "Spinach",
             },
-            "ignored_2": {
-                "condition": lambda p: p in ["juggle", "sing", "sleep"],
-                "condition_parameters": {"p": "input.power"},
-                "action": lambda x, **kwargs: x,
-                "action_parameters": {"x": "ignored_2"},
+            "ignored_rules",
+            "default_rule_set",
+            {"ADM_OK"},
+            {
+                "admission": {"admission": False},
+                "course": {"course_id": "senior"},
+                "email": True,
             },
-            "no_power": {
-                "condition": None,
-                "condition_parameters": None,
-                "action": lambda x, **kwargs: x,
-                "action_parameters": {"x": "no_power"},
-            },
-        },
-    }
+        ),
+    ],
+)
+def test_conf_ignored_rules(input_data, config_dir, rule_set, ignored_rules, good_results, base_config_path):
+    """UT of ignored rules."""
+    path = os.path.join(base_config_path, config_dir)
+    eng = RulesEngine(config_path=path)
+    res = eng.apply_rules(input_data=input_data, rule_set=rule_set, ignored_rules=ignored_rules)
 
-    input_data = {
-        "age": 5000,
-        "language": "english",
-        "power": "juggle",
-        "favorite_meal": None,
-        "weapons": ["Magic lasso", "Bulletproof bracelets", "Sword", "Shield"],
-    }
-
-    expected_results = {"power_level": "no_power"}
-
-    eng_2 = RulesEngine(rules_dict=rules_raw, ignored_rules=["ignored_1", "ignored_2"])
-    res = eng_2.apply_rules(input_data, verbose=False)
-
-    assert res == expected_results
+    assert res == good_results

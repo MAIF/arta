@@ -54,7 +54,6 @@ class RulesEngine:
         rules_dict: dict[str, dict[str, Any]] | None = None,
         config_path: str | None = None,
         config_dict: dict[str, Any] | None = None,
-        ignored_rules: list[str] | None = None,
     ) -> None:
         """Initialize the rules.
 
@@ -64,16 +63,13 @@ class RulesEngine:
             rules_dict: A dictionary containing the rules' definitions.
             config_path: Path of a directory containing the YAML files.
             config_dict: A dictionary containing the configuration (same as YAML files but already
-                        parsed in a dictionary).
+                         parsed in a dictionary).
 
         Raises:
             KeyError: Key not found.
             TypeError: Wrong type.
             ValueError: Bad given parameters.
         """
-        # Set attributes
-        self.ignored_rules = set(ignored_rules) if ignored_rules is not None else set()
-
         # Var init.
         factory_mapping_classes: dict[str, type[BaseCondition]] = {}
         std_condition_instances: dict[str, StandardCondition] = {}
@@ -159,7 +155,13 @@ class RulesEngine:
             )
 
     def apply_rules(
-        self, input_data: dict[str, Any], *, rule_set: str | None = None, verbose: bool = False, **kwargs: Any
+        self,
+        input_data: dict[str, Any],
+        *,
+        rule_set: str | None = None,
+        ignored_rules: set[str] | None = None,
+        verbose: bool = False,
+        **kwargs: Any,
     ) -> dict[str, Any]:
         """Apply the rules and return results.
 
@@ -174,6 +176,7 @@ class RulesEngine:
         Args:
             input_data: Input data to apply rules on.
             rule_set: Apply rules associated with the specified rule set.
+            ignored_rules: A set/list of rule's ids to be ignored/disabled during evaluation.
             verbose: If True, add extra ids (group_id, rule_id) for result explicability.
             **kwargs: For user extra arguments.
 
@@ -194,6 +197,7 @@ class RulesEngine:
 
         # Var init.
         input_data_copy: dict[str, Any] = copy.deepcopy(input_data)
+        ignored_ids: set[str] = ignored_rules if ignored_rules is not None else set()
 
         # Prepare the result key
         input_data_copy["output"] = {}
@@ -219,6 +223,10 @@ class RulesEngine:
 
             # Rules' loop (inside a group)
             for rule in rules_list:
+                if rule._rule_id in ignored_ids:
+                    # Ignore that rule
+                    continue
+
                 # Apply rules
                 action_result, rule_details = rule.apply(
                     input_data_copy, parsing_error_strategy=self._parsing_error_strategy, **kwargs
@@ -308,9 +316,6 @@ class RulesEngine:
 
                 # Looping through rules (inside a group)
                 for rule_id, rule_dict in group_rules.items():
-                    if rule_id in self.ignored_rules:
-                        continue
-
                     # Get action function
                     action_function_name: str = rule_dict[self.CONST_ACTION_CONF_KEY]
 
@@ -406,9 +411,6 @@ class RulesEngine:
 
             # Looping through rules (inside a group)
             for rule_id, rule_dict in group_rules.items():
-                if rule_id in self.ignored_rules:
-                    continue
-
                 # Get action function
                 action = rule_dict["action"]
 
