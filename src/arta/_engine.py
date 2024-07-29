@@ -63,7 +63,7 @@ class RulesEngine:
             rules_dict: A dictionary containing the rules' definitions.
             config_path: Path of a directory containing the YAML files.
             config_dict: A dictionary containing the configuration (same as YAML files but already
-                        parsed in a dictionary).
+                         parsed in a dictionary).
 
         Raises:
             KeyError: Key not found.
@@ -155,7 +155,13 @@ class RulesEngine:
             )
 
     def apply_rules(
-        self, input_data: dict[str, Any], *, rule_set: str | None = None, verbose: bool = False, **kwargs: Any
+        self,
+        input_data: dict[str, Any],
+        *,
+        rule_set: str | None = None,
+        ignored_rules: set[str] | None = None,
+        verbose: bool = False,
+        **kwargs: Any,
     ) -> dict[str, Any]:
         """Apply the rules and return results.
 
@@ -170,6 +176,7 @@ class RulesEngine:
         Args:
             input_data: Input data to apply rules on.
             rule_set: Apply rules associated with the specified rule set.
+            ignored_rules: A set/list of rule's ids to be ignored/disabled during evaluation.
             verbose: If True, add extra ids (group_id, rule_id) for result explicability.
             **kwargs: For user extra arguments.
 
@@ -190,6 +197,7 @@ class RulesEngine:
 
         # Var init.
         input_data_copy: dict[str, Any] = copy.deepcopy(input_data)
+        ignored_ids: set[str] = ignored_rules if ignored_rules is not None else set()
 
         # Prepare the result key
         input_data_copy["output"] = {}
@@ -215,6 +223,10 @@ class RulesEngine:
 
             # Rules' loop (inside a group)
             for rule in rules_list:
+                if rule._rule_id in ignored_ids:
+                    # Ignore that rule
+                    continue
+
                 # Apply rules
                 action_result, rule_details = rule.apply(
                     input_data_copy, parsing_error_strategy=self._parsing_error_strategy, **kwargs

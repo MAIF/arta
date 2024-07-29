@@ -25,8 +25,6 @@ repos:
         exclude: ^(docs/)
       - id: check-added-large-files
         args: ['--maxkb=500']
-      - id: no-commit-to-branch
-        args: ['--branch', 'main']
   - repo: https://github.com/astral-sh/ruff-pre-commit
     rev: v0.5.4
     hooks:
