@@ -13,7 +13,6 @@ from arta.exceptions import ConditionExecutionError, RuleExecutionError
 from arta.utils import (
     ParsingErrorStrategy,
     parse_dynamic_parameter,
-    sanitize_regex,
 )
 
 
@@ -218,7 +217,7 @@ class Rule:
                 raise ConditionExecutionError(f"Error while executing condition '{cond_id}': {str(error)}") from error
 
             # Replace the result in the boolean expression
-            sanit_cond_id: str = sanitize_regex(cond_id)
+            sanit_cond_id: str = condition.get_sanitized_id()
             bool_expr = re.sub(rf"{sanit_cond_id}", str(bool_var), bool_expr)
 
         # Evaluate the final boolean expressions = final result

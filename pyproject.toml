@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "arta"
-version = "0.7.1"
+version = "0.8.0"
 requires-python = ">3.8.0"
 description = "An Open Source Rules Engine - Make rule handling simple"
 readme = "README.md"
@@ -65,9 +65,13 @@ testpaths = ["tests"]
 [tool.mypy]
 exclude = ["tests"]
 ignore_missing_imports = true
+plugins = ["pydantic.mypy"]
 
 [tool.ruff]
 line-length = 120
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
 
 [tool.ruff.lint]
 select = [
@@ -87,3 +91,6 @@ select = [
 ]
 ignore = ["E501", "D2", "D3", "D4", "D104", "D100", "D106", "S311"]
 exclude = ["tests/*"]
+
+[tool.ruff.format]
+docstring-code-format = true

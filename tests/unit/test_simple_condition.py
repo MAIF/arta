@@ -67,6 +67,13 @@ from arta.exceptions import ConditionExecutionError, RuleExecutionError
             "simple_cond_conf/whitespace",
             {"whitespace": "OK"},
         ),
+        (
+            {
+                "text": "SUPER HERO",
+            },
+            "simple_cond_conf/uppercase",
+            {"uppercase": "OK"},
+        ),
     ],
 )
 def test_simple_condition(input_data, config_dir, good_results, base_config_path):

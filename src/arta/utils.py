@@ -7,9 +7,6 @@ import re
 from enum import Enum
 from typing import Any
 
-# Global constants
-UPPERCASE_WORD_PATTERN: str = r"\b[A-Z_0-9]+\b"
-
 
 class ParsingErrorStrategy(str, Enum):
     """Define authorized error handling strategies when a key is missing in the input data."""
@@ -147,26 +144,3 @@ def check_parsing_error_strategy_override(
         param_path = "".join(param_path.split("?")[:-1])
 
     return default_value, param_path, parsing_error_strategy
-
-
-def sanitize_regex(pattern: str) -> str:
-    """Return a sanitized regex string.
-
-    E.g., 'input.power=="fly"' --> 'input\\.power==\\"fly\\"'
-           'CONDITION_2'       --> '\\bCONDITION_2\\b'
-
-    Args:
-        pattern: A regex pattern string.
-
-    Returns:
-        A sanitized regex pattern string.
-    """
-    if re.search(UPPERCASE_WORD_PATTERN, pattern) is None:
-        # Pattern is not like 'CONDITION_2' but like 'input.power=="fly"'
-        pattern = (
-            pattern.replace('"', r"\"").replace(".", r"\.").replace("+", r"\+").replace("-", r"\-").replace("*", r"\*")
-        )
-    else:
-        pattern = rf"\b{pattern}\b"
-
-    return pattern

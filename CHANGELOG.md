@@ -4,6 +4,20 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.8.0] - July, 2024
+
+### Features
+
+* Add a new parameter `config_dict` in the `RulesEngine`'s constructor. It can be used when you have already loaded the YAML configuration in a dictionary and want to use it straightforward.
+* Split a rule set in two (or more) files (keep the rules organized by their file names [alphabetically sorted]).
+
+### Fixes
+
+* *Simple condition:* an error occurs when the right operand is a uppercase string (e.g., `input.text=="LABEL"`).
+
+### Refactoring
+
+* Function `sanitize_regex()` is converted to an instance method `get_sanitized_id()` of `BaseCondition` class.
 
 ## [0.7.1] - June, 2024
 

@@ -53,14 +53,17 @@ class RulesEngine:
         *,
         rules_dict: dict[str, dict[str, Any]] | None = None,
         config_path: str | None = None,
+        config_dict: dict[str, Any] | None = None,
     ) -> None:
         """Initialize the rules.
 
-        2 possibilities: either 'rules_dict', or 'config_path', not both.
+        3 possibilities: either one of 'rules_dict', or 'config_path', or 'config_dict'.
 
         Args:
             rules_dict: A dictionary containing the rules' definitions.
             config_path: Path of a directory containing the YAML files.
+            config_dict: A dictionary containing the configuration (same as YAML files but already
+                        parsed in a dictionary).
 
         Raises:
             KeyError: Key not found.
@@ -71,8 +74,12 @@ class RulesEngine:
         factory_mapping_classes: dict[str, type[BaseCondition]] = {}
         std_condition_instances: dict[str, StandardCondition] = {}
 
-        if config_path is not None and rules_dict is not None:
-            raise ValueError("RulesEngine takes only one parameter: 'rules_dict' or 'config_path', not both.")
+        given_params: list[bool] = [config_path is not None, rules_dict is not None, config_dict is not None]
+
+        if given_params.count(True) != 1:
+            raise ValueError(
+                "RulesEngine takes one (and only one) parameter: 'rules_dict' or 'config_path' or 'config_dict'."
+            )
 
         # Init. default parsing_error_strategy (probably not needed because already defined elsewhere)
         self._parsing_error_strategy: ParsingErrorStrategy = ParsingErrorStrategy.RAISE
@@ -91,13 +98,15 @@ class RulesEngine:
             # Attribute definition
             self.rules: dict[str, dict[str, list[Rule]]] = self._adapt_user_rules_dict(rules_dict)
 
-        # Initialize with a config_path
-        elif config_path is not None:
-            # Load config in attribute
-            config_dict: dict[str, Any] = load_config(config_path)
+        # Initialize with a config_path or config_dict
+        else:
+            if config_path is not None:
+                # Load config in attribute
+                config_dict = load_config(config_path)
 
-            # Data validation
-            config: Configuration = Configuration(**config_dict)
+            if config_dict is not None:
+                # Data validation
+                config: Configuration = Configuration(**config_dict)
 
             if config.parsing_error_strategy is not None:
                 # Set parsing error handling strategy from config
@@ -144,8 +153,6 @@ class RulesEngine:
                 config=config.dict(),
                 factory_mapping_classes=factory_mapping_classes,
             )
-        else:
-            raise ValueError("RulesEngine needs a parameter: 'rule_dict' or 'config_path'.")
 
     def apply_rules(
         self, input_data: dict[str, Any], *, rule_set: str | None = None, verbose: bool = False, **kwargs: Any

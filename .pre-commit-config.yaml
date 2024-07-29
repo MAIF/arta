@@ -2,18 +2,44 @@
 default_language_version:
   python: python3
 repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.6.0
+    hooks:
+      - id: check-ast
+      - id: check-byte-order-marker
+      - id: check-case-conflict
+      - id: check-docstring-first
+      - id: check-json
+      - id: check-yaml
+        exclude: ^(docs/)
+      - id: debug-statements
+      - id: end-of-file-fixer
+        exclude: ^(docs/)
+      - id: pretty-format-json
+        args: ['--autofix']
+      - id: trailing-whitespace
+        args: ['--markdown-linebreak-ext=md']
+        exclude: ^(docs/)
+      - id: mixed-line-ending
+        args: ['--fix=lf']
+        exclude: ^(docs/)
+      - id: check-added-large-files
+        args: ['--maxkb=500']
+      - id: no-commit-to-branch
+        args: ['--branch', 'main']
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.4.10
+    rev: v0.5.4
     hooks:
       - id: ruff
         args: [ --fix ]
       - id: ruff-format
   - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: 'v1.10.0'
+    rev: v1.11.0
     hooks:
       - id: mypy
         args: [--config-file=pyproject.toml]
         files: src
+        additional_dependencies: [pydantic~=2.0]
   - repo: https://github.com/gitleaks/gitleaks
     rev: v8.18.4
     hooks:
@@ -24,7 +50,7 @@ repos:
       - id: pip-audit
         args: ["--skip-editable"]
   - repo: https://github.com/compilerla/conventional-pre-commit
-    rev: v3.2.0
+    rev: v3.3.0
     hooks:
       - id: conventional-pre-commit
         stages: [commit-msg]

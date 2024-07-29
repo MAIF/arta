@@ -1,11 +1,4 @@
 ---
-# Global settings
-conditions_source_modules:
-  - "tests.examples.code.conditions"
-actions_source_modules:
-  - "tests.examples.code.actions"
-
-# Rules configuration file
 rules:
   default_rule_set:
     admission:
@@ -19,3 +12,15 @@ rules:
         action: set_admission
         action_parameters:
           value: false
+
+conditions_source_modules:
+  - "tests.examples.code.conditions"
+actions_source_modules:
+  - "tests.examples.code.actions"
+
+parsing_error_strategy: raise
+
+custom_classes_source_modules:
+  - "tests.examples.code.custom_class"
+condition_factory_mapping:
+  custom_condition: "CustomCondition"

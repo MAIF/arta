@@ -4,6 +4,7 @@ import os
 
 import pytest
 from arta import RulesEngine
+from arta.config import load_config
 
 
 def test_instanciation(base_config_path):
@@ -12,6 +13,10 @@ def test_instanciation(base_config_path):
     path = os.path.join(base_config_path, "good_conf")
     eng_1 = RulesEngine(config_path=path)
     assert isinstance(eng_1, RulesEngine)
+
+    config_dict = load_config(path)
+    eng_2 = RulesEngine(config_dict=config_dict)
+    assert isinstance(eng_2, RulesEngine)
 
     # Dummy action function
     set_value = lambda value, **kwargs: {"value": value}
@@ -33,12 +38,12 @@ def test_instanciation(base_config_path):
         }
     }
     # Dictionary instanciation
-    eng_2 = RulesEngine(rules_dict=raw_rules)
-    assert isinstance(eng_2, RulesEngine)
+    eng_3 = RulesEngine(rules_dict=raw_rules)
+    assert isinstance(eng_3, RulesEngine)
 
 
 @pytest.mark.parametrize(
-    "input_data, rule_set, verbose, good_results",
+    "input_data, config_dir, rule_set, verbose, good_results",
     [
         (
             {
@@ -47,6 +52,7 @@ def test_instanciation(base_config_path):
                 "powers": ["strength", "fly"],
                 "favorite_meal": "Spinach",
             },
+            "good_conf",
             "default_rule_set",
             False,
             {
@@ -62,6 +68,7 @@ def test_instanciation(base_config_path):
                 "powers": ["strength", "fly"],
                 "favorite_meal": "Spinach",
             },
+            "good_conf",
             "default_rule_set",
             True,
             {
@@ -116,6 +123,7 @@ def test_instanciation(base_config_path):
                 "favorite_meal": "Spinach",
                 "DUMMY_KEY": "foo",
             },
+            "good_conf",
             "second_rule_set",
             False,
             {
@@ -132,6 +140,7 @@ def test_instanciation(base_config_path):
                 "favorite_meal": "Spinach",
                 "DUMMY_KEY": "foo",
             },
+            "good_conf",
             "second_rule_set",
             True,
             {
@@ -196,6 +205,7 @@ def test_instanciation(base_config_path):
                 "weapons": ["Magic lasso", "Bulletproof bracelets", "Sword", "Shield"],
                 "DUMMY_KEY_2": "bar",
             },
+            "good_conf",
             "second_rule_set",
             False,
             {
@@ -213,6 +223,7 @@ def test_instanciation(base_config_path):
                 "weapons": ["Magic lasso", "Bulletproof bracelets", "Sword", "Shield"],
                 "DUMMY_KEY_3": "bar",
             },
+            "good_conf",
             "second_rule_set",
             False,
             {
@@ -230,6 +241,7 @@ def test_instanciation(base_config_path):
                 "weapons": ["Magic lasso", "Bulletproof bracelets", "Sword", "Shield"],
                 "DUMMY_KEY_4": None,
             },
+            "good_conf",
             "third_rule_set",
             False,
             {
@@ -245,21 +257,42 @@ def test_instanciation(base_config_path):
                 "weapons": ["Magic lasso", "Bulletproof bracelets", "Sword", "Shield"],
                 "DUMMY_KEY": None,
             },
+            "good_conf",
             "third_rule_set",
             False,
             {
                 "admission": {"admission": False},
             },
         ),
+        (
+            {
+                "age": None,
+                "language": "french",
+                "powers": ["strength", "fly"],
+                "favorite_meal": "Spinach",
+            },
+            "splitted_rule_set",
+            "default_rule_set",
+            False,
+            {
+                "admission": {"admission": True},
+                "course": {"course_id": "senior"},
+                "email": True,
+            },
+        ),
     ],
 )
-def test_conf_apply_rules(input_data, rule_set, verbose, good_results, base_config_path):
+def test_conf_apply_rules(input_data, config_dir, rule_set, verbose, good_results, base_config_path):
     """Unit test of the method RulesEngine.apply_rules()"""
-    config_path = os.path.join(base_config_path, "good_conf")
-    eng = RulesEngine(config_path=config_path)
-    res = eng.apply_rules(input_data=input_data, rule_set=rule_set, verbose=verbose)
+    path = os.path.join(base_config_path, config_dir)
+    eng_1 = RulesEngine(config_path=path)
+    res_1 = eng_1.apply_rules(input_data=input_data, rule_set=rule_set, verbose=verbose)
 
-    assert res == good_results
+    config_dict = load_config(path)
+    eng_2 = RulesEngine(config_dict=config_dict)
+    res_2 = eng_2.apply_rules(input_data=input_data, rule_set=rule_set, verbose=verbose)
+
+    assert res_1 == res_2 == good_results
 
 
 @pytest.mark.parametrize(

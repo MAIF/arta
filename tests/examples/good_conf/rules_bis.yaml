@@ -8,7 +8,7 @@ rules:
         condition: HAS_SCHOOL_AUTHORIZED_POWER
         action: set_admission
         action_parameters:
-          value: true      
+          value: true
       ADM_KO:
         custom_condition: null
         condition: null
@@ -33,13 +33,13 @@ rules:
         condition: null
         action: set_student_course
         action_parameters:
-          course_id: "dummy_course" 
+          course_id: "dummy_course"
       COURSE_INTERNATIONAL:
         custom_condition: null
         condition: null
         action: set_student_course
         action_parameters:
-          course_id: "international"      
+          course_id: "international"
     email:
       EMAIL_COOK:
         custom_condition: null
@@ -49,7 +49,7 @@ rules:
           mail_to: "cook@super-heroes.test"
           mail_content: "Thanks for preparing once a month the following dish:"
           meal: input.favorite_meal
-# Third rule set  
+# Third rule set
   third_rule_set:
     admission:
       ADM_OK:
@@ -57,14 +57,14 @@ rules:
         condition: HAS_SCHOOL_AUTHORIZED_POWER
         action: set_admission
         action_parameters:
-          value: true      
+          value: true
       ADM_KO:
         custom_condition: null
         condition: null
         action: set_admission
         action_parameters:
           value: false
-# Fourth rule set  
+# Fourth rule set
   fourth_rule_set:
     admission_rules:
       ADM_OK:
@@ -72,7 +72,7 @@ rules:
         condition: null
         action: set_admission
         action_parameters:
-          value: true      
+          value: true
       ADM_KO:
         custom_condition: null
         condition: null

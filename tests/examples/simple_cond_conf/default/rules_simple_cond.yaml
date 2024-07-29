@@ -11,7 +11,7 @@ rules:
         simple_condition: input.power=="strength" or input.power=="fly" or input.power=="time-manipulation"
         action: set_admission
         action_parameters:
-          value: true      
+          value: true
       ADM_KO:
         simple_condition: null
         action: set_admission
@@ -32,7 +32,7 @@ rules:
         simple_condition: input.language!="english"
         action: set_student_course
         action_parameters:
-          course_id: "international"      
+          course_id: "international"
     email:
       EMAIL_COOK:
         simple_condition: input.favorite_meal!=None and not output.admission.admission==False
