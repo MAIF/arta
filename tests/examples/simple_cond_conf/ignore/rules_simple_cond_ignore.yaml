@@ -43,3 +43,9 @@ rules:
           mail_to: "cook@super-heroes.test"
           mail_content: "Thanks for preparing once a month the following dish:"
           meal: input.favorite_meal
+    family:
+      FAMILY_INFO:
+        simple_condition: input.streetNumber>0 
+        action: set_family
+        action_parameters:
+          number: input.streetNumber
