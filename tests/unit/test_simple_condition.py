@@ -353,5 +353,4 @@ def test_math(input_data, config_dir, good_results, base_config_path):
     config_path = os.path.join(base_config_path, config_dir)
     eng = RulesEngine(config_path=config_path)
     res = eng.apply_rules(input_data=input_data)
-
     assert res == good_results
