@@ -48,10 +48,11 @@ def test_send_email(mail_to, mail_content, meal, expected):
     result = actions.send_email(mail_to, mail_content, meal)
     assert result == expected
 
+
 def test_set_family():
     """Action function unit test."""
-    result = actions.set_family(number = 0)
-    assert result == {'family': False} 
+    result = actions.set_family(number=0)
+    assert result == {"family": False}
 
 
 def test_concatenate_str():

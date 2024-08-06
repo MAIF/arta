@@ -29,12 +29,14 @@ def send_email(mail_to: str, mail_content: str, meal: str, **kwargs: Any) -> boo
 
     return is_ok
 
-def set_family(number: int, **kwargs: Any)->bool:
+
+def set_family(number: int, **kwargs: Any) -> bool:
     """"""
-    family :bool =False
-    if number>0 :
-        family =True 
+    family: bool = False
+    if number > 0:
+        family = True
     return {"family": family}
+
 
 def concatenate_str(list_str: list[Any], **kwargs: Any) -> str:
     """Demo function: return the concatenation of a list of string using input_data (two levels max)."""
