@@ -42,4 +42,4 @@ rules:
         action_parameters:
           mail_to: "cook@super-heroes.test"
           mail_content: "Thanks for preparing once a month the following dish:"
-          meal: input.favorite_meals
+          meal: input.favorite_meal

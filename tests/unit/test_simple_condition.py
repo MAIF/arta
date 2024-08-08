@@ -71,7 +71,7 @@ from arta.exceptions import ConditionExecutionError, RuleExecutionError
             {"dummy": 100, "language": "french", "power": "strength", "favorite_meal": "Spinach"},
             "simple_cond_conf/ignore",
             None,
-            {"admission": {"admission": True}, "course": {"course_id": "senior"}, "email": False},
+            {"admission": {"admission": True}, "course": {"course_id": "senior"}, "email": True},
         ),
         (
             {"age": 100, "language": "french", "power": "strength", "favorite_meal": "Spinach"},
