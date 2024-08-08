@@ -177,7 +177,7 @@ class SimpleCondition(BaseCondition):
         bool_var: bool = False
         unitary_expr: str = self._condition_id
 
-        data_path_patt: str = r"(?:input\.|output\.)(?:[a-z_\.]*)"
+        data_path_patt: str = r"(?:input\.|output\.)(?:[a-zA-Z_\.]*)"
 
         # Retrieve only the data path
         path_matches: list[str] = re.findall(data_path_patt, unitary_expr)

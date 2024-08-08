@@ -16,10 +16,18 @@ from arta.exceptions import ConditionExecutionError, RuleExecutionError
                 "language": "french",
                 "power": "strength",
                 "favorite_meal": "Spinach",
+                "streetNumber": 20,
+                "StreetName": "avenue de paris",
+                "postalCode": 20000,
             },
             "simple_cond_conf/default",
             None,
-            {"admission": {"admission": True}, "course": {"course_id": "senior"}, "email": True},
+            {
+                "admission": {"admission": True},
+                "course": {"course_id": "senior"},
+                "email": True,
+                "family": {"family": True},
+            },
         ),
         (
             {
@@ -27,10 +35,18 @@ from arta.exceptions import ConditionExecutionError, RuleExecutionError
                 "language": "english",
                 "power": "fly",
                 "favorite_meal": None,
+                "streetNumber": 20,
+                "StreetName": "avenue de paris",
+                "postalCode": 20000,
             },
             "simple_cond_conf/default",
             None,
-            {"admission": {"admission": True}, "course": {"course_id": "english"}, "email": None},
+            {
+                "admission": {"admission": True},
+                "course": {"course_id": "english"},
+                "email": None,
+                "family": {"family": True},
+            },
         ),
         (
             {
@@ -38,32 +54,30 @@ from arta.exceptions import ConditionExecutionError, RuleExecutionError
                 "language": "german",
                 "power": "invisibility",
                 "favorite_meal": "French Fries",
+                "streetNumber": 20,
+                "StreetName": "avenue de paris",
+                "postalCode": 20000,
             },
             "simple_cond_conf/default",
             None,
-            {"admission": {"admission": False}, "course": {"course_id": "senior"}, "email": None},
+            {
+                "admission": {"admission": False},
+                "course": {"course_id": "senior"},
+                "email": None,
+                "family": {"family": True},
+            },
         ),
         (
-            {
-                "dummy": 100,
-                "language": "french",
-                "power": "strength",
-                "favorite_meal": "Spinach",
-            },
+            {"dummy": 100, "language": "french", "power": "strength", "favorite_meal": "Spinach"},
             "simple_cond_conf/ignore",
             None,
-            {"admission": {"admission": True}, "course": {"course_id": "senior"}, "email": True},
+            {"admission": {"admission": True}, "course": {"course_id": "senior"}, "email": True, "family": None},
         ),
         (
-            {
-                "age": 100,
-                "language": "french",
-                "power": "strength",
-                "favorite_meal": "Spinach",
-            },
+            {"age": 100, "language": "french", "power": "strength", "favorite_meal": "Spinach"},
             "simple_cond_conf/wrong/ignore",
             None,
-            {"admission": {"admission": True}, "course": {"course_id": "senior"}, "email": True},
+            {"admission": {"admission": True}, "course": {"course_id": "senior"}, "email": True, "family": None},
         ),
         (
             {
@@ -90,10 +104,50 @@ from arta.exceptions import ConditionExecutionError, RuleExecutionError
             {"uppercase": "OK"},
         ),
         (
-            {"age": 100, "power": "strength"},
+            {"age": 100, "power": "strength", "streetNumber": 0, "StreetName": "", "postalCode": 0},
             "simple_cond_conf/ignored_rules",
             {"IGNORED_RULE_1", "IGNORED_RULE_2"},
-            {"admission": {"admission": False}},
+            {"admission": {"admission": False}, "family": None},
+        ),
+        (
+            {
+                "age": 0,
+                "power": "nothing",
+                "streetNumber": 20,
+                "StreetName": "avenue de paris",
+                "postalCode": 20000,
+                "language": "french",
+                "favorite_meal": "Spinach",
+            },
+            "simple_cond_conf/default",
+            None,
+            {
+                "admission": {"admission": False},
+                "family": {"family": True},
+                "course": {"course_id": "international"},
+                "email": None,
+            },
+        ),
+        (
+            {
+                "age": 0,
+                "power": "nothing",
+                "streetNumber": 0,
+                "StreetName": "",
+                "postalCode": 0,
+                "language": "french",
+                "favorite_meal": "Spinach",
+            },
+            "simple_cond_conf/default",
+            None,
+            {
+                "admission": {"admission": False},
+                "course": {
+                    "course_id": "international",
+                },
+                "email": None,
+                "family": None,
+            },
         ),
     ],
 )
@@ -102,7 +156,6 @@ def test_simple_condition(input_data, config_dir, ignored_rules, good_results, b
     config_path = os.path.join(base_config_path, config_dir)
     eng = RulesEngine(config_path=config_path)
     res = eng.apply_rules(input_data=input_data, ignored_rules=ignored_rules)
-
     assert res == good_results
 
 
@@ -115,6 +168,9 @@ def test_simple_condition(input_data, config_dir, ignored_rules, good_results, b
                 "language": "french",
                 "power": "strength",
                 "favorite_meal": "Spinach",
+                "streetNumber": 0,
+                "StreetName": "",
+                "postalCode": 0,
             },
             {
                 "verbosity": {
@@ -171,6 +227,91 @@ def test_simple_condition(input_data, config_dir, ignored_rules, good_results, b
                 "admission": {"admission": True},
                 "course": {"course_id": "senior"},
                 "email": True,
+                "family": None,
+            },
+        ),
+        (
+            {
+                "age": 100,
+                "language": "french",
+                "power": "strength",
+                "favorite_meal": "Spinach",
+                "streetNumber": 20,
+                "StreetName": "avenue de paris",
+                "postalCode": 20000,
+            },
+            {
+                "verbosity": {
+                    "rule_set": "default_rule_set",
+                    "results": [
+                        {
+                            "rule_group": "admission",
+                            "verified_conditions": {
+                                "condition": {"expression": None, "values": {}},
+                                "simple_condition": {
+                                    "expression": (
+                                        'input.power=="strength" or input.power=="fly" or input.'
+                                        'power=="time-manipulation"'
+                                    ),
+                                    "values": {
+                                        'input.power=="strength"': True,
+                                        'input.power=="fly"': False,
+                                        'input.power=="time-manipulation"': False,
+                                    },
+                                },
+                            },
+                            "activated_rule": "ADM_OK",
+                            "action_result": {"admission": True},
+                        },
+                        {
+                            "rule_group": "course",
+                            "verified_conditions": {
+                                "condition": {"expression": None, "values": {}},
+                                "simple_condition": {
+                                    "expression": "input.age>=100 or input.age==None",
+                                    "values": {"input.age==None": False, "input.age>=100": True},
+                                },
+                            },
+                            "activated_rule": "COURSE_SENIOR",
+                            "action_result": {"course_id": "senior"},
+                        },
+                        {
+                            "rule_group": "email",
+                            "verified_conditions": {
+                                "condition": {"expression": None, "values": {}},
+                                "simple_condition": {
+                                    "expression": "input.favorite_meal!=None and not output.admission.admission==False",
+                                    "values": {
+                                        "input.favorite_meal!=None": True,
+                                        "output.admission.admission==False": False,
+                                    },
+                                },
+                            },
+                            "activated_rule": "EMAIL_COOK",
+                            "action_result": True,
+                        },
+                        {
+                            "rule_group": "family",
+                            "verified_conditions": {
+                                "condition": {"expression": None, "values": {}},
+                                "simple_condition": {
+                                    "expression": "input.streetNumber>0 and input.StreetName!=None and input.postalCode>0",
+                                    "values": {
+                                        "input.postalCode>0": True,
+                                        "input.StreetName!=None": True,
+                                        "input.streetNumber>0": True,
+                                    },
+                                },
+                            },
+                            "activated_rule": "FAMILY_INFO",
+                            "action_result": {"family": True},
+                        },
+                    ],
+                },
+                "admission": {"admission": True},
+                "course": {"course_id": "senior"},
+                "email": True,
+                "family": {"family": True},
             },
         ),
     ],
@@ -180,7 +321,6 @@ def test_simple_condition_verbose(input_data, good_results, base_config_path):
     config_path = os.path.join(base_config_path, "simple_cond_conf/default")
     eng = RulesEngine(config_path=config_path)
     res = eng.apply_rules(input_data=input_data, verbose=True)
-
     assert res == good_results
 
 
@@ -265,5 +405,4 @@ def test_math(input_data, config_dir, good_results, base_config_path):
     config_path = os.path.join(base_config_path, config_dir)
     eng = RulesEngine(config_path=config_path)
     res = eng.apply_rules(input_data=input_data)
-
     assert res == good_results
