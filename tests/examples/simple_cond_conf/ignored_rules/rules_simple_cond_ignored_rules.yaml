@@ -22,5 +22,13 @@ rules:
         action: set_admission
         action_parameters:
           value: false
+    family:
+      FAMILY_INFO:
+        simple_condition: input.streetNumber>0 and input.streetName!="" and input.postalCode>0
+        action: set_family
+        action_parameters:
+          street_number: input.streetNumber
+          street_name: input.streetName
+          postal_code: input.postalCode
 
 parsing_error_strategy: raise

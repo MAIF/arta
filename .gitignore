@@ -139,3 +139,4 @@ dmypy.json
 
 # OS
 .DS_Store
+arta_env/

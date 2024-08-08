@@ -71,13 +71,13 @@ from arta.exceptions import ConditionExecutionError, RuleExecutionError
             {"dummy": 100, "language": "french", "power": "strength", "favorite_meal": "Spinach"},
             "simple_cond_conf/ignore",
             None,
-            {"admission": {"admission": True}, "course": {"course_id": "senior"}, "email": True},
+            {"admission": {"admission": True}, "course": {"course_id": "senior"}, "email": True, "family": None},
         ),
         (
             {"age": 100, "language": "french", "power": "strength", "favorite_meal": "Spinach"},
             "simple_cond_conf/wrong/ignore",
             None,
-            {"admission": {"admission": True}, "course": {"course_id": "senior"}, "email": True},
+            {"admission": {"admission": True}, "course": {"course_id": "senior"}, "email": True, "family": None},
         ),
         (
             {
@@ -104,12 +104,10 @@ from arta.exceptions import ConditionExecutionError, RuleExecutionError
             {"uppercase": "OK"},
         ),
         (
-            {"age": 100, "power": "strength"},
+            {"age": 100, "power": "strength", "streetNumber": 0, "streetName": "", "postalCode": 0},
             "simple_cond_conf/ignored_rules",
             {"IGNORED_RULE_1", "IGNORED_RULE_2"},
-            {
-                "admission": {"admission": False},
-            },
+            {"admission": {"admission": False}, "family": None},
         ),
         (
             {
@@ -238,7 +236,7 @@ def test_simple_condition(input_data, config_dir, ignored_rules, good_results, b
                 "language": "french",
                 "power": "strength",
                 "favorite_meal": "Spinach",
-                "streetNumber": 0,
+                "streetNumber": 20,
                 "streetName": "avenue de paris",
                 "postalCode": 20000,
             },
@@ -292,12 +290,28 @@ def test_simple_condition(input_data, config_dir, ignored_rules, good_results, b
                             "activated_rule": "EMAIL_COOK",
                             "action_result": True,
                         },
+                        {
+                            "rule_group": "family",
+                            "verified_conditions": {
+                                "condition": {"expression": None, "values": {}},
+                                "simple_condition": {
+                                    "expression": 'input.streetNumber>0 and input.streetName!="" and input.postalCode>0',
+                                    "values": {
+                                        "input.postalCode>0": True,
+                                        'input.streetName!=""': True,
+                                        "input.streetNumber>0": True,
+                                    },
+                                },
+                            },
+                            "activated_rule": "FAMILY_INFO",
+                            "action_result": {"family": True},
+                        },
                     ],
                 },
                 "admission": {"admission": True},
                 "course": {"course_id": "senior"},
                 "email": True,
-                "family": None,
+                "family": {"family": True},
             },
         ),
     ],

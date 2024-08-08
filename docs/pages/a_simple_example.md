@@ -189,7 +189,6 @@ applicants = [
         "secret_weakness": "Feel alone",
         "weapons": ["Hands", "Batarang"],
         "streetNumber":10,
-
     },
     {
         "id": 3,
@@ -203,7 +202,6 @@ applicants = [
         "secret_weakness": "Lost faith in humanity",
         "weapons": ["Magic lasso", "Bulletproof bracelets", "Sword", "Shield"],
         "streetNumber":5,
-
     },
 ]
 ```
