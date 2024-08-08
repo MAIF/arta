@@ -94,7 +94,7 @@ rules:
         action: set_family
         action_parameters:
           street_number: input.streetNumber
-          street_name: input.streetName
+          street_name: input.StreetName
           postal_code: input.postalCode
 
 
@@ -176,6 +176,8 @@ applicants = [
         "secret_weakness": "Kryptonite",
         "weapons": [],
         "streetNumber":20,
+        "StreetName":"avenue de paris",
+
     },
     {
         "id": 2,
@@ -189,6 +191,8 @@ applicants = [
         "secret_weakness": "Feel alone",
         "weapons": ["Hands", "Batarang"],
         "streetNumber":10,
+        "StreetName":"avenue de paris",
+
     },
     {
         "id": 3,
@@ -202,6 +206,7 @@ applicants = [
         "secret_weakness": "Lost faith in humanity",
         "weapons": ["Magic lasso", "Bulletproof bracelets", "Sword", "Shield"],
         "streetNumber":5,
+        "StreetName":"avenue de paris",
     },
 ]
 ```

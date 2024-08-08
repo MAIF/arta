@@ -31,7 +31,7 @@ def send_email(mail_to: str, mail_content: str, meal: str, **kwargs: Any) -> boo
 
 
 def set_family(street_number: int, street_name: str, postal_code: int, **kwargs: Any) -> bool:
-    """"""
+    """Set family to True if the address exists."""
     family: bool = False
     if street_number > 0 and street_name != "" and postal_code > 0:
         family = True
