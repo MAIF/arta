@@ -11,7 +11,15 @@ from arta.exceptions import ConditionExecutionError, RuleExecutionError
     "input_data, config_dir, ignored_rules, good_results",
     [
         (
-            {"age": 100, "language": "french", "power": "strength", "favorite_meal": "Spinach", "streetNumber": 20},
+            {
+                "age": 100,
+                "language": "french",
+                "power": "strength",
+                "favorite_meal": "Spinach",
+                "streetNumber": 20,
+                "streetName": "avenue de paris",
+                "postalCode": 20000,
+            },
             "simple_cond_conf/default",
             None,
             {
@@ -22,7 +30,15 @@ from arta.exceptions import ConditionExecutionError, RuleExecutionError
             },
         ),
         (
-            {"age": 30, "language": "english", "power": "fly", "favorite_meal": None, "streetNumber": 20},
+            {
+                "age": 30,
+                "language": "english",
+                "power": "fly",
+                "favorite_meal": None,
+                "streetNumber": 20,
+                "streetName": "avenue de paris",
+                "postalCode": 20000,
+            },
             "simple_cond_conf/default",
             None,
             {
@@ -39,6 +55,8 @@ from arta.exceptions import ConditionExecutionError, RuleExecutionError
                 "power": "invisibility",
                 "favorite_meal": "French Fries",
                 "streetNumber": 20,
+                "streetName": "avenue de paris",
+                "postalCode": 20000,
             },
             "simple_cond_conf/default",
             None,
@@ -50,13 +68,13 @@ from arta.exceptions import ConditionExecutionError, RuleExecutionError
             },
         ),
         (
-            {"dummy": 100, "language": "french", "power": "strength", "favorite_meal": "Spinach", "streetNumber": None},
+            {"dummy": 100, "language": "french", "power": "strength", "favorite_meal": "Spinach"},
             "simple_cond_conf/ignore",
             None,
-            {"admission": {"admission": True}, "course": {"course_id": "senior"}, "email": True, "family": None},
+            {"admission": {"admission": True}, "course": {"course_id": "senior"}, "email": False},
         ),
         (
-            {"age": 100, "language": "french", "power": "strength", "favorite_meal": "Spinach", "streetNumber": None},
+            {"age": 100, "language": "french", "power": "strength", "favorite_meal": "Spinach"},
             "simple_cond_conf/wrong/ignore",
             None,
             {"admission": {"admission": True}, "course": {"course_id": "senior"}, "email": True},
@@ -98,6 +116,8 @@ from arta.exceptions import ConditionExecutionError, RuleExecutionError
                 "age": 0,
                 "power": "nothing",
                 "streetNumber": 20,
+                "streetName": "avenue de paris",
+                "postalCode": 20000,
                 "language": "french",
                 "favorite_meal": "Spinach",
             },
@@ -111,7 +131,15 @@ from arta.exceptions import ConditionExecutionError, RuleExecutionError
             },
         ),
         (
-            {"age": 0, "power": "nothing", "streetNumber": 0, "language": "french", "favorite_meal": "Spinach"},
+            {
+                "age": 0,
+                "power": "nothing",
+                "streetNumber": 0,
+                "streetName": "",
+                "postalCode": 0,
+                "language": "french",
+                "favorite_meal": "Spinach",
+            },
             "simple_cond_conf/default",
             None,
             {
@@ -143,6 +171,8 @@ def test_simple_condition(input_data, config_dir, ignored_rules, good_results, b
                 "power": "strength",
                 "favorite_meal": "Spinach",
                 "streetNumber": 0,
+                "streetName": "",
+                "postalCode": 0,
             },
             {
                 "verbosity": {
@@ -203,7 +233,15 @@ def test_simple_condition(input_data, config_dir, ignored_rules, good_results, b
             },
         ),
         (
-            {"age": 100, "language": "french", "power": "strength", "favorite_meal": "Spinach", "streetNumber": 0},
+            {
+                "age": 100,
+                "language": "french",
+                "power": "strength",
+                "favorite_meal": "Spinach",
+                "streetNumber": 0,
+                "streetName": "avenue de paris",
+                "postalCode": 20000,
+            },
             {
                 "verbosity": {
                     "rule_set": "default_rule_set",
