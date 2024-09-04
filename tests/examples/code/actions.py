@@ -30,14 +30,6 @@ def send_email(mail_to: str, mail_content: str, meal: str, **kwargs: Any) -> boo
     return is_ok
 
 
-def set_family(street_number: int, street_name: str, postal_code: int, **kwargs: Any) -> bool:
-    """Set family to True if the address exists."""
-    family: bool = False
-    if street_number > 0 and street_name != "" and postal_code > 0:
-        family = True
-    return {"family": family}
-
-
 def concatenate_str(list_str: list[Any], **kwargs: Any) -> str:
     """Demo function: return the concatenation of a list of string using input_data (two levels max)."""
     list_str = [str(element) for element in list_str]

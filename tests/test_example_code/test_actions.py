@@ -49,12 +49,6 @@ def test_send_email(mail_to, mail_content, meal, expected):
     assert result == expected
 
 
-def test_set_family():
-    """Action function unit test."""
-    result = actions.set_family(street_number=0, street_name="", postal_code=0)
-    assert result == {"family": False}
-
-
 def test_concatenate_str():
     """Action function unit test."""
     result = actions.concatenate_str(["a", "b", "c"])

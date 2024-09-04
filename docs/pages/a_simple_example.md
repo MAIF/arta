@@ -88,14 +88,7 @@ rules:
           mail_to: cook@super-heroes.test
           mail_content: "Thanks for preparing once a month the following dish:"
           meal: input.favorite_meal
-    family:
-      FAMILY_INFO:
-        simple_condition: input.streetNumber>0 and input.streetName!="" and input.postalCode>0
-        action: set_family
-        action_parameters:
-          street_number: input.streetNumber
-          street_name: input.StreetName
-          postal_code: input.postalCode
+    
 
 
 actions_source_modules:
@@ -175,9 +168,6 @@ applicants = [
         "favorite_meal": "Spinach",
         "secret_weakness": "Kryptonite",
         "weapons": [],
-        "streetNumber":20,
-        "StreetName":"avenue de paris",
-
     },
     {
         "id": 2,
@@ -190,8 +180,6 @@ applicants = [
         "favorite_meal": None,
         "secret_weakness": "Feel alone",
         "weapons": ["Hands", "Batarang"],
-        "streetNumber":10,
-        "StreetName":"avenue de paris",
 
     },
     {
@@ -205,8 +193,6 @@ applicants = [
         "favorite_meal": None,
         "secret_weakness": "Lost faith in humanity",
         "weapons": ["Magic lasso", "Bulletproof bracelets", "Sword", "Shield"],
-        "streetNumber":5,
-        "StreetName":"avenue de paris",
     },
 ]
 ```
