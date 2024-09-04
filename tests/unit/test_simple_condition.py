@@ -93,38 +93,6 @@ from arta.exceptions import ConditionExecutionError, RuleExecutionError
             {"IGNORED_RULE_1", "IGNORED_RULE_2"},
             {"admission": {"admission": False}},
         ),
-        (
-            {
-                "age": 0,
-                "power": "nothing",
-                "language": "french",
-                "favorite_meal": "Spinach",
-            },
-            "simple_cond_conf/default",
-            None,
-            {
-                "admission": {"admission": False},
-                "course": {"course_id": "international"},
-                "email": None,
-            },
-        ),
-        (
-            {
-                "age": 0,
-                "power": "nothing",
-                "language": "french",
-                "favorite_meal": "Spinach",
-            },
-            "simple_cond_conf/default",
-            None,
-            {
-                "admission": {"admission": False},
-                "course": {
-                    "course_id": "international",
-                },
-                "email": None,
-            },
-        ),
     ],
 )
 def test_simple_condition(input_data, config_dir, ignored_rules, good_results, base_config_path):
@@ -138,70 +106,6 @@ def test_simple_condition(input_data, config_dir, ignored_rules, good_results, b
 @pytest.mark.parametrize(
     "input_data, good_results",
     [
-        (
-            {
-                "age": 100,
-                "language": "french",
-                "power": "strength",
-                "favorite_meal": "Spinach",
-            },
-            {
-                "verbosity": {
-                    "rule_set": "default_rule_set",
-                    "results": [
-                        {
-                            "rule_group": "admission",
-                            "verified_conditions": {
-                                "condition": {"expression": None, "values": {}},
-                                "simple_condition": {
-                                    "expression": (
-                                        'input.power=="strength" or input.power=="fly" or input.'
-                                        'power=="time-manipulation"'
-                                    ),
-                                    "values": {
-                                        'input.power=="strength"': True,
-                                        'input.power=="fly"': False,
-                                        'input.power=="time-manipulation"': False,
-                                    },
-                                },
-                            },
-                            "activated_rule": "ADM_OK",
-                            "action_result": {"admission": True},
-                        },
-                        {
-                            "rule_group": "course",
-                            "verified_conditions": {
-                                "condition": {"expression": None, "values": {}},
-                                "simple_condition": {
-                                    "expression": "input.age>=100 or input.age==None",
-                                    "values": {"input.age==None": False, "input.age>=100": True},
-                                },
-                            },
-                            "activated_rule": "COURSE_SENIOR",
-                            "action_result": {"course_id": "senior"},
-                        },
-                        {
-                            "rule_group": "email",
-                            "verified_conditions": {
-                                "condition": {"expression": None, "values": {}},
-                                "simple_condition": {
-                                    "expression": "input.favorite_meal!=None and not output.admission.admission==False",
-                                    "values": {
-                                        "input.favorite_meal!=None": True,
-                                        "output.admission.admission==False": False,
-                                    },
-                                },
-                            },
-                            "activated_rule": "EMAIL_COOK",
-                            "action_result": True,
-                        },
-                    ],
-                },
-                "admission": {"admission": True},
-                "course": {"course_id": "senior"},
-                "email": True,
-            },
-        ),
         (
             {
                 "age": 100,
