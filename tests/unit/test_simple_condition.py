@@ -19,7 +19,11 @@ from arta.exceptions import ConditionExecutionError, RuleExecutionError
             },
             "simple_cond_conf/default",
             None,
-            {"admission": {"admission": True}, "course": {"course_id": "senior"}, "email": True},
+            {
+                "admission": {"admission": True},
+                "course": {"course_id": "senior"},
+                "email": True,
+            },
         ),
         (
             {
@@ -30,7 +34,11 @@ from arta.exceptions import ConditionExecutionError, RuleExecutionError
             },
             "simple_cond_conf/default",
             None,
-            {"admission": {"admission": True}, "course": {"course_id": "english"}, "email": None},
+            {
+                "admission": {"admission": True},
+                "course": {"course_id": "english"},
+                "email": None,
+            },
         ),
         (
             {
@@ -41,26 +49,20 @@ from arta.exceptions import ConditionExecutionError, RuleExecutionError
             },
             "simple_cond_conf/default",
             None,
-            {"admission": {"admission": False}, "course": {"course_id": "senior"}, "email": None},
+            {
+                "admission": {"admission": False},
+                "course": {"course_id": "senior"},
+                "email": None,
+            },
         ),
         (
-            {
-                "dummy": 100,
-                "language": "french",
-                "power": "strength",
-                "favorite_meal": "Spinach",
-            },
+            {"dummy": 100, "language": "french", "power": "strength", "favorite_meal": "Spinach"},
             "simple_cond_conf/ignore",
             None,
             {"admission": {"admission": True}, "course": {"course_id": "senior"}, "email": True},
         ),
         (
-            {
-                "age": 100,
-                "language": "french",
-                "power": "strength",
-                "favorite_meal": "Spinach",
-            },
+            {"age": 100, "language": "french", "power": "strength", "favorite_meal": "Spinach"},
             "simple_cond_conf/wrong/ignore",
             None,
             {"admission": {"admission": True}, "course": {"course_id": "senior"}, "email": True},
@@ -74,20 +76,16 @@ from arta.exceptions import ConditionExecutionError, RuleExecutionError
             {"whitespace": "OK"},
         ),
         (
-            {
-                "text": "SUPER HERO",
-            },
+            {"text": "SUPER HERO", "streetNumber": 15, "streetName": "rue des Es", "postalCode": 89000},
             "simple_cond_conf/uppercase",
             None,
-            {"uppercase": "OK"},
+            {"uppercase": "OK", "camelCase": "OK"},
         ),
         (
-            {
-                "text": "SUPER HERO",
-            },
+            {"text": "SUPER HERO", "streetNumber": 0, "streetName": "", "postalCode": 0},
             "simple_cond_conf/uppercase",
             set(),
-            {"uppercase": "OK"},
+            {"uppercase": "OK", "camelCase": None},
         ),
         (
             {"age": 100, "power": "strength"},
@@ -102,7 +100,6 @@ def test_simple_condition(input_data, config_dir, ignored_rules, good_results, b
     config_path = os.path.join(base_config_path, config_dir)
     eng = RulesEngine(config_path=config_path)
     res = eng.apply_rules(input_data=input_data, ignored_rules=ignored_rules)
-
     assert res == good_results
 
 
@@ -180,7 +177,6 @@ def test_simple_condition_verbose(input_data, good_results, base_config_path):
     config_path = os.path.join(base_config_path, "simple_cond_conf/default")
     eng = RulesEngine(config_path=config_path)
     res = eng.apply_rules(input_data=input_data, verbose=True)
-
     assert res == good_results
 
 
@@ -265,5 +261,4 @@ def test_math(input_data, config_dir, good_results, base_config_path):
     config_path = os.path.join(base_config_path, config_dir)
     eng = RulesEngine(config_path=config_path)
     res = eng.apply_rules(input_data=input_data)
-
     assert res == good_results

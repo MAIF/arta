@@ -88,6 +88,8 @@ rules:
           mail_to: cook@super-heroes.test
           mail_content: "Thanks for preparing once a month the following dish:"
           meal: input.favorite_meal
+    
+
 
 actions_source_modules:
   - my_folder.actions
@@ -178,6 +180,7 @@ applicants = [
         "favorite_meal": None,
         "secret_weakness": "Feel alone",
         "weapons": ["Hands", "Batarang"],
+
     },
     {
         "id": 3,
