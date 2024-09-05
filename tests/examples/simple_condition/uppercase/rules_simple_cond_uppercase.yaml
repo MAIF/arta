@@ -13,10 +13,15 @@ rules:
         action_parameters:
           list_str:
             - OK
-    camelCase :
+    camelcase:
       RULE_1:
-        simple_condition: input.streetNumber>0 and input.streetName!="" and input.postalCode >0
+        simple_condition: input.streetNumber>0 and input.streetName!="" and input.PostalCode>0
         action: concatenate_str
         action_parameters:
           list_str:
             - OK
+      RULE_2:
+        action: concatenate_str
+        action_parameters:
+          list_str:
+            - KO

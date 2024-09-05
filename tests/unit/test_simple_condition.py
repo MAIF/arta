@@ -17,7 +17,7 @@ from arta.exceptions import ConditionExecutionError, RuleExecutionError
                 "power": "strength",
                 "favorite_meal": "Spinach",
             },
-            "simple_cond_conf/default",
+            "simple_condition/default",
             None,
             {
                 "admission": {"admission": True},
@@ -32,7 +32,7 @@ from arta.exceptions import ConditionExecutionError, RuleExecutionError
                 "power": "fly",
                 "favorite_meal": None,
             },
-            "simple_cond_conf/default",
+            "simple_condition/default",
             None,
             {
                 "admission": {"admission": True},
@@ -47,7 +47,7 @@ from arta.exceptions import ConditionExecutionError, RuleExecutionError
                 "power": "invisibility",
                 "favorite_meal": "French Fries",
             },
-            "simple_cond_conf/default",
+            "simple_condition/default",
             None,
             {
                 "admission": {"admission": False},
@@ -57,13 +57,13 @@ from arta.exceptions import ConditionExecutionError, RuleExecutionError
         ),
         (
             {"dummy": 100, "language": "french", "power": "strength", "favorite_meal": "Spinach"},
-            "simple_cond_conf/ignore",
+            "simple_condition/ignore",
             None,
             {"admission": {"admission": True}, "course": {"course_id": "senior"}, "email": True},
         ),
         (
             {"age": 100, "language": "french", "power": "strength", "favorite_meal": "Spinach"},
-            "simple_cond_conf/wrong/ignore",
+            "simple_condition/wrong/ignore",
             None,
             {"admission": {"admission": True}, "course": {"course_id": "senior"}, "email": True},
         ),
@@ -71,25 +71,25 @@ from arta.exceptions import ConditionExecutionError, RuleExecutionError
             {
                 "text": "super hero super hero",
             },
-            "simple_cond_conf/whitespace",
+            "simple_condition/whitespace",
             None,
             {"whitespace": "OK"},
         ),
         (
-            {"text": "SUPER HERO", "streetNumber": 15, "streetName": "rue des Es", "postalCode": 89000},
-            "simple_cond_conf/uppercase",
+            {"text": "SUPER HERO", "streetNumber": 15, "streetName": "rue des Es", "PostalCode": 89000},
+            "simple_condition/uppercase",
             None,
-            {"uppercase": "OK", "camelCase": "OK"},
+            {"uppercase": "OK", "camelcase": "OK"},
         ),
         (
-            {"text": "SUPER HERO", "streetNumber": 0, "streetName": "", "postalCode": 0},
-            "simple_cond_conf/uppercase",
+            {"text": "SUPER HERO", "streetNumber": 0, "streetName": "rue des Es", "PostalCode": 0},
+            "simple_condition/uppercase",
             set(),
-            {"uppercase": "OK", "camelCase": None},
+            {"uppercase": "OK", "camelcase": "KO"},
         ),
         (
             {"age": 100, "power": "strength"},
-            "simple_cond_conf/ignored_rules",
+            "simple_condition/ignored_rules",
             {"IGNORED_RULE_1", "IGNORED_RULE_2"},
             {"admission": {"admission": False}},
         ),
@@ -174,7 +174,7 @@ def test_simple_condition(input_data, config_dir, ignored_rules, good_results, b
 )
 def test_simple_condition_verbose(input_data, good_results, base_config_path):
     """Unit test of the method RulesEngine.apply_rules()"""
-    config_path = os.path.join(base_config_path, "simple_cond_conf/default")
+    config_path = os.path.join(base_config_path, "simple_condition/default")
     eng = RulesEngine(config_path=config_path)
     res = eng.apply_rules(input_data=input_data, verbose=True)
     assert res == good_results
@@ -190,7 +190,7 @@ def test_simple_condition_verbose(input_data, good_results, base_config_path):
                 "power": "strength",
                 "favorite_meal": "Spinach",
             },
-            "simple_cond_conf/default",
+            "simple_condition/default",
             ConditionExecutionError,
         ),
         (
@@ -200,7 +200,7 @@ def test_simple_condition_verbose(input_data, good_results, base_config_path):
                 "power": "strength",
                 "favorite_meal": "Spinach",
             },
-            "simple_cond_conf/raise",
+            "simple_condition/raise",
             ConditionExecutionError,
         ),
         (
@@ -210,7 +210,7 @@ def test_simple_condition_verbose(input_data, good_results, base_config_path):
                 "power": "strength",
                 "favorite_meal": "Spinach",
             },
-            "simple_cond_conf/wrong/dummy",
+            "simple_condition/wrong/dummy",
             RuleExecutionError,
         ),
         (
@@ -220,7 +220,7 @@ def test_simple_condition_verbose(input_data, good_results, base_config_path):
                 "power": "strength",
                 "favorite_meal": "Spinach",
             },
-            "simple_cond_conf/wrong/raise",
+            "simple_condition/wrong/raise",
             ConditionExecutionError,
         ),
     ],
@@ -244,7 +244,7 @@ def test_error_apply_rules_missing_input_key(input_data, config_dir, expected_er
                 "b": 0.7,
                 "threshold": 0.89,
             },
-            "simple_cond_conf/math",
+            "simple_condition/math",
             {
                 "add": "greater than threshold",
                 "sub": "less or equal than threshold",

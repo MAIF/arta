@@ -23,7 +23,7 @@
 
 ## Overview
 
-**Arta** is a simple python rules engine designed for python developers.
+**Arta** is an *open source* python rules engine designed for and by python developers.
 
 ### Goal
 
@@ -113,7 +113,13 @@ Check the [A Simple Example](https://maif.github.io/arta/a_simple_example/) sect
 
 ## Installation
 
-Install using `pip install -U arta`. See the [Install](https://maif.github.io/arta/installation/) section in the documentation for more details.
+Install using `pip install -U`:
+
+```shell
+pip install -U arta
+```
+
+See the [Install](https://maif.github.io/arta/installation/) section in the documentation for more details.
 
 ## What's New
 

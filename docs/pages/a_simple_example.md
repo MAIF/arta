@@ -15,7 +15,7 @@ Imagine the following use case:
 
 The rules (intentionally simple) are:
 
-``` mermaid
+```mermaid
 ---
 title: Simple rule set example
 ---
@@ -69,17 +69,17 @@ rules:
         simple_condition: input.language=="french" and input.age!=None
         action: set_course
         action_parameters:
-          value: french
+          course_id: french
       SENIOR:
         simple_condition: input.age==None
         action: set_course
         action_parameters:
-          value: senior
+          course_id: senior
       INTERNATIONAL:
         simple_condition: input.language!="french"
         action: set_course
         action_parameters:
-          value: international
+          course_id: international
     favorite_meal:
       EMAIL:
         simple_condition: input.favorite_meal!=None
@@ -124,6 +124,9 @@ actions_source_modules:
 And could be for example (intentionally simple) in `actions.py`:
 
 ```python
+from typing import Any
+
+
 def set_admission(value: bool, **kwargs: Any) -> dict[str, bool]:
     """Return a dictionary containing the admission result."""
     return {"is_admitted": value}
@@ -134,7 +137,7 @@ def set_course(course_id: str, **kwargs: Any) -> dict[str, str]:
     return {"course_id": course_id}
 
 
-def send_email(mail_to: str, mail_content: str, meal: str, **kwargs: Any) -> bool:
+def send_email(mail_to: str, mail_content: str, meal: str, **kwargs: Any) -> str | None:
     """Send an email."""
     result: str | None = None
 
