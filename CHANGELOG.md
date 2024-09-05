@@ -10,6 +10,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 * *Simple condition:* an error occurs (#31) when the field is of type `camelCase` or `PascalCase` (e.g., `input.streetNumber`, `input.StreetNumber`).
 
+### Documentation
+
+* Fixes of code in the [A Simple Example](https://maif.github.io/arta/a_simple_example/) page.
+
 ## [0.8.0] - July, 2024
 
 ### Features
