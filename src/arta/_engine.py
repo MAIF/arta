@@ -87,7 +87,8 @@ class RulesEngine:
         # Initialize directly with a rules dict
         if rules_dict is not None:
             # Data validation
-            RulesDict.parse_obj(rules_dict)
+            # RulesDict.parse_obj(rules_dict)
+            RulesDict.model_validate(rules_dict)
 
             # Edge cases data validation
             if not isinstance(rules_dict, dict):
@@ -104,9 +105,8 @@ class RulesEngine:
                 # Load config in attribute
                 config_dict = load_config(config_path)
 
-            if config_dict is not None:
-                # Data validation
-                config: Configuration = Configuration(**config_dict)
+            # Data validation
+            config: Configuration = Configuration.model_validate(config_dict)
 
             if config.parsing_error_strategy is not None:
                 # Set parsing error handling strategy from config
@@ -125,7 +125,7 @@ class RulesEngine:
             # Dictionary of condition instances (k: condition id, v: instance), built from config data
             if len(std_condition_functions) > 0:
                 std_condition_instances = self._build_std_conditions(
-                    config=config.dict(), condition_functions_dict=std_condition_functions
+                    config=config.model_dump(), condition_functions_dict=std_condition_functions
                 )
 
             # User-defined/custom conditions
@@ -150,7 +150,7 @@ class RulesEngine:
             self.rules = self._build_rules(
                 std_condition_instances=std_condition_instances,
                 action_functions=action_functions,
-                config=config.dict(),
+                config=config.model_dump(),
                 factory_mapping_classes=factory_mapping_classes,
             )
 
@@ -288,9 +288,9 @@ class RulesEngine:
         Return a dictionary of Rule instances built from the configuration.
 
         Args:
-            rule_sets: Sets of rules to be loaded in the Rules Engine (as needed by further uses).
+            # rule_sets: Sets of rules to be loaded in the Rules Engine (as needed by further uses).
             std_condition_instances: Dictionary of condition instances (k: condition id, v: StandardCondition instance)
-            actions_dict: Dictionary of action functions (k: action name, v: Callable)
+            action_functions: Dictionary of action functions (k: action name, v: Callable)
             config: Dictionary of the imported configuration from yaml files.
             factory_mapping_classes: A mapping dictionary (k: condition conf. key, v: custom class object)
 
