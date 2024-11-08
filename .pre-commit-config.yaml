@@ -64,7 +64,14 @@ repos:
       - id: cov-check
         name: Coverage
         language: system
-        entry: pytest -v --cov=arta --cov-fail-under=90
+        entry: coverage report -m --fail-under=90
         types: [python]
         pass_filenames: false
         always_run: true
+      - id: cov-erase
+        name: Coverage - Erase
+        language: system
+        entry: coverage erase
+        types: [python]
+        pass_filenames: false
+        always_run: false
