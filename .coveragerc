@@ -8,7 +8,7 @@ source = src/arta
 
 [run]
 branch = true
-parallel = true
+parallel = false
 source =
     arta
 omit =

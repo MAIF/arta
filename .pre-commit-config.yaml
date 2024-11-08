@@ -74,4 +74,4 @@ repos:
         entry: coverage erase
         types: [python]
         pass_filenames: false
-        always_run: false
+        always_run: true
