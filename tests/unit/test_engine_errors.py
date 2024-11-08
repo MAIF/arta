@@ -6,7 +6,7 @@ import pytest
 from arta import RulesEngine
 from arta.exceptions import ConditionExecutionError, RuleExecutionError
 
-import arta.pydantic_binding as pydantic
+import pydantic
 
 
 @pytest.mark.parametrize(
