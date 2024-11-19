@@ -93,3 +93,21 @@ exclude = ["tests/*"]
 
 [tool.ruff.format]
 docstring-code-format = true
+
+[tool.coverage.paths]
+source = [
+    "src/arta",
+    "*/.tox/*/lib/python*/site-packages/arta",
+    "*/.tox/pypy*/site-packages/arta",
+    "*/.tox\\*\\Lib\\site-packages\\arta",
+    "*/src/arta",
+    "*\\src\\arta"]
+
+[tool.coverage.run]
+branch = true
+parallel = false
+source = ["arta"]
+omit = ["*/tests/*"]
+
+[tool.coverage.report]
+omit = ["tests"]

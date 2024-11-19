@@ -29,14 +29,6 @@ class Rule:
         action: Function to perform when the conditions are valid (action function).
         action_parameters: Parameters of the action function.
     """
-    set_id: str
-    group_id: str
-    rule_id: str
-    condition_exprs: dict[str, str | None]
-    condition_factory_mapping: dict[str, type[BaseCondition]]
-    action: Callable
-    std_condition_instances: dict[str, StandardCondition]
-    action_parameters: dict[str, Any] | None = None
 
     def __init__(
         self,
