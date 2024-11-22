@@ -3,74 +3,143 @@
 Note: Having no "from __future__ import annotations" here is wanted (pydantic compatibility).
 """
 
-from typing import Any, Callable, Dict, List, Optional
+from typing import Annotated, Any, Callable, Dict, List, Optional
 
-try:
-    from pydantic import v1 as pydantic
-except ImportError:
-    import pydantic  # type: ignore
+import pydantic
+from pydantic.version import VERSION
 
 from arta.utils import ParsingErrorStrategy
 
+if not VERSION.startswith("1."):
+    # ----------------------------------
+    # For instantiation using rules_dict
+    class RuleRaw(pydantic.BaseModel):
+        """Pydantic model for validating a rule."""
 
-# ----------------------------------
-# For instantiation using rules_dict
-class RuleRaw(pydantic.BaseModel):
-    """Pydantic model for validating a rule."""
+        condition: Optional[Callable]
+        condition_parameters: Optional[Dict[str, Any]]
+        action: Callable
+        action_parameters: Optional[Dict[str, Any]]
 
-    condition: Optional[Callable]
-    condition_parameters: Optional[Dict[str, Any]]
-    action: Callable
-    action_parameters: Optional[Dict[str, Any]]
+        model_config = pydantic.ConfigDict(extra="forbid")
 
-    class Config:
-        extra = "forbid"
+    class RulesGroup(pydantic.RootModel):  # noqa
+        """Pydantic model for validating a rules group."""
 
+        root: Dict[str, RuleRaw]
 
-class RulesGroup(pydantic.BaseModel):
-    """Pydantic model for validating a rules group."""
+    class RulesDict(pydantic.RootModel):  # noqa
+        """Pydantic model for validating rules dict instanciation."""
 
-    __root__: Dict[str, RuleRaw]
+        root: Dict[str, RulesGroup]
 
+    # ----------------------------------
+    # For instantiation using config_path
+    class Condition(pydantic.BaseModel):
+        """Pydantic model for validating a condition."""
 
-class RulesDict(pydantic.BaseModel):
-    """Pydantic model for validating rules dict instanciation."""
+        description: str
+        validation_function: str
+        condition_parameters: Optional[Dict[str, Any]] = None
 
-    __root__: Dict[str, RulesGroup]
+    class RulesConfig(pydantic.BaseModel):
+        """Pydantic model for validating a rule group from config file."""
 
+        condition: Optional[str] = None
+        simple_condition: Optional[str] = None
+        action: Annotated[str, pydantic.StringConstraints(to_lower=True)]  # type: ignore
+        action_parameters: Optional[Any] = None
 
-# ----------------------------------
-# For instantiation using config_path
-class Condition(pydantic.BaseModel):
-    """Pydantic model for validating a condition."""
+        model_config = pydantic.ConfigDict(extra="allow")
 
-    description: str
-    validation_function: str
-    condition_parameters: Optional[Dict[str, Any]]
+    class Configuration(pydantic.BaseModel):
+        """Pydantic model for validating configuration files."""
 
+        conditions: Optional[Dict[str, Condition]] = None
+        conditions_source_modules: Optional[List[str]] = None
+        actions_source_modules: List[str]
+        custom_classes_source_modules: Optional[List[str]] = None
+        condition_factory_mapping: Optional[Dict[str, str]] = None
+        rules: Dict[str, Dict[str, Dict[str, RulesConfig]]]
+        parsing_error_strategy: Optional[ParsingErrorStrategy] = None
 
-class RulesConfig(pydantic.BaseModel):
-    """Pydantic model for validating a rule group from config file."""
+        model_config = pydantic.ConfigDict(extra="ignore")
 
-    condition: Optional[str]
-    simple_condition: Optional[str]
-    action: pydantic.constr(to_lower=True)  # type: ignore
-    action_parameters: Optional[Any]
+        @pydantic.field_validator("rules", mode="before")  # noqa
+        def upper_key(cls, vl):  # noqa
+            """Validate and uppercase keys for RulesConfig"""
+            for k, v in vl.items():
+                for kk, vv in v.items():
+                    for key, rules in [*vv.items()]:
+                        if key != str(key).upper():
+                            del vl[k][kk][key]
+                            vl[k][kk][str(key).upper()] = rules
+            return vl
 
-    class Config:
-        extra = "allow"
+else:
 
+    class BaseModelV2(pydantic.BaseModel):
+        """Wrapper to expose missed methods used elsewhere in the code"""
 
-class Configuration(pydantic.BaseModel):
-    """Pydantic model for validating configuration files."""
+        model_dump: Callable = pydantic.BaseModel.dict  # noqa
 
-    conditions: Optional[Dict[str, Condition]]
-    conditions_source_modules: Optional[List[str]]
-    actions_source_modules: List[str]
-    custom_classes_source_modules: Optional[List[str]]
-    condition_factory_mapping: Optional[Dict[str, str]]
-    rules: Dict[str, Dict[str, Dict[pydantic.constr(to_upper=True), RulesConfig]]]  # type: ignore
-    parsing_error_strategy: Optional[ParsingErrorStrategy]
+        @classmethod
+        def model_validate(cls, obj):  # noqa
+            return cls.parse_obj(obj)  # noqa
 
-    class Config:
-        extra = "ignore"
+    # ----------------------------------
+    # For instantiation using rules_dict
+    class RuleRaw(BaseModelV2):  # type: ignore[no-redef]
+        """Pydantic model for validating a rule."""
+
+        condition: Optional[Callable]
+        condition_parameters: Optional[Dict[str, Any]]
+        action: Callable
+        action_parameters: Optional[Dict[str, Any]]
+
+        class Config:
+            extra = "forbid"
+
+    class RulesGroup(pydantic.BaseModel):  # type: ignore[no-redef] # noqa
+        """Pydantic model for validating a rules group."""
+
+        __root__: Dict[str, RuleRaw]  # noqa
+
+    class RulesDict(BaseModelV2):  # type: ignore[no-redef]  # noqa
+        """Pydantic model for validating rules dict instanciation."""
+
+        __root__: Dict[str, RulesGroup]  # noqa
+
+    # ----------------------------------
+    # For instantiation using config_path
+    class Condition(BaseModelV2):  # type: ignore[no-redef]
+        """Pydantic model for validating a condition."""
+
+        description: str
+        validation_function: str
+        condition_parameters: Optional[Dict[str, Any]]
+
+    class RulesConfig(BaseModelV2):  # type: ignore[no-redef]
+        """Pydantic model for validating a rule group from config file."""
+
+        condition: Optional[str]
+        simple_condition: Optional[str]
+        action: pydantic.constr(to_lower=True)  # type: ignore
+        action_parameters: Optional[Any]
+
+        class Config:
+            extra = "allow"
+
+    class Configuration(BaseModelV2):  # type: ignore[no-redef]
+        """Pydantic model for validating configuration files."""
+
+        conditions: Optional[Dict[str, Condition]]
+        conditions_source_modules: Optional[List[str]]
+        actions_source_modules: List[str]
+        custom_classes_source_modules: Optional[List[str]]
+        condition_factory_mapping: Optional[Dict[str, str]]
+        rules: Dict[str, Dict[str, Dict[pydantic.constr(to_upper=True), RulesConfig]]]  # type: ignore
+        parsing_error_strategy: Optional[ParsingErrorStrategy]
+
+        class Config:
+            extra = "ignore"
