@@ -4,6 +4,20 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.8.2] - November, 2024
+
+### Maintenance
+
+* Use true Pydantic V2 (or Pydantic V1) models (`DeprecationWarning` added about Pydantic V1).
+
+### Documentation
+
+* New page: *"Use your business objects".*
+
+### Breaking changes
+
+* Because of using `StringConstraints` (w/ Pydantic V2) rather than `constr()`, we can't use plain `YES` or `NO` (YAML booleans) as rule ids anymore. Use `"YES"` or `"NO"` instead in your YAML file.
+
 ## [0.8.1] - September, 2024
 
 ### Fixes

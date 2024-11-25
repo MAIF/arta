@@ -288,7 +288,6 @@ class RulesEngine:
         Return a dictionary of Rule instances built from the configuration.
 
         Args:
-            # rule_sets: Sets of rules to be loaded in the Rules Engine (as needed by further uses).
             std_condition_instances: Dictionary of condition instances (k: condition id, v: StandardCondition instance)
             action_functions: Dictionary of action functions (k: action name, v: Callable)
             config: Dictionary of the imported configuration from yaml files.
