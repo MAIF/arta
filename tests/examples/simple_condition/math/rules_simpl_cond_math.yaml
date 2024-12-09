@@ -75,26 +75,26 @@ rules:
             - " than "
             - threshold
     equal_1:
-      YES:
+      "YES":
         simple_condition: input.a==input.b
         action: concatenate_str
         action_parameters:
           list_str:
             - "yes"
-      NO:
+      "NO":
         simple_condition: input.a!=input.b
         action: concatenate_str
         action_parameters:
           list_str:
             - "no"
     equal_2:
-      YES:
+      "YES":
         simple_condition: input.a==1.3
         action: concatenate_str
         action_parameters:
           list_str:
             - "yes"
-      NO:
+      "NO":
         simple_condition: input.a!=1.3
         action: concatenate_str
         action_parameters:
