@@ -8,7 +8,7 @@ from warnings import warn
 import pydantic
 from pydantic.version import VERSION
 
-from arta.utils import ParsingErrorStrategy
+from arta.utils import ParsingErrorStrategy, RuleActivationMode
 
 PYDANTIC_V1: bool = VERSION.startswith("1.")
 
@@ -66,6 +66,7 @@ if not PYDANTIC_V1:
         condition_factory_mapping: Optional[dict[str, str]] = None
         rules: dict[str, dict[str, dict[Annotated[str, pydantic.StringConstraints(to_upper=True)], RulesConfig]]]
         parsing_error_strategy: Optional[ParsingErrorStrategy] = None
+        rule_activation_mode: Optional[RuleActivationMode] = None
 
 else:
     # Pydantic V1
@@ -141,4 +142,5 @@ else:
         custom_classes_source_modules: Optional[list[str]]
         condition_factory_mapping: Optional[dict[str, str]]
         rules: dict[str, dict[str, dict[pydantic.constr(to_upper=True), RulesConfig]]]  # type: ignore
-        parsing_error_strategy: Optional[ParsingErrorStrategy]
+        parsing_error_strategy: Optional[ParsingErrorStrategy] = None
+        rule_activation_mode: Optional[RuleActivationMode] = None

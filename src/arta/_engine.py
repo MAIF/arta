@@ -16,7 +16,7 @@ from arta.condition import BaseCondition, SimpleCondition, StandardCondition
 from arta.config import load_config
 from arta.models import Configuration, RulesDict
 from arta.rule import Rule
-from arta.utils import ParsingErrorStrategy
+from arta.utils import ParsingErrorStrategy, RuleActivationMode
 
 
 class RulesEngine:
@@ -81,8 +81,10 @@ class RulesEngine:
                 "RulesEngine takes one (and only one) parameter: 'rules_dict' or 'config_path' or 'config_dict'."
             )
 
-        # Init. default parsing_error_strategy (probably not needed because already defined elsewhere)
+        # Init. default global settings (useful if not set, can't be set in the Pydantic model
+        # because of the rules dict mode)
         self._parsing_error_strategy: ParsingErrorStrategy = ParsingErrorStrategy.RAISE
+        self._rule_activation_mode: RuleActivationMode = RuleActivationMode.ONE_BY_GROUP
 
         # Initialize directly with a rules dict
         if rules_dict is not None:
@@ -111,6 +113,10 @@ class RulesEngine:
             if config.parsing_error_strategy is not None:
                 # Set parsing error handling strategy from config
                 self._parsing_error_strategy = ParsingErrorStrategy(config.parsing_error_strategy)
+
+            if config.rule_activation_mode is not None:
+                # Set rule activation mode from config
+                self._rule_activation_mode = RuleActivationMode(config.rule_activation_mode)
 
             # dict of available action functions (k: function name, v: function object)
             action_modules: list[str] = config.actions_source_modules
@@ -166,7 +172,8 @@ class RulesEngine:
         """Apply the rules and return results.
 
         For each rule group of a given rule set, rules are applied sequentially,
-        The loop is broken when a rule is applied (an action is triggered).
+        The loop is broken when a rule is applied (an action is triggered)
+        or not (depends on the rule activation mode).
         Then, the next rule group is evaluated.
         And so on...
 
@@ -241,8 +248,9 @@ class RulesEngine:
                     # Update input data with current result with key 'output' (can be used in next rules)
                     input_data_copy["output"][group_id] = copy.deepcopy(results_dict[group_id])
 
-                    # We can only have one result per group => break when "action_result" in rule_details
-                    break
+                    if self._rule_activation_mode is RuleActivationMode.ONE_BY_GROUP:
+                        # We can only have one result per group => break when "action_result" in rule_details
+                        break
 
         # Handling non-verbose mode
         if not verbose:

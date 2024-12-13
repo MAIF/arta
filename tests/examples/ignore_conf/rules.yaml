@@ -5,7 +5,7 @@ rules:
     test_action:
       TEST_IGNORE:
         condition: null
-        action: concatenate_str
+        action: concatenate_list
         action_parameters:
           list_str:
           - "My name is "

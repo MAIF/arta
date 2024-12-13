@@ -9,19 +9,19 @@ rules:
     uppercase:
       RULE_1:
         simple_condition: input.text=="SUPERHERO" or input.text=="SUPER HERO" or input.text=="SUPER_HERO" or input.text=="SUPER-HERO"
-        action: concatenate_str
+        action: concatenate_list
         action_parameters:
           list_str:
             - OK
     camelcase:
       RULE_1:
         simple_condition: input.streetNumber>0 and input.streetName!="" and input.PostalCode>0
-        action: concatenate_str
+        action: concatenate_list
         action_parameters:
           list_str:
             - OK
       RULE_2:
-        action: concatenate_str
+        action: concatenate_list
         action_parameters:
           list_str:
             - KO

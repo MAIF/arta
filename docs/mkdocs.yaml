@@ -83,10 +83,12 @@ nav:
     - How to: how_to.md
     - Glossary: glossary.md
   - Advanced User Guide: 
+    - API Reference: api_reference.md
+    - Custom conditions: custom_conditions.md
     - Parameters: parameters.md
+    - Rule activation mode: rule_activation_mode.md
     - Rule sets: rule_sets.md
     - Use your business objects: business_objects.md
-    - Custom conditions: custom_conditions.md
-    - API Reference: api_reference.md
+    
 extra_css:
   - assets/css/mkdocs_extra.css

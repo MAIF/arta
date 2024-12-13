@@ -16,6 +16,16 @@ class ParsingErrorStrategy(str, Enum):
     DEFAULT_VALUE: str = "default_value"
 
 
+class RuleActivationMode(str, Enum):
+    """Define how Arta is processing rules.
+
+    ONE_BY_GROUP is the default mode.
+    """
+
+    ONE_BY_GROUP: str = "one_by_group"
+    MANY_BY_GROUP: str = "many_by_group"
+
+
 def get_value_in_nested_dict_from_path(path: str, nested_dict: dict[str, Any]) -> Any:
     """From a path, get a value in a nested dict.
 

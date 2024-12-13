@@ -30,7 +30,7 @@ def send_email(mail_to: str, mail_content: str, meal: str, **kwargs: Any) -> boo
     return is_ok
 
 
-def concatenate_str(list_str: list[Any], **kwargs: Any) -> str:
+def concatenate_list(list_str: list[Any], **kwargs: Any) -> str:
     """Demo function: return the concatenation of a list of string using input_data (two levels max)."""
     list_str = [str(element) for element in list_str]
     return "".join(list_str)
@@ -43,4 +43,9 @@ def do_nothing(**kwargs: Any) -> None:
 
 def compute_sum(value1: float, value2: float, **kwargs: Any) -> float:
     """Demo function: return sum of two values."""
+    return value1 + value2
+
+
+def concatenate(value1: str, value2: str, **kwargs: Any) -> str:
+    """Demo function: return the concatenation of two strings."""
     return value1 + value2

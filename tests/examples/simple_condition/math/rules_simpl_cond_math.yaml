@@ -9,7 +9,7 @@ rules:
     add:
       GREATER:
         simple_condition: input.a+input.b>input.threshold
-        action: concatenate_str
+        action: concatenate_list
         action_parameters:
           list_str:
             - greater
@@ -17,7 +17,7 @@ rules:
             - threshold
       LESS:
         simple_condition: input.a+input.b<=input.threshold
-        action: concatenate_str
+        action: concatenate_list
         action_parameters:
           list_str:
             - less or equal
@@ -26,7 +26,7 @@ rules:
     sub:
       GREATER:
         simple_condition: input.a-input.b>input.threshold
-        action: concatenate_str
+        action: concatenate_list
         action_parameters:
           list_str:
             - greater
@@ -34,7 +34,7 @@ rules:
             - threshold
       LESS:
         simple_condition: input.a-input.b<=input.threshold
-        action: concatenate_str
+        action: concatenate_list
         action_parameters:
           list_str:
             - less or equal
@@ -43,7 +43,7 @@ rules:
     mul:
       GREATER:
         simple_condition: input.a*input.b>input.threshold
-        action: concatenate_str
+        action: concatenate_list
         action_parameters:
           list_str:
             - greater
@@ -51,7 +51,7 @@ rules:
             - threshold
       LESS:
         simple_condition: input.a*input.b<=input.threshold
-        action: concatenate_str
+        action: concatenate_list
         action_parameters:
           list_str:
             - less or equal
@@ -60,7 +60,7 @@ rules:
     div:
       GREATER:
         simple_condition: input.a/input.b>input.threshold
-        action: concatenate_str
+        action: concatenate_list
         action_parameters:
           list_str:
             - greater
@@ -68,7 +68,7 @@ rules:
             - threshold
       LESS:
         simple_condition: input.a/input.b<=input.threshold
-        action: concatenate_str
+        action: concatenate_list
         action_parameters:
           list_str:
             - less or equal
@@ -77,26 +77,26 @@ rules:
     equal_1:
       "YES":
         simple_condition: input.a==input.b
-        action: concatenate_str
+        action: concatenate_list
         action_parameters:
           list_str:
             - "yes"
       "NO":
         simple_condition: input.a!=input.b
-        action: concatenate_str
+        action: concatenate_list
         action_parameters:
           list_str:
             - "no"
     equal_2:
       "YES":
         simple_condition: input.a==1.3
-        action: concatenate_str
+        action: concatenate_list
         action_parameters:
           list_str:
             - "yes"
       "NO":
         simple_condition: input.a!=1.3
-        action: concatenate_str
+        action: concatenate_list
         action_parameters:
           list_str:
             - "no"
