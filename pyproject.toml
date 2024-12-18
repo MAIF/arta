@@ -28,6 +28,7 @@ classifiers = [
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
     "License :: OSI Approved :: Apache Software License",
 ]
 
@@ -42,12 +43,10 @@ Documentation = "https://maif.github.io/arta/home/"
 Repository = "https://github.com/MAIF/arta"
 
 [project.optional-dependencies]
-all = ["arta[test,dev,doc,mypy,ruff]"]
+all = ["arta[test,dev,doc]"]
 test = ["pytest", "tox", "pytest-cov"]
 dev = ["mypy", "pre-commit", "ruff"]
 doc = ["mkdocs-material", "mkdocstrings[python]"]
-mypy = ["mypy"]
-ruff = ["ruff"]
 
 [tool.setuptools]
 package-dir = {"" = "src"}
