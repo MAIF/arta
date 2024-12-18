@@ -49,9 +49,9 @@ def test_send_email(mail_to, mail_content, meal, expected):
     assert result == expected
 
 
-def test_concatenate_str():
+def test_concatenate_list():
     """Action function unit test."""
-    result = actions.concatenate_str(["a", "b", "c"])
+    result = actions.concatenate_list(["a", "b", "c"])
     assert result == "abc"
 
 
@@ -65,3 +65,9 @@ def test_compute_sum():
     """Action function unit test."""
     result = actions.compute_sum(2, 3)
     assert result == 5
+
+
+def test_concatenate():
+    """Action function unit test."""
+    result = actions.concatenate("a", "b")
+    assert result == "ab"

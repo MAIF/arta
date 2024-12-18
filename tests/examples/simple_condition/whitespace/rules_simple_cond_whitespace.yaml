@@ -9,7 +9,7 @@ rules:
     whitespace:
       RULE_1:
         simple_condition: input.text=="super hero super hero"
-        action: concatenate_str
+        action: concatenate_list
         action_parameters:
           list_str:
             - OK

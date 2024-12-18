@@ -2,10 +2,6 @@ Ensure that you have correctly installed **Arta** before, check the [Installatio
 
 ## Simple condition
 
-!!! beta "Beta feature"
-
-    **Simple condition** is still a *beta feature*, some cases could not work as designed.
-
 **Simple conditions** are a new and straightforward way of configuring your *conditions*.
 
 It simplifies your rules a lot by:

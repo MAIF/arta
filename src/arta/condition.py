@@ -183,10 +183,12 @@ class SimpleCondition(BaseCondition):
         path_matches: list[str] = re.findall(data_path_patt, unitary_expr)
 
         if len(path_matches) > 0:
+            locals_ns: dict[str, Any] = {}
+
             # Regular case: we have a data paths
             for idx, path in enumerate(path_matches):
                 # Read data from the path
-                locals()[f"data_{idx}"] = parse_dynamic_parameter(  # noqa
+                locals_ns[f"data_{idx}"] = parse_dynamic_parameter(
                     parameter=path, input_data=input_data, parsing_error_strategy=parsing_error_strategy
                 )
 
@@ -195,7 +197,7 @@ class SimpleCondition(BaseCondition):
 
             # Evaluate the expression
             try:
-                bool_var = eval(unitary_expr)  # noqa
+                bool_var = eval(unitary_expr, None, locals_ns)  # noqa
             except TypeError:
                 # Ignore evaluation --> False
                 pass

@@ -1,0 +1,41 @@
+---
+rule_activation_mode: many_by_group  # default is 'one_by_group'
+
+actions_source_modules:
+  - tests.examples.code.actions
+
+rules:
+  default_rule_set:
+    gr_1:
+      TASK_1:
+        action: concatenate
+        action_parameters:
+          value1: a
+          value2: ""
+      TASK_2:
+        action: concatenate
+        action_parameters:
+          value1: output.gr_1
+          value2: b
+    gr_2:
+      TASK_1:
+        action: concatenate
+        action_parameters:
+          value1: output.gr_1
+          value2: c
+      TASK_2:
+        action: concatenate
+        action_parameters:
+          value1: output.gr_2
+          value2: d
+      TASK_3:
+        action: concatenate
+        action_parameters:
+          value1: output.gr_2
+          value2: e
+    gr_3:
+      TASK_1:
+        action: concatenate
+        action_parameters:
+          value1: output.gr_2
+          value2: f

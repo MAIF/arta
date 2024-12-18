@@ -4,15 +4,25 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [0.8.2] - November, 2024
+## [0.9.0] - December, 2024
+
+### Features
+
+* Add a new configuration setting for rule execution: `rule_activation_mode` (#38).
 
 ### Maintenance
 
+* Compatibility with Python 3.13.
 * Use true Pydantic V2 (or Pydantic V1) models (`DeprecationWarning` added about Pydantic V1).
+
+> [!IMPORTANT]
+> **Arta** + **Pydantic V1** + **Python 3.13** is not supported because Pydantic V1 is not supported for Python > 3.12 ([issue 9663](https://github.com/pydantic/pydantic/issues/9663)).
 
 ### Documentation
 
-* New page: *"Use your business objects".*
+* New pages:
+    * *Use your business objects*
+    * *Rule activation mode*
 
 ### Breaking changes
 

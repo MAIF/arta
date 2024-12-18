@@ -1,0 +1,47 @@
+---
+rule_activation_mode: many_by_group  # default is 'one_by_group'
+
+actions_source_modules:
+  - tests.examples.code.actions
+
+rules:
+  default_rule_set:
+    rg_1:
+      RULE_1:
+        simple_condition: input.power=="strength" or input.power=="fly" or input.power=="time-manipulation"
+        action: concatenate
+        action_parameters:
+          value1: ""
+          value2: a
+      RULE_2:
+        simple_condition: null
+        action: concatenate
+        action_parameters:
+          value1: ""
+          value2: b
+    rg_2:
+      RULE_1:
+        simple_condition: input.language=="english" and input.age!=None
+        action: concatenate
+        action_parameters:
+          value1: output.rg_1
+          value2: c
+      RULE_2:
+        simple_condition: input.age>=100 or input.age==None
+        action: concatenate
+        action_parameters:
+          value1: output.rg_1
+          value2: d
+      RULE_3:
+        simple_condition: input.language=="french"
+        action: concatenate
+        action_parameters:
+          value1: output.rg_1
+          value2: e
+    rg_3:
+      RULE_1:
+        simple_condition: input.favorite_meal!=None
+        action: concatenate
+        action_parameters:
+          value1: output.rg_2
+          value2: f

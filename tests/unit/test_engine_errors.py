@@ -149,6 +149,11 @@ import pydantic
             "failing_conf/wrong_parsing_error_strategy/",
             pydantic.ValidationError,
         ),
+        (
+            None,
+            "failing_conf/wrong_rule_activation_mode/",
+            pydantic.ValidationError,
+        ),
     ],
 )
 def test_instance_error(rules_dict, config_dir, expected_error, base_config_path):
