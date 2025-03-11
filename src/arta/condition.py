@@ -5,6 +5,7 @@ Classes: BaseCondition, StandardCondition, SimpleCondition
 
 from __future__ import annotations
 
+import inspect
 import re
 from abc import ABC, abstractmethod
 from typing import Any, Callable
@@ -139,6 +140,10 @@ class StandardCondition(BaseCondition):
             parameters[key] = parse_dynamic_parameter(
                 parameter=value, input_data=input_data, parsing_error_strategy=parsing_error_strategy
             )
+
+        # Pass input_data for value sharing if validation function can accept it
+        if "kwargs" in inspect.signature(self._validation_function).parameters:
+            parameters["input_data"] = input_data
 
         # Run validation_function
         return self._validation_function(**parameters)

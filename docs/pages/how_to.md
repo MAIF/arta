@@ -227,11 +227,9 @@ def has_authorized_super_power(power):
 **actions.py**:
 
 ```python
-def set_admission(value, **kwargs):  # (1)
+def set_admission(value):
     return {"is_admitted": value}
 ```
-
-1. `**kwargs` is mandatory here.
 
 !!! warning
 
@@ -395,7 +393,7 @@ Both are made of a *callable object* and some *parameters*:
     ```python    
     from arta import RulesEngine
 
-    set_admission = lambda value, **kwargs: {"is_admitted": value}
+    set_admission = lambda value: {"is_admitted": value}
 
     rules = {
         "check_admission": {
@@ -441,7 +439,7 @@ Both are made of a *callable object* and some *parameters*:
 
     from arta import RulesEngine
 
-    set_admission: Callable = lambda value, **kwargs: {"is_admitted": value}
+    set_admission: Callable = lambda value: {"is_admitted": value}
 
     rules: dict[str, Any] = {
         "check_admission": {

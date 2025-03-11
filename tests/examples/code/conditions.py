@@ -5,6 +5,8 @@ N.B: They are only demo functions.
 """
 
 from __future__ import annotations
+import statistics
+from typing import Any
 
 
 def has_authorized_super_power(authorized_powers: list[str], candidate_powers: list[str]) -> bool:
@@ -23,6 +25,15 @@ def is_speaking_language(value: str, spoken_language: str) -> bool:
     return value == spoken_language
 
 
-def has_favorite_meal(favorite_meal: str) -> bool:
+def has_favorite_meal(favorite_meal: str, **kwargs: Any) -> bool:
     """Check if candidate has a favorite meal."""
     return favorite_meal is not None
+
+
+def is_median_above(values: list[int | float], limit: float, **kwargs: Any) -> bool:
+    """Check if the median of some values is above limit."""
+    median = statistics.median(values)
+    # Store the value for later use by an action function
+    kwargs["input_data"]["median"] = median
+    kwargs["input_data"]["median_limit"] = limit
+    return median > limit

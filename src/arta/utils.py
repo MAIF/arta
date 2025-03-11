@@ -11,9 +11,9 @@ from typing import Any
 class ParsingErrorStrategy(str, Enum):
     """Define authorized error handling strategies when a key is missing in the input data."""
 
-    RAISE: str = "raise"
-    IGNORE: str = "ignore"
-    DEFAULT_VALUE: str = "default_value"
+    RAISE = "raise"
+    IGNORE = "ignore"
+    DEFAULT_VALUE = "default_value"
 
 
 class RuleActivationMode(str, Enum):
@@ -22,8 +22,8 @@ class RuleActivationMode(str, Enum):
     ONE_BY_GROUP is the default mode.
     """
 
-    ONE_BY_GROUP: str = "one_by_group"
-    MANY_BY_GROUP: str = "many_by_group"
+    ONE_BY_GROUP = "one_by_group"
+    MANY_BY_GROUP = "many_by_group"
 
 
 def get_value_in_nested_dict_from_path(path: str, nested_dict: dict[str, Any]) -> Any:

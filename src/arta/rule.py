@@ -5,6 +5,7 @@ Class: Rule
 
 from __future__ import annotations
 
+import inspect
 import re
 from typing import Any, Callable
 
@@ -105,8 +106,12 @@ class Rule:
                 # Track the rule id
                 rule_results["activated_rule"] = self._rule_id
 
+                # Pass input_data for value sharing if action function can accept it
+                if "kwargs" in inspect.signature(self._action).parameters:
+                    parameters["input_data"] = input_data
+
                 # Run action
-                rule_results["action_result"] = self._action(**parameters, input_data=input_data)
+                rule_results["action_result"] = self._action(**parameters)
 
                 return rule_results["action_result"], rule_results
             except Exception as error:
