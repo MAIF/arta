@@ -233,7 +233,18 @@ def set_admission(value):
 
 !!! warning
 
-    Function name and parameters must be the same as the one configured in the YAML file.
+    **Function name** and **parameters** must be the same as the one configured in the YAML file.
+
+!!! tip
+
+    If you need to retrieve some `input_data` or `output` of a previous action in your function, just:
+
+    1. Add a ****kwargs** parameter.
+    1. Access it in your implementation with `kwargs["input_data"]["<some-key>"]` or `kwargs["input_data"]["output"]["<a-rule-group>"]`.
+
+    > `<some-key>` should be replaced by the key used when setting the data.
+    
+    > `<a-rule-group>` should be replaced by the id used to define a group in your YAML file.
 
 ### Usage
 
