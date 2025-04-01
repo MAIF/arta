@@ -7,7 +7,7 @@ It is possible to share some informations between **condition** and **action** i
 
 It can be usefull when an **action** needs some data that was computed in a **condition** (e.g., sanity check use cases).
 
-In the following example, a **condition** is computing the *median* of some *input values* and checking it. Then, the **action** retrieves this *median* value and use it.
+In the following example, a **condition** is computing the *median* of some *input values* and checking it. Then, the **action** retrieves this *median* value and uses it.
 
 
 **Two things have to be done for that:**

@@ -30,7 +30,7 @@ def send_email(mail_to: str, mail_content: str, meal: str) -> bool:
     return is_ok
 
 
-def concatenate_list(list_str: list[Any], **kwargs: Any) -> str:
+def concatenate_list(list_str: list[Any], **extra: Any) -> str:
     """Demo function: return the concatenation of a list of string using input_data (two levels max)."""
     list_str = [str(element) for element in list_str]
     return "".join(list_str)

@@ -107,7 +107,8 @@ class Rule:
                 rule_results["activated_rule"] = self._rule_id
 
                 # Pass input_data for value sharing if action function can accept it
-                if "kwargs" in inspect.signature(self._action).parameters:
+                arg_spec: inspect.FullArgSpec = inspect.getfullargspec(self._action)
+                if arg_spec.varkw is not None:
                     parameters["input_data"] = input_data
 
                 # Run action

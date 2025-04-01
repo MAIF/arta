@@ -25,7 +25,7 @@ def is_speaking_language(value: str, spoken_language: str) -> bool:
     return value == spoken_language
 
 
-def has_favorite_meal(favorite_meal: str, **kwargs: Any) -> bool:
+def has_favorite_meal(favorite_meal: str, **extra: Any) -> bool:
     """Check if candidate has a favorite meal."""
     return favorite_meal is not None
 

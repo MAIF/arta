@@ -240,11 +240,8 @@ def set_admission(value):
     If you need to retrieve some `input_data` or `output` of a previous action in your function, just:
 
     1. Add a ****kwargs** parameter.
-    1. Access it in your implementation with `kwargs["input_data"]["<some-key>"]` or `kwargs["input_data"]["output"]["<a-rule-group>"]`.
-
-    > `<some-key>` should be replaced by the key used when setting the data.
-    
-    > `<a-rule-group>` should be replaced by the id used to define a group in your YAML file.
+    1. Access *input_data* with `kwargs["input_data"]["<some-key>"]` where `<some-key>` is a key in the *input data* dictionary (or dict like object).
+    1. Access data from previous rules group with `kwargs["input_data"]["output"]["<a-rule-group-id>"]`.
 
 ### Usage
 

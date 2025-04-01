@@ -142,7 +142,8 @@ class StandardCondition(BaseCondition):
             )
 
         # Pass input_data for value sharing if validation function can accept it
-        if "kwargs" in inspect.signature(self._validation_function).parameters:
+        arg_spec: inspect.FullArgSpec = inspect.getfullargspec(self._validation_function)
+        if arg_spec.varkw is not None:
             parameters["input_data"] = input_data
 
         # Run validation_function
