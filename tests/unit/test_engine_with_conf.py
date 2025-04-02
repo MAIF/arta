@@ -273,6 +273,15 @@ def test_instanciation(base_config_path):
                 "email": True,
             },
         ),
+        (
+            {
+                "values": [9, 8, 12, 13, 17, 15.0, 10, 9, 6, 12.0],
+            },
+            "value_sharing",
+            "default_rule_set",
+            False,
+            {"median_check": "Median is too high: 11.0, limit is: 10."},
+        ),
     ],
 )
 def test_conf_apply_rules(input_data, config_dir, rule_set, verbose, good_results, base_config_path):

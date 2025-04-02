@@ -1,0 +1,20 @@
+---
+rules:
+  default_rule_set:
+    median_check:
+      MEDIAN_KO:
+        condition: IS_MEDIAN_ABOVE_10
+        action: alert_on_median
+
+conditions:
+  IS_MEDIAN_ABOVE_10:
+    description: "Is the computed median above 10?"
+    validation_function: is_median_above
+    condition_parameters:
+      values: input.values
+      limit: 10
+
+conditions_source_modules:
+  - "tests.examples.code.conditions"
+actions_source_modules:
+  - "tests.examples.code.actions"

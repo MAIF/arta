@@ -88,6 +88,7 @@ nav:
     - Parameters: parameters.md
     - Rule activation mode: rule_activation_mode.md
     - Rule sets: rule_sets.md
+    - Value sharing: value_sharing.md
     - Use your business objects: business_objects.md
     
 extra_css:

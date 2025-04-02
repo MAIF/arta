@@ -6,21 +6,21 @@ conditions:
     validation_function: has_authorized_super_power
     condition_parameters:
       authorized_powers:
-      - "strength"
-      - "fly"
-      - "immortality"
+      - strength
+      - fly
+      - immortality
       candidate_powers: input.powers
   IS_SPEAKING_FRENCH:
     description: "Does it speak french?"
     validation_function: is_speaking_language
     condition_parameters:
-      value: "french"
+      value: french
       spoken_language: input.language
   IS_SPEAKING_ENGLISH:
     description: "Does it speak english?"
     validation_function: is_speaking_language
     condition_parameters:
-      value: "english"
+      value: english
       spoken_language: input.language
   IS_AGE_UNKNOWN:
     description: "Do we know his age?"

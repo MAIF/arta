@@ -78,7 +78,7 @@ actions_source_modules:
 from typing import Any
 
 
-def set_admission(value: bool, **kwargs: Any) -> dict[str, bool]:
+def set_admission(value: bool) -> dict[str, bool]:
     """Return a dictionary containing the admission result."""
     return {"is_admitted": value}
 ```

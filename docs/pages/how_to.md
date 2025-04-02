@@ -227,15 +227,21 @@ def has_authorized_super_power(power):
 **actions.py**:
 
 ```python
-def set_admission(value, **kwargs):  # (1)
+def set_admission(value):
     return {"is_admitted": value}
 ```
 
-1. `**kwargs` is mandatory here.
-
 !!! warning
 
-    Function name and parameters must be the same as the one configured in the YAML file.
+    **Function name** and **parameters** must be the same as the one configured in the YAML file.
+
+!!! tip
+
+    If you need to retrieve some `input_data` or `output` of a previous action in your function, just:
+
+    1. Add a ****kwargs** parameter.
+    1. Access *input_data* with `kwargs["input_data"]["<some-key>"]` where `<some-key>` is a key in the *input data* dictionary (or dict like object).
+    1. Access data from previous rules group with `kwargs["input_data"]["output"]["<a-rule-group-id>"]`.
 
 ### Usage
 
@@ -395,7 +401,7 @@ Both are made of a *callable object* and some *parameters*:
     ```python    
     from arta import RulesEngine
 
-    set_admission = lambda value, **kwargs: {"is_admitted": value}
+    set_admission = lambda value: {"is_admitted": value}
 
     rules = {
         "check_admission": {
@@ -441,7 +447,7 @@ Both are made of a *callable object* and some *parameters*:
 
     from arta import RulesEngine
 
-    set_admission: Callable = lambda value, **kwargs: {"is_admitted": value}
+    set_admission: Callable = lambda value: {"is_admitted": value}
 
     rules: dict[str, Any] = {
         "check_admission": {
