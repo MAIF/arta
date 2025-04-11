@@ -8,6 +8,7 @@ from __future__ import annotations
 import inspect
 import re
 from typing import Any, Callable
+from warnings import warn
 
 from arta.condition import BaseCondition, StandardCondition
 from arta.exceptions import ConditionExecutionError, RuleExecutionError
@@ -109,6 +110,18 @@ class Rule:
                 # Pass input_data for value sharing if action function can accept it
                 arg_spec: inspect.FullArgSpec = inspect.getfullargspec(self._action)
                 if arg_spec.varkw is not None:
+                    parameters["input_data"] = input_data
+
+                # Backward compatibility case (now deprecated)
+                if "input_data" in arg_spec.args or "input_data" in arg_spec.kwonlyargs:
+                    warn(
+                        (
+                            "Using 'input_data' directly as an action function parameter is deprecated. "
+                            "Use '**kwargs' instead. See how at https://maif.github.io/arta/value_sharing/"
+                        ),
+                        DeprecationWarning,
+                        stacklevel=2,
+                    )
                     parameters["input_data"] = input_data
 
                 # Run action

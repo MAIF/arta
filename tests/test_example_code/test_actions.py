@@ -51,7 +51,7 @@ def test_send_email(mail_to, mail_content, meal, expected):
 
 def test_concatenate_list():
     """Action function unit test."""
-    result = actions.concatenate_list(["a", "b", "c"])
+    result = actions.concatenate_list(["a", "b", "c"], {})
     assert result == "abc"
 
 
