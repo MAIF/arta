@@ -87,7 +87,7 @@ select = [
     "D",    # pydocstyle
     "NPY",  # NumPy-specific rules
 ]
-ignore = ["E501", "D2", "D3", "D4", "D104", "D100", "D106", "S311", "UP007"]
+ignore = ["E501", "D2", "D3", "D4", "D104", "D100", "D106", "S311", "UP045"]
 exclude = ["tests/*"]
 
 [tool.ruff.format]
