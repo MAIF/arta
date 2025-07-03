@@ -421,10 +421,6 @@ class RulesEngine:
                 # Get action function
                 action = rule_dict["action"]
 
-                # Trigger if not **kwargs
-                if "kwargs" not in inspect.signature(action).parameters:
-                    raise KeyError(f"The action function {action} must have a '**kwargs' parameter.")
-
                 # Create Rule instance
                 rule = Rule(
                     set_id=self.CONST_DFLT_RULE_SET_ID,

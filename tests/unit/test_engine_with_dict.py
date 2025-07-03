@@ -102,7 +102,7 @@ def test_dict_apply_rules(input_data, verbose, good_results):
             "super_power": {
                 "condition": lambda p: p in ["immortality", "time_travelling", "invisibility"],
                 "condition_parameters": {"p": "input.power"},
-                "action": lambda x, **kwargs: x,
+                "action": lambda x: x,
                 "action_parameters": {"x": "super"},
             },
             "minor_power": {
