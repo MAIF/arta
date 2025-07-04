@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "arta"
-version = "0.10.1"
+version = "0.10.2"
 requires-python = ">3.8.0"
 description = "A Python Rules Engine - Make rule handling simple"
 readme = "README.md"
@@ -87,7 +87,7 @@ select = [
     "D",    # pydocstyle
     "NPY",  # NumPy-specific rules
 ]
-ignore = ["E501", "D2", "D3", "D4", "D104", "D100", "D106", "S311", "UP007"]
+ignore = ["E501", "D2", "D3", "D4", "D104", "D100", "D106", "S311", "UP045"]
 exclude = ["tests/*"]
 
 [tool.ruff.format]

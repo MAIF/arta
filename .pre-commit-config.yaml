@@ -26,29 +26,30 @@ repos:
       - id: check-added-large-files
         args: [--maxkb=500]
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.11.4
+    rev: v0.12.1
     hooks:
       - id: ruff
         args: [--fix]
       - id: ruff-format
   - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v1.15.0
+    rev: v1.16.1
     hooks:
       - id: mypy
         args: [--config-file=pyproject.toml]
         files: src
         additional_dependencies: [pydantic~=2.0]
-  - repo: https://github.com/gitleaks/gitleaks
-    rev: v8.24.2
-    hooks:
-      - id: gitleaks
+  # Temporary disabled
+  # - repo: https://github.com/gitleaks/gitleaks
+  #   rev: v8.27.2
+  #   hooks:
+  #     - id: gitleaks
   - repo: https://github.com/pypa/pip-audit
     rev: v2.9.0
     hooks:
       - id: pip-audit
-        args: [--skip-editable]
+        args: [.]
   - repo: https://github.com/compilerla/conventional-pre-commit
-    rev: v4.0.0
+    rev: v4.2.0
     hooks:
       - id: conventional-pre-commit
         stages: [commit-msg]

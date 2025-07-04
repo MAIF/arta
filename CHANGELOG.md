@@ -4,13 +4,19 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [0.10.1] - April, 2025
+## 0.10.2 - July, 2025
+
+### Fixes
+
+* `kwargs` as an optional parameter (since v0.10.0) wasn't totally implemented: *dictionary of rules* was missing (#47).
+
+## 0.10.1 - April, 2025
 
 ### Fixes
 
 * Unintentional breaking change on the action function parameter `input_data` (now deprecated).
 
-## [0.10.0] - April, 2025
+## 0.10.0 - April, 2025
 
 ### Features
 
@@ -25,7 +31,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 * Enable Dependabot.
 
-## [0.9.0] - December, 2024
+## 0.9.0 - December, 2024
 
 ### Features
 
@@ -49,7 +55,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 * Because of using `StringConstraints` (w/ Pydantic V2) rather than `constr()`, we can't use plain `YES` or `NO` (YAML booleans) as rule ids anymore. Use `"YES"` or `"NO"` instead in your YAML file.
 
-## [0.8.1] - September, 2024
+## 0.8.1 - September, 2024
 
 ### Fixes
 
@@ -59,7 +65,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 * Fixes of code in the [A Simple Example](https://maif.github.io/arta/a_simple_example/) page.
 
-## [0.8.0] - July, 2024
+## 0.8.0 - July, 2024
 
 ### Features
 
@@ -75,7 +81,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 * Function `sanitize_regex()` is converted to an instance method `get_sanitized_id()` of `BaseCondition` class.
 
-## [0.7.1] - June, 2024
+## 0.7.1 - June, 2024
 
 ### Features
 
@@ -92,7 +98,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 * You can now use *whitespaces* in a string within a *simple condition* (e.g., `input.text=="super hero"`) (#23).
 
 
-## [0.7.0b*] - April, 2024
+## 0.7.0b* - April, 2024
 
 *Beta release*
 

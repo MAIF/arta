@@ -93,20 +93,6 @@ import pydantic
                     "rule_str": {
                         "condition": lambda x: isinstance(x, str),
                         "condition_parameters": {"x": "input.to_check"},
-                        "action": lambda value: {"value": value},
-                        "action_parameters": {"value": "Missing **kwargs in action function."},
-                    },
-                }
-            },
-            None,
-            KeyError,
-        ),
-        (
-            {
-                "type": {
-                    "rule_str": {
-                        "condition": lambda x: isinstance(x, str),
-                        "condition_parameters": {"x": "input.to_check"},
                         "action_parameters": {"value": "Missing an action."},
                     },
                 }
