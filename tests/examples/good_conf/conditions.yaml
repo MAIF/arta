@@ -27,6 +27,11 @@ conditions:
     validation_function: is_age_unknown
     condition_parameters:
       age: input.age
+  IS_AGE_UNKNOWN_CUSTOM:
+    description: "Do we know his age?"
+    validation_function: is_age_unknown_custom
+    condition_parameters:
+      age: input.age
   HAS_FAVORITE_MEAL:
     description: "Does it have a favorite meal?"
     validation_function: has_favorite_meal

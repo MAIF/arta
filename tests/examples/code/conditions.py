@@ -37,3 +37,10 @@ def is_median_above(values: list[int | float], limit: float, **kwargs: Any) -> b
     kwargs["input_data"]["median"] = median
     kwargs["input_data"]["median_limit"] = limit
     return median > limit
+
+
+def is_age_unknown_custom(age: int | None, **kwargs: Any) -> bool:
+    """Check if age is unknown = return True if age is None (w/ user defined parameter)."""
+    # Pseudo edge case
+    result = age is None if kwargs["my_parameter"] is True else False
+    return result

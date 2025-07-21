@@ -111,18 +111,21 @@ class Rule:
                 arg_spec: inspect.FullArgSpec = inspect.getfullargspec(self._action)
                 if arg_spec.varkw is not None:
                     parameters["input_data"] = input_data
+                    parameters.update(kwargs)
 
                 # Backward compatibility case (now deprecated)
                 if "input_data" in arg_spec.args or "input_data" in arg_spec.kwonlyargs:
                     warn(
                         (
                             "Using 'input_data' directly as an action function parameter is deprecated. "
-                            "Use '**kwargs' instead. See how at https://maif.github.io/arta/value_sharing/"
+                            "Use '**kwargs' instead. See how "
+                            "at https://maif.github.io/arta/value_sharing/#between-conditions-and-actions"
                         ),
                         DeprecationWarning,
                         stacklevel=2,
                     )
                     parameters["input_data"] = input_data
+                    parameters.update(kwargs)
 
                 # Run action
                 rule_results["action_result"] = self._action(**parameters)

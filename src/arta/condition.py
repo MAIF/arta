@@ -145,6 +145,7 @@ class StandardCondition(BaseCondition):
         arg_spec: inspect.FullArgSpec = inspect.getfullargspec(self._validation_function)
         if arg_spec.varkw is not None:
             parameters["input_data"] = input_data
+            parameters.update(kwargs)
 
         # Run validation_function
         return self._validation_function(**parameters)

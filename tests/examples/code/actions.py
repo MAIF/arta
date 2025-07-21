@@ -54,3 +54,11 @@ def concatenate(value1: str, value2: str) -> str:
 def alert_on_median(**kwargs: Any) -> str:
     """Alert: "Median is too high: 13, limit is: 10."""
     return f"Median is too high: {kwargs['input_data']['median']}, limit is: {kwargs['input_data']['median_limit']}."
+
+
+def set_admission_custom(value: bool, **kwargs: Any) -> dict[str, bool]:
+    """Return a dictionary containing the admission result and use a user defined argument."""
+    # Pseudo edge case
+    value = value if kwargs["my_parameter"] is True else False
+
+    return {"admission": value}

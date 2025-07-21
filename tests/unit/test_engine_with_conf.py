@@ -312,7 +312,7 @@ def test_ignore_global_strategy(base_config_path):
 
 
 @pytest.mark.parametrize(
-    "input_data, good_results",
+    "input_data, custom_param, good_results",
     [
         (
             {
@@ -322,15 +322,27 @@ def test_ignore_global_strategy(base_config_path):
                 "favorite_meal": None,
                 "weapons": ["Magic lasso", "Bulletproof bracelets", "Sword", "Shield"],
             },
+            False,
+            {"admission_rules": {"admission": False}},
+        ),
+        (
+            {
+                "age": 5000,
+                "language": "english",
+                "powers": ["greek_gods", "regeneration"],
+                "favorite_meal": None,
+                "weapons": ["Magic lasso", "Bulletproof bracelets", "Sword", "Shield"],
+            },
+            True,
             {"admission_rules": {"admission": True}},
         ),
     ],
 )
-def test_kwargs_in_apply_rules(input_data, good_results, base_config_path):
+def test_kwargs_in_apply_rules(input_data, custom_param, good_results, base_config_path):
     """Unit test of user extra arguments."""
     config_path = os.path.join(base_config_path, "good_conf")
     eng = RulesEngine(config_path=config_path)
-    res = eng.apply_rules(input_data, rule_set="fourth_rule_set", my_parameter="super@connection")
+    res = eng.apply_rules(input_data, rule_set="fourth_rule_set", my_parameter=custom_param)
 
     assert res == good_results
 
