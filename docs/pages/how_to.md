@@ -43,7 +43,7 @@ rules:
           value: KO
 
 actions_source_modules:
-  - my_folder.actions  # (1)
+  - my_folder.actions  # (1)!
 ```
 
 1. Contains *action function* implementations, no need of the key `conditions_source_modules` here.
@@ -112,10 +112,10 @@ Create a YAML file and define your rules like this:
 ```yaml hl_lines="6 16-26"
 ---
 rules:
-  default_rule_set:  # (1)
+  default_rule_set:  # (1)!
     check_admission:
       ADMITTED_RULE:
-        condition: HAS_SCHOOL_AUTHORIZED_POWER  # (2)
+        condition: HAS_SCHOOL_AUTHORIZED_POWER  # (2)!
         action: set_admission
         action_parameters:
           value: true
@@ -125,16 +125,16 @@ rules:
         action_parameters:
           value: false
 
-conditions:  # (3)
+conditions:  # (3)!
   HAS_SCHOOL_AUTHORIZED_POWER:
     description: "Does applicant have a school authorized power?"
     validation_function: has_authorized_super_power
     condition_parameters:
       power: input.super_power
 
-conditions_source_modules:  # (4)
+conditions_source_modules:  # (4)!
   - my_folder.conditions
-actions_source_modules:  # (5)
+actions_source_modules:  # (5)!
   - my_folder.actions
 ```
 
@@ -289,9 +289,9 @@ A **rule set** is composed of **rule groups** which are themselves composed of *
 ```yaml
 ---
 rules:
-  default_rule_set:  # (1)
-    check_admission:  # (2)
-      ADMITTED_RULE:  # (3)
+  default_rule_set:  # (1)!
+    check_admission:  # (2)!
+      ADMITTED_RULE:  # (3)!
         condition: HAS_SCHOOL_AUTHORIZED_POWER
         action: set_admission
         action_parameters:

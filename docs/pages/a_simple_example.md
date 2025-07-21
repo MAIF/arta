@@ -106,8 +106,8 @@ An **action** is triggered when the conditions are verified (i.e., `True`).
 **Actions** are defined by the following *keys* in the previous YAML file:
 
 ```yaml
-        action: set_admission  # (1)
-        action_parameters:  # (2)
+        action: set_admission  # (1)!
+        action_parameters:  # (2)!
           value: true  
 ```
 
@@ -201,11 +201,11 @@ Now, let's apply the **rules** on a single applicant:
 ```python
 from arta import RulesEngine
 
-eng = RulesEngine(config_path="/to/my/config/dir")  # (1)
+eng = RulesEngine(config_path="/to/my/config/dir")  # (1)!
 
 result = eng.apply_rules(input_data=applicants[0])
 
-print(result)  # (2)
+print(result)  # (2)!
 # {
 # "admission": {"is_admitted": True},
 # "course": {"course_id": "senior"},
