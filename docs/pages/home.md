@@ -12,23 +12,19 @@
 
 Want to discover what is **Arta**? :arrow_right: [Get Started](a_simple_example.md)
 
-
 Want to know how to use it? :arrow_right: [User Guide](how_to.md)
-
 
 !!! info inline "New feature"
 
-    Use **Arta** as a *process execution engine* :zap:
-    
-    Read [this page](rule_activation_mode.md) for more details.
+    Use [value sharing](value_sharing.md) to customize actions and conditions :tools:
 
 !!! tip "Releases"
     
     Check the [Release notes](https://github.com/MAIF/arta/releases) :rocket:
 
-!!! warning "Pydantic 1 compatibility is deprecated"
+!!! warning "Pydantic v1"
 
-    **Arta** is working with [Pydantic 2](https://docs.pydantic.dev/latest/) and Pydantic 1 but compatibility with V1  will be removed in the next **major** release.
+    Compatibility with *Pydantic v1* will be removed in next **major** release.
 
 **Arta** is working and automatically tested with:
 

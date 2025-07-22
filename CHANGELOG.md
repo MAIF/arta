@@ -4,11 +4,22 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 0.10.3 - July, 2025
+
+### Fixes
+
+* User extra arguments in `.apply_rules()` were not given to action and condition function implementations (#49).
+
+### Documentation
+
+* Improve :
+    * [Value sharing](https://maif.github.io/arta/value_sharing/) page.
+
 ## 0.10.2 - July, 2025
 
 ### Fixes
 
-* `kwargs` as an optional parameter (since v0.10.0) wasn't totally implemented: *dictionary of rules* was missing (#47).
+* `kwargs` were mandatory for action functions used inside a *dictionary of rules* (#47). They are now optional.
 
 ## 0.10.1 - April, 2025
 

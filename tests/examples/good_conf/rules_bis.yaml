@@ -69,8 +69,8 @@ rules:
     admission_rules:
       ADM_OK:
         custom_condition: DUMMY_KEY_4
-        condition: null
-        action: set_admission
+        condition: not IS_AGE_UNKNOWN_CUSTOM
+        action: set_admission_custom
         action_parameters:
           value: true
       ADM_KO:
