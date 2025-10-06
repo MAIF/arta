@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "arta"
-version = "0.10.3"
+version = "0.10.4"
 requires-python = ">=3.9"
 description = "A Python Rules Engine - Make rule handling simple"
 readme = "README.md"
@@ -43,10 +43,17 @@ Documentation = "https://maif.github.io/arta/home/"
 Repository = "https://github.com/MAIF/arta"
 
 [project.optional-dependencies]
-all = ["arta[test,dev,doc]"]
-test = ["pytest", "tox", "pytest-cov"]
-dev = ["mypy", "pre-commit", "ruff"]
+all = ["arta[test,doc]"]
+test = ["pytest", "pytest-cov", "tox", "tox-uv"]
 doc = ["mkdocs-material", "mkdocstrings[python]"]
+
+[dependency-groups]
+dev = [
+    "pre-commit",
+    "pre-commit-uv",
+    "mypy",
+    "ruff",
+]
 
 [tool.setuptools]
 package-dir = {"" = "src"}
