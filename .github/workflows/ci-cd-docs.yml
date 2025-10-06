@@ -19,22 +19,22 @@ jobs:
     name: Build doc
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - name: Install Python
-        uses: actions/setup-python@v5
+      - uses: actions/checkout@v5
+      - name: Set up Python
+        uses: actions/setup-python@v6
         with:
-          python-version: '3.x'
-      - name: Install package with optional dependency 'doc'
-        run: |
-          python -m pip install --upgrade pip
-          pip install .[doc]
+          python-version-file: .python-version
+      - name: Install uv
+        uses: astral-sh/setup-uv@v6
+      - name: Install package with extra 'doc'
+        run: uv sync --extra doc --dev
       - name: Run MkDocs build
         working-directory: ./docs
-        run: mkdocs build
+        run: uv run mkdocs build
       - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v4
         with:
-          path: "docs/site/"
+          path: docs/site/
   publish:
     if: success() && startsWith(github.ref, 'refs/tags')
     name: Publish doc
