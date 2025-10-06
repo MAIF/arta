@@ -8,6 +8,7 @@ from __future__ import annotations
 import copy
 import importlib
 import inspect
+import logging
 from inspect import getmembers, isclass, isfunction
 from types import FunctionType, MethodType, ModuleType
 from typing import Any, Callable
@@ -17,6 +18,8 @@ from arta.config import load_config
 from arta.models import Configuration, RulesDict
 from arta.rule import Rule
 from arta.utils import ParsingErrorStrategy, RuleActivationMode
+
+logger: logging.Logger = logging.getLogger(__name__)
 
 
 class RulesEngine:
@@ -77,9 +80,9 @@ class RulesEngine:
         given_params: list[bool] = [config_path is not None, rules_dict is not None, config_dict is not None]
 
         if given_params.count(True) != 1:
-            raise ValueError(
-                "RulesEngine takes one (and only one) parameter: 'rules_dict' or 'config_path' or 'config_dict'."
-            )
+            msg: str = "RulesEngine takes one (and only one) parameter: 'rules_dict' or 'config_path' or 'config_dict'."
+            logger.error(msg)
+            raise ValueError(msg)
 
         # Init. default global settings (useful if not set, can't be set in the Pydantic model
         # because of the rules dict mode)
@@ -94,9 +97,13 @@ class RulesEngine:
 
             # Edge cases data validation
             if not isinstance(rules_dict, dict):
-                raise TypeError(f"'rules_dict' must be dict type, not '{type(rules_dict)}'")
+                msg = f"'rules_dict' must be dict type, not '{type(rules_dict)}'."
+                logger.error(msg)
+                raise TypeError(msg)
             elif len(rules_dict) == 0:
-                raise KeyError("'rules_dict' couldn't be empty.")
+                msg = "'rules_dict' couldn't be empty."
+                logger.error(msg)
+                raise KeyError(msg)
 
             # Attribute definition
             self.rules: dict[str, dict[str, list[Rule]]] = self._adapt_user_rules_dict(rules_dict)
@@ -136,6 +143,8 @@ class RulesEngine:
 
             # User-defined/custom conditions
             if config.condition_factory_mapping is not None and config.custom_classes_source_modules is not None:
+                logger.info("Custom condition configuration detected.")
+
                 # dict of custom condition classes (k: classe name, v: class object)
                 custom_condition_classes: dict[str, type[BaseCondition]] = self._get_object_from_source_modules(
                     config.custom_classes_source_modules
@@ -159,6 +168,10 @@ class RulesEngine:
                 config=config.model_dump(),
                 factory_mapping_classes=factory_mapping_classes,
             )
+
+        logger.info(
+            f"Rules engine correctly instanciated with '{self._parsing_error_strategy}' and '{self._rule_activation_mode}'"
+        )
 
     def apply_rules(
         self,
@@ -196,15 +209,23 @@ class RulesEngine:
             RuleExecutionError: A rule fails during execution.
             ConditionExecutionError: A condition fails during execution.
         """
+        rule_count: int = 0
+
         # Input_data validation
         if not isinstance(input_data, dict):
-            raise TypeError(f"'input_data' must be dict type, not '{type(input_data)}'")
+            msg: str = f"'input_data' must be dict type, not '{type(input_data)}'."
+            logger.error(msg)
+            raise TypeError(msg)
         elif len(input_data) == 0:
-            raise KeyError("'input_data' couldn't be empty.")
+            msg = "'input_data' couldn't be empty."
+            logger.error(msg)
+            raise KeyError(msg)
 
         # Var init.
         input_data_copy: dict[str, Any] = copy.deepcopy(input_data)
         ignored_ids: set[str] = ignored_rules if ignored_rules is not None else set()
+        if len(ignored_ids) > 0:
+            logger.info(f"Configured ignored rules are: {ignored_ids}")
 
         # Prepare the result key
         input_data_copy["output"] = {}
@@ -214,17 +235,22 @@ class RulesEngine:
         if rule_set is None and len(self.rules) == 1 and self.rules.get(self.CONST_DFLT_RULE_SET_ID) is not None:
             rule_set = self.CONST_DFLT_RULE_SET_ID
 
+        logger.info(f"Rules engine is running with the following rule set: '{rule_set}', verbose: {verbose}")
+
         # Check if given rule set is in self.rules?
         if rule_set not in self.rules:
-            raise KeyError(
-                f"Rule set '{rule_set}' not found in the rules, available rule sets are : {list(self.rules.keys())}."
-            )
+            msg = f"Rule set '{rule_set}' not found in the rules, available rule sets are : {list(self.rules.keys())}."
+            logger.error(msg)
+            raise KeyError(msg)
 
         # Var init.
         results_dict: dict[str, Any] = {"verbosity": {"rule_set": rule_set, "results": []}}
 
         # Groups' loop
         for group_id, rules_list in self.rules[rule_set].items():
+            group_rule_count: int = 0
+            logger.debug(f"Entering rule group: {group_id}")
+
             # Initialize result of the rule group with None
             results_dict[group_id] = None
 
@@ -233,6 +259,10 @@ class RulesEngine:
                 if rule._rule_id in ignored_ids:
                     # Ignore that rule
                     continue
+
+                rule_count += 1
+                group_rule_count += 1
+                logger.debug(f"Evaluating rule '{group_rule_count}': {rule._rule_id}")
 
                 # Apply rules
                 action_result, rule_details = rule.apply(
@@ -256,6 +286,7 @@ class RulesEngine:
         if not verbose:
             results_dict.pop("verbosity")
 
+        logger.info(f"'{rule_count}' rules were correctly evaluated against input data.")
         return results_dict
 
     @staticmethod
@@ -327,7 +358,9 @@ class RulesEngine:
                     action_function_name: str = rule_dict[self.CONST_ACTION_CONF_KEY]
 
                     if action_function_name not in action_functions:
-                        raise KeyError(f"Unknwown action function : {action_function_name}")
+                        msg: str = f"Unknwown action function : {action_function_name}"
+                        logger.error(msg)
+                        raise KeyError(msg)
 
                     action: Callable = action_functions[action_function_name]
 
@@ -382,7 +415,9 @@ class RulesEngine:
             validation_function_name: str = condition_params[self.CONST_CONDITION_VALIDATION_FUNCTION_CONF_KEY]
 
             if validation_function_name not in condition_functions_dict:
-                raise KeyError(f"Unknwown validation function : {validation_function_name}")
+                msg: str = f"Unknwown validation function : {validation_function_name}"
+                logger.error(msg)
+                raise KeyError(msg)
 
             # Get Callable from function name
             validation_function: Callable = condition_functions_dict[validation_function_name]
