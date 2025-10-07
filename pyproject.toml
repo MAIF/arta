@@ -45,7 +45,7 @@ Repository = "https://github.com/MAIF/arta"
 [project.optional-dependencies]
 all = ["arta[test,doc]"]
 test = ["pytest", "pytest-cov", "tox", "tox-uv"]
-doc = ["mkdocs-material", "mkdocstrings[python]"]
+doc = ["mkdocs-material", "mkdocstrings[python]", "click<8.3.0"]
 
 [dependency-groups]
 dev = [

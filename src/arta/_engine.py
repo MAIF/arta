@@ -10,6 +10,7 @@ import importlib
 import inspect
 import logging
 from inspect import getmembers, isclass, isfunction
+from pathlib import Path
 from types import FunctionType, MethodType, ModuleType
 from typing import Any, Callable
 
@@ -55,7 +56,7 @@ class RulesEngine:
         self,
         *,
         rules_dict: dict[str, dict[str, Any]] | None = None,
-        config_path: str | None = None,
+        config_path: Path | str | None = None,
         config_dict: dict[str, Any] | None = None,
     ) -> None:
         """Initialize the rules.
@@ -64,7 +65,7 @@ class RulesEngine:
 
         Args:
             rules_dict: A dictionary containing the rules' definitions.
-            config_path: Path of a directory containing the YAML files.
+            config_path: Path to the directory containing the YAML files.
             config_dict: A dictionary containing the configuration (same as YAML files but already
                          parsed in a dictionary).
 
@@ -170,7 +171,7 @@ class RulesEngine:
             )
 
         logger.info(
-            f"Rules engine correctly instanciated with '{self._parsing_error_strategy}' and '{self._rule_activation_mode}'"
+            f"Rules engine correctly instanciated with '{str(self._parsing_error_strategy)}' and '{str(self._rule_activation_mode)}'"
         )
 
     def apply_rules(

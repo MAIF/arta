@@ -6,13 +6,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## 0.11.0 - October, 2025
 
-#### Features
+### Features
 
-* Add logs.
+* Add some logs.
 
 ### Maintenance
 
-* Use [uv](https://docs.astral.sh/uv/) in CI/CD (`uv.lock` voluntarily in `.gitignore`).
+* Use [uv](https://docs.astral.sh/uv/) in ci/cd (`uv.lock` voluntarily in `.gitignore`).
 
 ## 0.10.3 - July, 2025
 
