@@ -14,12 +14,12 @@ Want to discover what is **Arta**? :arrow_right: [Get Started](a_simple_example.
 
 Want to know how to use it? :arrow_right: [User Guide](how_to.md)
 
-!!! info inline "New feature"
+!!! info inline "News"
 
-    Use [value sharing](value_sharing.md) to customize actions and conditions :tools:
+    The lastest release improved **logging** which can help debug your *engine* execution :glasses:
 
 !!! tip "Releases"
-    
+
     Check the [Release notes](https://github.com/MAIF/arta/releases) :rocket:
 
 !!! warning "Pydantic v1"

@@ -6,6 +6,7 @@ Class: Rule
 from __future__ import annotations
 
 import inspect
+import logging
 import re
 from typing import Any, Callable
 from warnings import warn
@@ -16,6 +17,8 @@ from arta.utils import (
     ParsingErrorStrategy,
     parse_dynamic_parameter,
 )
+
+logger: logging.Logger = logging.getLogger(__name__)
 
 
 class Rule:
@@ -96,6 +99,7 @@ class Rule:
         )
 
         if is_conditions_ok:
+            logger.debug("Conditions are verified.")
             try:
                 # Parse dynamic parameters
                 parameters: dict[str, Any] = {}
@@ -127,14 +131,19 @@ class Rule:
                     parameters["input_data"] = input_data
                     parameters.update(kwargs)
 
+                logger.debug(f"Action '{self._action.__name__}' is triggered.")
+
                 # Run action
                 rule_results["action_result"] = self._action(**parameters)
 
                 return rule_results["action_result"], rule_results
             except Exception as error:
-                raise RuleExecutionError(f"Error while executing rule '{self._rule_id}': {str(error)}") from error
+                msg: str = f"Error while executing rule '{self._rule_id}': {str(error)}"
+                logger.error(msg)
+                raise RuleExecutionError(msg) from error
 
         else:
+            logger.debug("Conditions are not verified.")
             return None, {}
 
     def _check_conditions(
@@ -159,6 +168,8 @@ class Rule:
         for cond_conf_key, expr in self._condition_exprs.items():
             condition_class: type[BaseCondition] = self._condition_factory_mapping[cond_conf_key]
 
+            logger.debug(f"Verifying '{cond_conf_key}': {expr}")
+
             # Evaluate the condition expression
             try:
                 condition_res, unitary_res = self._evaluate_condition_expr(
@@ -169,7 +180,9 @@ class Rule:
                     **kwargs,
                 )
             except NameError as e:
-                raise RuleExecutionError(f"Error during evaluation of '{cond_conf_key}: {expr}': {str(e)}") from e
+                msg: str = f"Error during evaluation of '{cond_conf_key}: {expr}': {str(e)}"
+                logger.error(msg)
+                raise RuleExecutionError(msg) from e
 
             # Combine conditions (AND)
             all_conditions_res = all_conditions_res and condition_res
@@ -236,7 +249,9 @@ class Rule:
                 # Store unitary result
                 unitary_results[cond_id] = bool_var
             except Exception as error:
-                raise ConditionExecutionError(f"Error while executing condition '{cond_id}': {str(error)}") from error
+                msg: str = f"Error while executing condition '{cond_id}': {str(error)}"
+                logger.error(msg)
+                raise ConditionExecutionError(msg) from error
 
             # Replace the result in the boolean expression
             sanit_cond_id: str = condition.get_sanitized_id()
@@ -290,8 +305,8 @@ class Rule:
                     try:
                         cond_instances[cond_id] = std_conditions[cond_id]
                     except KeyError as error:
-                        raise KeyError(
-                            f"Following condition id is unknown '{cond_id}' in {conf_key}: {expr}"
-                        ) from error
+                        msg: str = f"Following condition id is unknown '{cond_id}' in {conf_key}: {expr}"
+                        logger.error(msg)
+                        raise KeyError(msg) from error
 
         return cond_instances

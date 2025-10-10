@@ -8,11 +8,11 @@ from typing import Any, cast
 from omegaconf import DictConfig, ListConfig, OmegaConf
 
 
-def load_config(config_dir_path: str) -> dict[str, Any]:
+def load_config(config_dir_path: Path | str) -> dict[str, Any]:
     """Load a configuration dictionary from all the yaml files in a given directory (and its subdirectories).
 
     Args:
-        config_dir_path: Path to a directory containing YML files.
+        config_dir_path: Path to a directory containing YAML files.
         prefix: Prefix for the rglob pattern.
         exclude_pattern: Regex pattern to exclude files.
 

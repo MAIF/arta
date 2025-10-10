@@ -6,12 +6,15 @@ Classes: BaseCondition, StandardCondition, SimpleCondition
 from __future__ import annotations
 
 import inspect
+import logging
 import re
 from abc import ABC, abstractmethod
 from typing import Any, Callable
 
 from arta.exceptions import ConditionExecutionError
 from arta.utils import ParsingErrorStrategy, parse_dynamic_parameter
+
+logger: logging.Logger = logging.getLogger(__name__)
 
 
 class BaseCondition(ABC):
@@ -128,10 +131,14 @@ class StandardCondition(BaseCondition):
             AttributeError: Check the validation function or its parameters.
         """
         if self._validation_function is None:
-            raise AttributeError("Validation function should not be None")
+            msg: str = "Validation function should not be None"
+            logger.error(msg)
+            raise AttributeError(msg)
 
         if self._validation_function_parameters is None:
-            raise AttributeError("Validation function parameters should not be None")
+            msg = "Validation function parameters should not be None"
+            logger.error(msg)
+            raise AttributeError(msg)
 
         # Parse dynamic parameters
         parameters: dict[str, Any] = {}
@@ -148,7 +155,9 @@ class StandardCondition(BaseCondition):
             parameters.update(kwargs)
 
         # Run validation_function
-        return self._validation_function(**parameters)
+        result: bool = self._validation_function(**parameters)
+        logger.debug(f"'{self._condition_id}' verification result is: {result}")
+        return result
 
 
 class SimpleCondition(BaseCondition):
@@ -207,16 +216,20 @@ class SimpleCondition(BaseCondition):
                 bool_var = eval(unitary_expr, None, locals_ns)  # noqa
             except TypeError:
                 # Ignore evaluation --> False
+                logger.warning(f"Condition '{self._condition_id}' is ignored because of the parameter's type.")
                 pass
 
         elif parsing_error_strategy == ParsingErrorStrategy.RAISE:
             # Raise an error because of no match for a data path
-            raise ConditionExecutionError(f"Error when verifying simple condition: '{unitary_expr}'")
+            msg = f"Error when verifying simple condition: '{unitary_expr}'"
+            logger.error(msg)
+            raise ConditionExecutionError(msg)
 
         else:
             # Other case: ignore, default value => return False
             pass
 
+        logger.debug(f"'{self._condition_id}' verification result is: {bool_var}")
         return bool_var
 
     def get_sanitized_id(self) -> str:

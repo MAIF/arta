@@ -3,9 +3,12 @@
 from __future__ import annotations
 
 import copy
+import logging
 import re
 from enum import Enum
 from typing import Any
+
+logger: logging.Logger = logging.getLogger(__name__)
 
 
 class ParsingErrorStrategy(str, Enum):
@@ -48,7 +51,9 @@ def get_value_in_nested_dict_from_path(path: str, nested_dict: dict[str, Any]) -
     # Loop on path keys
     for key in keys:
         if value is None:
-            raise KeyError(f"Key {value} of path {path} not found in input data.")
+            msg: str = f"Key {value} of path {path} not found in input data."
+            logger.error(msg)
+            raise KeyError(msg)
         value = value[key]
 
     return value
@@ -102,7 +107,9 @@ def parse_dynamic_parameter(
             if parsing_error_strategy is ParsingErrorStrategy.DEFAULT_VALUE:
                 return default_value
             else:
-                raise KeyError(f"Could not find path '{param_path}' in the input data: {str(error)}") from error
+                msg: str = f"Could not find path '{param_path}' in the input data: {str(error)}"
+                logger.error(msg)
+                raise KeyError(msg) from error
 
     return parameter
 
