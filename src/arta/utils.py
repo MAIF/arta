@@ -52,7 +52,7 @@ def get_value_in_nested_dict_from_path(path: str, nested_dict: dict[str, Any]) -
     for key in keys:
         if value is None:
             msg: str = f"Key {value} of path {path} not found in input data."
-            logger.error(msg)
+            logger.debug(msg)
             raise KeyError(msg)
         value = value[key]
 
@@ -108,7 +108,7 @@ def parse_dynamic_parameter(
                 return default_value
             else:
                 msg: str = f"Could not find path '{param_path}' in the input data: {str(error)}"
-                logger.error(msg)
+                logger.debug(msg)
                 raise KeyError(msg) from error
 
     return parameter
