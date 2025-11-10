@@ -10,6 +10,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 * Remove some false positive error logs.
 
+### Maintenance
+
+* Python 3.14 support.
+
 ## 0.11.0 - October, 2025
 
 ### Features
@@ -70,7 +74,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 * Use true Pydantic V2 (or Pydantic V1) models (`DeprecationWarning` added about Pydantic V1).
 
 > [!IMPORTANT]
-> **Arta** + **Pydantic V1** + **Python 3.13** is not supported because Pydantic V1 is not supported for Python > 3.12 ([issue 9663](https://github.com/pydantic/pydantic/issues/9663)).
+> **Arta** + **Pydantic V1** + **Python >=3.13** is not supported because Pydantic V1 is not supported for Python > 3.12 ([issue 9663](https://github.com/pydantic/pydantic/issues/9663)).
 
 ### Documentation
 
