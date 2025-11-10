@@ -26,11 +26,11 @@ repos:
       - id: check-added-large-files
         args: [--maxkb=500]
   - repo: https://github.com/astral-sh/uv-pre-commit
-    rev: 0.8.23
+    rev: 0.9.8
     hooks:
       - id: uv-lock
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.13.3
+    rev: v0.14.4
     hooks:
       - id: ruff
         args: [--fix]
@@ -53,7 +53,7 @@ repos:
       - id: pip-audit
         args: [.]
   - repo: https://github.com/compilerla/conventional-pre-commit
-    rev: v4.2.0
+    rev: v4.3.0
     hooks:
       - id: conventional-pre-commit
         stages: [commit-msg]
