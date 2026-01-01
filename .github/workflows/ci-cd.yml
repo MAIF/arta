@@ -38,7 +38,7 @@ jobs:
       - name: Install package with extra 'test'
         run: uv sync --extra test --dev
       - name: Cache pre-commit hooks
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: ~/.cache/pre-commit
           key: ${{ runner.os }}-precommit-${{ hashFiles('.pre-commit-config.yaml') }}
