@@ -514,4 +514,4 @@ Well done! By executing this code you have:
     You will improve your rules' maintainability a lot.
     In some cases like proof-of-concepts or Jupyter notebook works, you will probably be happy with straightforward dictionaries.
 
-**Arta** has plenty more features to discover. If you want to learn more, go to the next chapter: [Advanced User Guide](parameters.md).
+**Arta** has plenty more features to discover. If you want to learn more, go to the advanced guide's [parameters](parameters.md) page.
